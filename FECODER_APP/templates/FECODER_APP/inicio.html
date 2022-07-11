@@ -91,31 +91,50 @@
                 <div class="card mb-4">
                     <div class="card-header">Search</div>
                     <div class="card-body">
-                        <div class="input-group">
+                        
                             <form action="{% url 'buscarUsuariox' %}" method="GET"><!--solo en post {% csrf_token %} -->
-                            
-                                <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Ejemplo : Pepe" aria-label="Enter search term..." aria-describedby="button-search" />
-                                <input class="btn btn-primary" id="button-search" type="submit" placeholder="Enviar"></input>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Ejemplo : Pepe" aria-label="Enter search term..." aria-describedby="button-search" />
+                                    <button class="btn btn-primary" id="button-search" type="submit" >Buscar</button>
+                                </div>
                             </form>
-                            {% if usuario %}
-                            <p>Estamos buscando a {{nombre}}</p>
-                            
-                            <ul>
-                            
-                            {% for user in usuario %}
                             <br>
-                            <li>{{user.nombre_usuario}}</li>
-                            <li>{{user.correo_usuario}}</li>
-                            <br>
-                            <hr>
-                            {% endfor %}
-                            </ul>
-                            
-                            {% else %}
-                            <p>No hay  usuario con este nombre</p>
-                            
+                            {% if error %}
+                                <div class="alert alert-danger">
+                                    {{ error }}
+                                </div>
+                            {% else %}  
+                                {% if x %}  
+                                    <div class="alert alert-success">
+                                        {{ x }}
+                                    </div>
+                                
+
+                                {% else %}
+                                    {% if usuario %}
+                                    
+                                        
+                                        <p>Estamos buscando a {{nombre}}</p>
+                                    
+                                        <ul>
+                                        <!-- si nombre tiene datos -->
+                                        
+                                        {% for user in usuario %}
+                                        <br>
+                                        <li>{{user.nombre_usuario}}</li>
+                                        <li>{{user.correo_usuario}}</li>
+                                        <br>
+                                        
+                                        {% endfor %}
+                                    
+                                        </ul>
+                                    {% endif %}
+                                    
+                                {% endif %}
+
                             {% endif %}
-                        </div>
+                            
+                        
                     </div>
                 </div>
                 <!-- Categories widget-->

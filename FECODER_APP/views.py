@@ -31,7 +31,8 @@ def formularioUsuarios(request):
                 usuario = Usuario(nombre_usuario=usuario, clave_usuario=clave, 
                                     clave_verificar_usuario=clave_verificar, correo_usuario=correo)
                 usuario.save()
-                return render(request, 'FECODER_APP/inicio.html')
+                miFormulario = formularioUsuario()
+                return render(request, 'FECODER_APP/formularioUsuarios.html',{"usuarioCreado":usuario,"miFormulario":miFormulario})
             return render(request, 'FECODER_APP/formularioUsuarios.html',{"error":"Contraseña no coincide","miFormulario":miFormulario})
     else:
         miFormulario = formularioUsuario()
@@ -55,11 +56,17 @@ def formularioComentarios(request):
 
 #buscar comentario
 def buscarUsuariox(request):
-    
+    print("BUSCANDO A "+request.GET['nombre'])
     usuario=request.GET['nombre']
     if usuario!="":
         obj = Usuario.objects.filter(nombre_usuario=usuario)
-        return render(request, 'FECODER_APP/inicio.html',{'usuario':obj,'nombre':usuario})
+        print("buscando objeto")
+        if obj: 
+            print("ENCONTRO A "+usuario)
+            return render(request, 'FECODER_APP/inicio.html',{'usuario':obj,'nombre':usuario})
+
+        print("no encontro")    
+        return render(request, 'FECODER_APP/inicio.html',{'x':"No existe usuario con el nombre "+usuario})
     else:
          return render(request, 'FECODER_APP/inicio.html',{"error":"No se ingreso un nombre de usuario"})
 

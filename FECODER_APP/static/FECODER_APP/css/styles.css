@@ -75,7 +75,12 @@
     scroll-behavior: smooth;
   }
 }
+/* Mis CSS */
+.nombre_usuario{
+  background-color: red;
+}
 
+/* Fin de mis CSS */
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);

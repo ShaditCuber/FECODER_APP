@@ -11,15 +11,24 @@
     {% if miFormulario.errors %}
         <p style="color: red">Estan mal los datos , revisar!!</p>
     {% endif %}
+
+    {% if usuarioCreado %}
+        <p style="color: green">Usuario creado exitosamente!!</p>
+    {% endif %}
+    
+
     {% if error %}
         <p style="color: red">{{ error }}</p>
     {% endif %}
-    <form action="{% url 'formularioUsuarios' %}" method="POST">{% csrf_token %}
+    <div class="container">
+        <form action="{% url 'formularioUsuarios' %}" method="POST">{% csrf_token %}
 
-      <table>
-          {{ miFormulario.as_table }}
-      </table>
-      <input type="submit" value="Enviar">
-  </form>
-
+            <div class="form-group">
+              {{ miFormulario.as_p }}
+              
+            </div>
+            <button class="btn btn-primary" id="button-search" type="submit" >Buscar</button>
+        </form>
+    </div>
+    <br>
 {% endblock %}
