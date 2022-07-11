@@ -1,8 +1,12 @@
 {% extends "FECODER_APP/padre.html" %}
 
 {% load static %}
+{% block titulo %}
+<h1 class="fw-bolder">INICIO</h1>
 
-{% block contenido_fijo %}
+
+{% endblock %}
+{% block contenido %}
     <h1>Contenido del inicio</h1>
 
     <!-- Page content-->
@@ -88,8 +92,29 @@
                     <div class="card-header">Search</div>
                     <div class="card-body">
                         <div class="input-group">
-                            <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                            <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                            <form action="{% url 'buscarUsuariox' %}" method="GET"><!--solo en post {% csrf_token %} -->
+                            
+                                <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Ejemplo : Pepe" aria-label="Enter search term..." aria-describedby="button-search" />
+                                <input class="btn btn-primary" id="button-search" type="submit" placeholder="Enviar"></input>
+                            </form>
+                            {% if usuario %}
+                            <p>Estamos buscando a {{nombre}}</p>
+                            
+                            <ul>
+                            
+                            {% for user in usuario %}
+                            <br>
+                            <li>{{user.nombre_usuario}}</li>
+                            <li>{{user.correo_usuario}}</li>
+                            <br>
+                            <hr>
+                            {% endfor %}
+                            </ul>
+                            
+                            {% else %}
+                            <p>No hay  usuario con este nombre</p>
+                            
+                            {% endif %}
                         </div>
                     </div>
                 </div>

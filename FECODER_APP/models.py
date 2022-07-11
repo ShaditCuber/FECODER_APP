@@ -3,7 +3,11 @@ from django.db import models
 class Usuario(models.Model):
     nombre_usuario = models.CharField(max_length = 10)
     clave_usuario = models.CharField(max_length = 8)
+    clave_verificar_usuario = models.CharField(max_length = 8, default="")
     correo_usuario = models.EmailField()
+
+    def __str__(self):
+        return self.nombre_usuario
 
 class Post(models.Model):
 
