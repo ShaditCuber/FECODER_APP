@@ -2,9 +2,11 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import *
 from .models import *
+from datetime import datetime
 
 def inicio(request):
-    return render(request, "FECODER_APP/inicio.html")
+
+    return render(request, "FECODER_APP/inicio.html",{'todos_post':Post.objects.all(),'first_post':Post.objects.first()})
 
 """ def usuarios(request):
     return render(request, "FECODER_APP/usuarios.html") """
@@ -61,14 +63,18 @@ def formularioPosts(request):
         
         if miFormulario.is_valid():
             informacion = miFormulario.cleaned_data
-            
-            post = Post(titulo_post = informacion['titulo_post'], fecha_post = informacion['fecha_post'], contenido_post = informacion['contenido_post'] , estatus_post = informacion['estatus_post'])
+            try:
 
-            post.save()
+                    post = Post(titulo_post = informacion['titulo_post'], fecha_post =informacion['fecha_post'] , contenido_post = informacion['contenido_post'] , estatus_post = informacion['estatus_post'])
 
-            miFormulario = formularioPost()
+                    post.save()
 
-            return render(request, 'FECODER_APP/formularioPosts.html', {"postCreado":post,"miFormulario":miFormulario})    
+                    miFormulario = formularioPost()
+
+                    return render(request, 'FECODER_APP/formularioPosts.html', {"postCreado":post,"miFormulario":miFormulario})    
+            except ValueError:
+                    
+                    return render(request, 'FECODER_APP/formularioPosts.html', {"error":"Formato de fecha incorrecto","miFormulario":miFormulario})
             
     else:
         miFormulario = formularioPost()
@@ -104,14 +110,15 @@ def formularioCategorias(request):
 def buscarPostx(request):
     post=request.GET['titulo']
     if post!="":
-        obj = Post.objects.filter(titulo_post=post)
-        print("buscando objeto")
+        obj = Post.objects.filter(titulo_post=post).first()
+        
         if obj: 
-            return render(request, 'FECODER_APP/inicio.html',{'post':obj,'titulo':post})
+            
+            return render(request, 'FECODER_APP/inicio.html',{'post':obj,'titulo':post,'todos_post':Post.objects.all()})
 
-        return render(request, 'FECODER_APP/inicio.html',{'x':"No existe post con el nombre "+post})
+        return render(request, 'FECODER_APP/inicio.html',{'x':"No existe post con el nombre "+post,'todos_post':Post.objects.all(),'first_post':Post.objects.first()})
     else:
-         return render(request, 'FECODER_APP/inicio.html',{"error":"No se ingreso un nombre de post"})
+         return render(request, 'FECODER_APP/inicio.html',{"error":"No se ingreso un nombre de post",'todos_post':Post.objects.all(),'first_post':Post.objects.first()})
 
 def buscarPost(request):
          return render(request, 'FECODER_APP/inicio.html')

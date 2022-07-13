@@ -23,8 +23,7 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'formularioUsuarios' %}">Crear usuario</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'formularioPosts' %}">Crear post</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'formularioCategorias' %}">Crear categoría</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'buscarUsuario' %}">Buscar Usuario</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Blog</a></li>
+                        
                     </ul>
                 </div>
             </div>
@@ -40,10 +39,36 @@
                 </div>
             </div>
         </header>
+        
+        <div class="container">
+
+            <div class="row">
+                <!-- Blog entries-->
+                <div class="col-lg-8">
+                    <!-- Featured blog post-->
+                       
+                        {% block GrandeGeneral %}
+                        {% endblock %}
+                    <!-- Nested row for non-featured blog posts-->
+                    <div class="row align-items-start">
+                        <div class="col-lg-6">
+                            {% block postIzquierdo %}
+                            {% endblock %}
+                        </div>
+                        <div class="col-lg-6">
+                            {% block postDerecho %}
+                            {% endblock %}
+                        </div>
+                    </div>
+
+
+        
+
 
         {% block contenido %}
         {% endblock %}
         
+    </div>
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>

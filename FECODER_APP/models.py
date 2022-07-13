@@ -16,6 +16,9 @@ class Post(models.Model):
     contenido_post = models.TextField()
     estatus_post = models.BooleanField()
 
+    def __str__(self):
+        return self.titulo_post
+
 class Categoria(models.Model):
     nombre_categoria = models.CharField(max_length = 15)
 

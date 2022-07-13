@@ -12,6 +12,6 @@ urlpatterns = [
     path('formularioComentarios', formularioComentarios, name="formularioComentarios"),
     path('buscarUsuario', buscarUsuario, name="buscarUsuario"),
     path('buscarUsuariox', buscarUsuariox, name="buscarUsuariox"),
-    path('buscarPost', buscarUsuario, name="buscarPost"),
-    path('buscarPostx', buscarUsuariox, name="buscarPostx"),
+    path('buscarPost', buscarPost, name="buscarPost"),
+    path('buscarPostx', buscarPostx, name="buscarPostx"),
 ]

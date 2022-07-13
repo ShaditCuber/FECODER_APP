@@ -8,67 +8,8 @@
 {% endblock %}
 {% block contenido %}
     <!-- Page content-->
-    <div class="container">
-        <div class="row">
-            <!-- Blog entries-->
-            <div class="col-lg-8">
-                <!-- Featured blog post-->
-                <div class="card mb-4">
-                    <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                    <div class="card-body">
-                        <div class="small text-muted">January 1, 2022</div>
-                        <h2 class="card-title">Featured Post Title</h2>
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-                        <a class="btn btn-primary" href="#!">Read more →</a>
-                    </div>
-                </div>
-                <!-- Nested row for non-featured blog posts-->
-                <div class="row">
-                    <div class="col-lg-6">
-                        <!-- Blog post-->
-                        <div class="card mb-4">
-                            <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                            <div class="card-body">
-                                <div class="small text-muted">January 1, 2022</div>
-                                <h2 class="card-title h4">Post Title</h2>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                <a class="btn btn-primary" href="#!">Read more →</a>
-                            </div>
-                        </div>
-                        <!-- Blog post-->
-                        <div class="card mb-4">
-                            <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                            <div class="card-body">
-                                <div class="small text-muted">January 1, 2022</div>
-                                <h2 class="card-title h4">Post Title</h2>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                <a class="btn btn-primary" href="#!">Read more →</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <!-- Blog post-->
-                        <div class="card mb-4">
-                            <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                            <div class="card-body">
-                                <div class="small text-muted">January 1, 2022</div>
-                                <h2 class="card-title h4">Post Title</h2>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                <a class="btn btn-primary" href="#!">Read more →</a>
-                            </div>
-                        </div>
-                        <!-- Blog post-->
-                        <div class="card mb-4">
-                            <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                            <div class="card-body">
-                                <div class="small text-muted">January 1, 2022</div>
-                                <h2 class="card-title h4">Post Title</h2>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam.</p>
-                                <a class="btn btn-primary" href="#!">Read more →</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    
+        
                 <!-- Pagination-->
                 <nav aria-label="Pagination">
                     <hr class="my-0" />
@@ -87,50 +28,41 @@
             <div class="col-lg-4">
                 <!-- Search widget-->
                 <div class="card mb-4">
+
+
                     <div class="card-header">Buscar</div>
                     <div class="card-body">
-                        <p>Usuarios</p>
-                            <form action="{% url 'buscarUsuariox' %}" method="GET"><!--solo en post {% csrf_token %} -->
-                                <div class="input-group">
-                                    <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Ejemplo : Pepe" aria-label="Enter search term..." aria-describedby="button-search" />
-                                    <button class="btn btn-primary" id="button-search" type="submit" >Buscar</button>
-                                </div>
-                            </form>
-                            <br>
-                            {% if error %}
-                                <div class="alert alert-danger">
-                                    {{ error }}
-                                </div>
-                            {% else %}  
-                                {% if x %}  
-                                    <div class="alert alert-success">
-                                        {{ x }}
+                            <div class="usuarios">
+                                <p>Usuarios</p>
+                                <form action="{% url 'buscarUsuariox' %}" method="GET">
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Ejemplo : Pepe" aria-label="Enter search term..." aria-describedby="button-search" />
+                                        <button class="btn btn-primary" id="button-search" type="submit" >Buscar</button>
                                     </div>
-                                
-
-                                {% else %}
-                                    {% if usuario %}
-                                    
+                                </form>
+                                <br>
+                            
+                                        {% if usuario %}
                                         
-                                    
-                                        <p>Resultados para {{nombre}}:</p>
+                                            
                                         
-                                        <ul>
-                                        <!-- si nombre tiene datos -->
+                                            <p>Resultados para {{nombre}}:</p>
+                                            
+                                            <ul>
+                                            <!-- si nombre tiene datos -->
+                                            
+                                            {% for user in usuario %}
+                                            <li>Nombre: {{user.nombre_usuario}}</li>
+                                            <li>Correo: {{user.correo_usuario}}</li>
+                                            <br>
+                                            
+                                            {% endfor %}
                                         
-                                        {% for user in usuario %}
-                                        <li>Nombre: {{user.nombre_usuario}}</li>
-                                        <li>Correo: {{user.correo_usuario}}</li>
-                                        <br>
+                                            </ul>
+                                        {% endif %}
                                         
-                                        {% endfor %}
-                                    
-                                        </ul>
-                                    {% endif %}
-                                    
-                                {% endif %}
-
-                            {% endif %}
+                            
+                            </div>
 
 
 
@@ -138,9 +70,10 @@
                             
 
 
-                            <p>Posts</p>
-                            <form action="{% url 'buscarPostx' %}" method="GET"><!--solo en post {% csrf_token %} -->
-                                <div class="input-group">
+                            <div class="post">
+                                <p>Posts</p>
+                            <form action="{% url 'buscarPostx' %}" method="GET">
+                                <div class="input-group 2">
                                     <input class="form-control" type="text" name="titulo" id="titulo" placeholder="Ejemplo: Lenguajes más usados" aria-label="Enter search term..." aria-describedby="button-search" />
                                     <button class="btn btn-primary" id="button-search" type="submit" >Buscar</button>
                                 </div>
@@ -152,7 +85,7 @@
                                 </div>
                             {% else %}  
                                 {% if x %}  
-                                    <div class="alert alert-success">
+                                    <div class="alert alert-danger">
                                         {{ x }}
                                     </div>
                                 
@@ -167,20 +100,24 @@
                                         <ul>
                                         <!-- si nombre tiene datos -->
                                         
-                                        {% for mi_post in post %}
-                                        <li>Título: {{mi_post.titulo_post}}</li>
-                                        <li>Fecha: {{mi_post.fecha_post}}</li>
-                                        <br>
                                         
-                                        {% endfor %}
-                                    
+                                        <li>Título: {{post.titulo_post}}</li>
+                                        <li>Fecha: {{post.fecha_post}}</li>
+                                        <br>
+                                       
                                         </ul>
+
+                                         
+
+                                        
+                                          
                                     {% endif %}
                                     
                                 {% endif %}
 
                             {% endif %}
 
+                            </div>
 
 
 
@@ -188,7 +125,11 @@
                             
                         
                     </div>
+                
+                
                 </div>
+
+                
                 <!-- Categories widget-->
                 <div class="card mb-4">
                     <div class="card-header">Categories</div>
@@ -211,12 +152,93 @@
                         </div>
                     </div>
                 </div>
-                <!-- Side widget-->
-                <div class="card mb-4">
-                    <div class="card-header">Side Widget</div>
-                    <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
-                </div>
+               
+               
             </div>
+        </div>
+    
+{% endblock %}
+
+
+        
+  
+{% block GrandeGeneral %} 
+    <div class="card mb-4">
+        <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
+        <div class="card-body">
+            {% if first_post %}
+            <div class="small text-muted">{{first_post.fecha_post}}</div>
+            <h2 class="card-title h4">{{first_post.titulo_post}}</h2>
+            <p class="card-text">{{first_post.contenido_post}} </p>
+            <a class="btn btn-primary" href="#!">Read more →</a>
+            {% else %}
+            <div class="small text-muted">{{post.fecha_post}}</div>
+            <h2 class="card-title h4">{{post.titulo_post}}</h2>
+            <p class="card-text">{{post.contenido_post}} </p>
+            <a class="btn btn-primary" href="#!">Read more →</a>
+            {% endif %}
+
         </div>
     </div>
 {% endblock %}
+    
+
+
+
+    
+        
+    
+    
+{% block postIzquierdo %} 
+{% for i in todos_post %} 
+
+    {% if forloop.counter|divisibleby:3 %}
+        <div class="card mb-4">
+            <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+            <div class="card-body">
+                <div class="small text-muted">{{i.fecha_post}}</div>
+                <h2 class="card-title h4">{{i.titulo_post}}</h2>
+                <p class="card-text">{{i.contenido_post}} </p>
+                <a class="btn btn-primary" href="#!">Read more →</a>
+            </div>
+        </div>
+        {% endif %}
+         
+{% endfor %}
+{% endblock %}
+    
+{% block postDerecho %} 
+{% for i in todos_post %} 
+    {% if forloop.counter|divisibleby:2 %}
+<div class="card mb-4">
+    <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+    <div class="card-body">
+        <div class="small text-muted">{{i.fecha_post}}</div>
+        <h2 class="card-title h4">{{i.titulo_post}}</h2>
+        <p class="card-text">{{i.contenido_post}} </p>
+        <a class="btn btn-primary" href="#!">Read more →</a>
+    </div>
+</div>
+    {% endif %}
+{% endfor %}
+{% endblock %} 
+    
+    
+    
+
+    
+    
+    
+    
+      
+
+
+
+
+
+
+
+
+
+
+
