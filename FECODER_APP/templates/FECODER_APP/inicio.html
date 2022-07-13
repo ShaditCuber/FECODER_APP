@@ -34,7 +34,7 @@
                     <div class="card-body">
                             <div class="usuarios">
                                 <p>Usuarios</p>
-                                <form action="{% url 'buscarUsuariox' %}" method="GET">
+                                <form action="{% url 'buscandoUsuario' %}" method="GET">
                                     <div class="input-group">
                                         <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Ejemplo : Pepe" aria-label="Enter search term..." aria-describedby="button-search" />
                                         <button class="btn btn-primary" id="button-search" type="submit" >Buscar</button>
@@ -72,7 +72,7 @@
 
                             <div class="post">
                                 <p>Posts</p>
-                            <form action="{% url 'buscarPostx' %}" method="GET">
+                            <form action="{% url 'buscandoPost' %}" method="GET">
                                 <div class="input-group 2">
                                     <input class="form-control" type="text" name="titulo" id="titulo" placeholder="Ejemplo: Lenguajes más usados" aria-label="Enter search term..." aria-describedby="button-search" />
                                     <button class="btn btn-primary" id="button-search" type="submit" >Buscar</button>
@@ -130,28 +130,7 @@
                 </div>
 
                 
-                <!-- Categories widget-->
-                <div class="card mb-4">
-                    <div class="card-header">Categories</div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <ul class="list-unstyled mb-0">
-                                    <li><a href="#!">Web Design</a></li>
-                                    <li><a href="#!">HTML</a></li>
-                                    <li><a href="#!">Freebies</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-6">
-                                <ul class="list-unstyled mb-0">
-                                    <li><a href="#!">JavaScript</a></li>
-                                    <li><a href="#!">CSS</a></li>
-                                    <li><a href="#!">Tutorials</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        
                
                
             </div>
@@ -222,7 +201,34 @@
     {% endif %}
 {% endfor %}
 {% endblock %} 
+{% block formulario %}
+<h1 class="fw-bolder">Contacto</h1>
+<br><br><br>
+    {% if miFormulario.errors %}
+        <p style="color: red">¡Datos incorrectos!</p>
+    {% endif %}
+
+    {% if contactoCreado %}
+        <p style="color: green">Contacto hecho exitosamente!!</p>
+    {% endif %}
     
+
+    {% if error %}
+        <p style="color: red">{{ error }}</p>
+    {% endif %}
+
+    
+        <form action="{% url 'formularioContactos' %}" method="POST">{% csrf_token %}
+
+            <div class="form-group">
+              {{ miFormulario.as_table }}
+            </div>
+
+            <button class="btn btn-primary" id="button-search" type="submit" >Enviar</button>
+        </form>
+    
+    <br>
+{% endblock %}   
     
     
 

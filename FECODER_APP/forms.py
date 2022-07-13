@@ -7,8 +7,7 @@ class formularioUsuario(forms.Form):
     correo_usuario = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'example@example.com'}))
 
 
-class formularioComentario(forms.Form):
-    comentario_post = forms.CharField()
+
 
 
 class formularioPost(forms.Form):
@@ -18,5 +17,8 @@ class formularioPost(forms.Form):
     estatus_post = forms.BooleanField(widget=forms.CheckboxInput())
 
 
-class formularioCategoria(forms.Form):
-    nombre_categoria = forms.CharField()
+class formularioContacto(forms.Form):
+    nombre_contacto = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Pepe'}))
+    celular_contacto = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: 12345678'}))
+    correo_contacto = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'example@example.com' }))
+    mensaje = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Lorem Impsum '}))

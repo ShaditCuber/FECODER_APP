@@ -4,21 +4,14 @@ from .forms import *
 from .models import *
 from datetime import datetime
 
+#Inicio
 def inicio(request):
 
-    return render(request, "FECODER_APP/inicio.html",{'todos_post':Post.objects.all(),'first_post':Post.objects.first()})
+    return render(request, "FECODER_APP/inicio.html",{'todos_post':Post.objects.all(),'first_post':Post.objects.first(),'miFormulario':formularioContacto()})
 
-""" def usuarios(request):
-    return render(request, "FECODER_APP/usuarios.html") """
-
-def posts(request):
-    return render(request, "FECODER_APP/posts.html")
-
-def categorias(request):
-    return render(request, "FECODER_APP/categorias.html")
-
+#Formularios
 def formularioUsuarios(request):
-    print("Entro a formularioUsuarios")
+    
     if request.method == 'POST':
 
         miFormulario = formularioUsuario(request.POST)
@@ -40,21 +33,6 @@ def formularioUsuarios(request):
         miFormulario = formularioUsuario()
 
         return render(request, 'FECODER_APP/formularioUsuarios.html',{"miFormulario":miFormulario})
-
-
-def formularioComentarios(request):
-    if request.method == 'POST':
-
-        miFormulario = formularioComentario(request.POST)
-        
-        if miFormulario.is_valid():
-            informacion = miFormulario.cleaned_data
-            comentario=Comentario(comentario=informacion['comentario'])    
-            return render(request, 'FECODER_APP/inicio.html')
-    else:
-        miFormulario = formularioUsuario()
-
-        return render(request, 'FECODER_APP/formularioComentarios.html',{"miFormulario":miFormulario})
 
 def formularioPosts(request):
     if request.method == 'POST':
@@ -81,33 +59,32 @@ def formularioPosts(request):
 
         return render(request, 'FECODER_APP/formularioPosts.html', {"miFormulario":miFormulario})
 
-
-def formularioCategorias(request):
+def formularioContactos(request):
     if request.method == 'POST':
 
-        miFormulario = formularioCategoria(request.POST)
+        miFormulario = formularioContacto(request.POST)
         
         if miFormulario.is_valid():
             informacion = miFormulario.cleaned_data
+            contacto = Contacto(nombre_contacto = informacion['nombre_contacto'], celular_contacto =informacion['celular_contacto'] ,correo_contacto=informacion['correo_contacto'], mensaje=informacion['mensaje'])
+            contacto.save()
+
+            miFormulario = formularioContacto()
+
+            return render(request, 'FECODER_APP/inicio.html', {"contactoCreado":contacto,"miFormulario":miFormulario})    
             
-            categoria = Categoria(nombre_categoria = informacion['nombre_categoria'])
-
-            categoria.save()
-
-            miFormulario = formularioCategoria()
-
-            return render(request, 'FECODER_APP/formularioCategorias.html', {"catgoriaCreada":categoria,"miFormulario":miFormulario})    
+                    
+                   
             
     else:
-        miFormulario = formularioCategoria()
+        miFormulario = formularioContacto()
 
-        return render(request, 'FECODER_APP/formularioCategorias.html', {"miFormulario":miFormulario})
+        return render(request, 'FECODER_APP/inicio.html', {"miFormulario":miFormulario})
+
+#Buscar
 
 
-#buscar comentario
-
-
-def buscarPostx(request):
+def buscandoPost(request):
     post=request.GET['titulo']
     if post!="":
         obj = Post.objects.filter(titulo_post=post).first()
@@ -124,17 +101,33 @@ def buscarPost(request):
          return render(request, 'FECODER_APP/inicio.html')
 
 
-def buscarUsuariox(request):
+def buscandoUsuario(request):
+    todos_post=Post.objects.all()
     usuario=request.GET['nombre']
     if usuario!="":
         obj = Usuario.objects.filter(nombre_usuario=usuario)
         if obj: 
-            return render(request, 'FECODER_APP/inicio.html',{'usuario':obj,'nombre':usuario})
+            return render(request, 'FECODER_APP/inicio.html',{'usuario':obj,'nombre':usuario,'todos_post':todos_post,'first_post':Post.objects.first()})
    
-        return render(request, 'FECODER_APP/inicio.html',{'x':"No existe usuario con el nombre "+usuario})
+        return render(request, 'FECODER_APP/inicio.html',{'x':"No existe usuario con el nombre "+usuario,'todos_post':todos_post,'first_post':Post.objects.first()})
     else:
-         return render(request, 'FECODER_APP/inicio.html',{"error":"No se ingreso un nombre de usuario"})
+         return render(request, 'FECODER_APP/inicio.html',{"error":"No se ingreso un nombre de usuario",'todos_post':todos_post,'first_post':Post.objects.first()})
 
 
 def buscarUsuario(request):
          return render(request, 'FECODER_APP/inicio.html')
+
+
+def buscandoContacto(request):
+    nombre=request.GET['nombre']
+    if nombre!="":
+        obj = Contacto.objects.filter(nombre_contacto=nombre)
+        if obj: 
+            return render(request, 'FECODER_APP/buscarContacto.html',{'contacto':obj,'nombre':nombre})
+   
+        return render(request, 'FECODER_APP/buscarContacto.html',{'x':"No existe contacto con el nombre "+nombre})
+    else:
+         return render(request, 'FECODER_APP/buscarContacto.html',{"error":"No se ingreso un nombre de contacto"})
+         
+def buscarContacto(request):
+         return render(request, 'FECODER_APP/buscarContacto.html')

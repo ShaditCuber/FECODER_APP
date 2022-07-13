@@ -19,14 +19,17 @@ class Post(models.Model):
     def __str__(self):
         return self.titulo_post
 
-class Categoria(models.Model):
+""" class Categoria(models.Model):
     nombre_categoria = models.CharField(max_length = 15)
 
 class Comentario(models.Model):
-    comentario_post = models.CharField(max_length = 80)
+    comentario_post = models.CharField(max_length = 80) """
 
 class Contacto(models.Model):
     nombre_contacto = models.CharField(max_length=50)
     celular_contacto = models.IntegerField()
     correo_contacto = models.EmailField()
     mensaje = models.TextField()
+
+    def __str__(self):
+        return self.nombre_contacto

@@ -1,0 +1,55 @@
+{% extends "FECODER_APP/padre.html" %}
+
+{% load static %}
+{% block titulo %}
+<h1 class="fw-bolder">Buscar Comentarios</h1>
+{% endblock %}
+
+{% block contenido %}
+<p>Usuarios</p>
+<form action="{% url 'buscandoContacto' %}" method="GET">
+    <div class="input-group">
+        <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Ejemplo : Pepe" />
+        <button class="btn btn-primary" id="button-search" type="submit" >Buscar</button>
+    </div>
+</form>
+<br>
+   
+
+{% if error %}
+     <div class="alert alert-danger">
+             {{ error }}
+     </div>
+{% else %}  
+    {% if x %}  
+        <div class="alert alert-danger">
+            {{ x }}
+        </div>
+                                
+
+     {% else %}
+            {% if contacto %}
+        
+            
+        
+            <p>Resultados para {{nombre}}:</p>
+            
+            <ul>
+            <!-- si nombre tiene datos -->
+            
+            {% for i in contacto %}
+            <li>Nombre: <i>{{i.nombre_contacto}}</i></li>
+            <li>Correo: <i>{{i.correo_contacto}}</i></li>
+            <br>
+            
+            {% endfor %}
+        
+            </ul>
+        {% endif %}                      
+                                    
+    {% endif %}
+
+{% endif %}
+
+{% endblock %}
+

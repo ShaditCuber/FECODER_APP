@@ -3,15 +3,13 @@ from .views import *
 
 urlpatterns = [
     path('', inicio, name = "Inicio"),
-    #path('usuarios', views.usuarios, name = "Usuarios"),
-    path('posts', posts, name = "Posts"),
-    path('categorias', categorias, name = "Categorias"),
     path('formularioUsuarios', formularioUsuarios, name = "formularioUsuarios"),
     path('formularioPosts', formularioPosts, name = "formularioPosts"),
-    path('formularioCategorias', formularioCategorias, name = "formularioCategorias"),
-    path('formularioComentarios', formularioComentarios, name="formularioComentarios"),
+    path('formularioContactos', formularioContactos, name="formularioContactos"),
     path('buscarUsuario', buscarUsuario, name="buscarUsuario"),
-    path('buscarUsuariox', buscarUsuariox, name="buscarUsuariox"),
+    path('buscandoUsuario', buscandoUsuario, name="buscandoUsuario"),
     path('buscarPost', buscarPost, name="buscarPost"),
-    path('buscarPostx', buscarPostx, name="buscarPostx"),
+    path('buscandoPost', buscandoPost, name="buscandoPost"),
+    path('buscarContacto', buscarContacto, name="buscarContacto"),
+    path('buscandoContacto', buscandoContacto, name="buscandoContacto"),
 ]
