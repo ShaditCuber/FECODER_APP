@@ -7,7 +7,11 @@ urlpatterns = [
     path('posts', posts, name = "Posts"),
     path('categorias', categorias, name = "Categorias"),
     path('formularioUsuarios', formularioUsuarios, name = "formularioUsuarios"),
-   # path('formularioComentarios', formularioComentarios, name="formularioComentarios"),
+    path('formularioPosts', formularioPosts, name = "formularioPosts"),
+    path('formularioCategorias', formularioCategorias, name = "formularioCategorias"),
+    path('formularioComentarios', formularioComentarios, name="formularioComentarios"),
     path('buscarUsuario', buscarUsuario, name="buscarUsuario"),
     path('buscarUsuariox', buscarUsuariox, name="buscarUsuariox"),
+    path('buscarPost', buscarUsuario, name="buscarPost"),
+    path('buscarPostx', buscarUsuariox, name="buscarPostx"),
 ]

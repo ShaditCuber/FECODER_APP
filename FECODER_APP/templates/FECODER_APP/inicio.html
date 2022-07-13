@@ -7,8 +7,6 @@
 
 {% endblock %}
 {% block contenido %}
-    <h1>Contenido del inicio</h1>
-
     <!-- Page content-->
     <div class="container">
         <div class="row">
@@ -89,9 +87,9 @@
             <div class="col-lg-4">
                 <!-- Search widget-->
                 <div class="card mb-4">
-                    <div class="card-header">Search</div>
+                    <div class="card-header">Buscar</div>
                     <div class="card-body">
-                        
+                        <p>Usuarios</p>
                             <form action="{% url 'buscarUsuariox' %}" method="GET"><!--solo en post {% csrf_token %} -->
                                 <div class="input-group">
                                     <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Ejemplo : Pepe" aria-label="Enter search term..." aria-describedby="button-search" />
@@ -114,15 +112,15 @@
                                     {% if usuario %}
                                     
                                         
-                                        <p>Estamos buscando a {{nombre}}</p>
                                     
+                                        <p>Resultados para {{nombre}}:</p>
+                                        
                                         <ul>
                                         <!-- si nombre tiene datos -->
                                         
                                         {% for user in usuario %}
-                                        <br>
-                                        <li>{{user.nombre_usuario}}</li>
-                                        <li>{{user.correo_usuario}}</li>
+                                        <li>Nombre: {{user.nombre_usuario}}</li>
+                                        <li>Correo: {{user.correo_usuario}}</li>
                                         <br>
                                         
                                         {% endfor %}
@@ -133,6 +131,60 @@
                                 {% endif %}
 
                             {% endif %}
+
+
+
+                            <!-- Búsqueda de Posts-->
+                            
+
+
+                            <p>Posts</p>
+                            <form action="{% url 'buscarPostx' %}" method="GET"><!--solo en post {% csrf_token %} -->
+                                <div class="input-group">
+                                    <input class="form-control" type="text" name="titulo" id="titulo" placeholder="Ejemplo: Lenguajes más usados" aria-label="Enter search term..." aria-describedby="button-search" />
+                                    <button class="btn btn-primary" id="button-search" type="submit" >Buscar</button>
+                                </div>
+                            </form>
+                            <br>
+                            {% if error %}
+                                <div class="alert alert-danger">
+                                    {{ error }}
+                                </div>
+                            {% else %}  
+                                {% if x %}  
+                                    <div class="alert alert-success">
+                                        {{ x }}
+                                    </div>
+                                
+
+                                {% else %}
+                                    {% if post %}
+                                    
+                                        
+                                    
+                                        <p>Resultados:</p>
+                                        
+                                        <ul>
+                                        <!-- si nombre tiene datos -->
+                                        
+                                        {% for mi_post in post %}
+                                        <li>Título: {{mi_post.titulo_post}}</li>
+                                        <li>Fecha: {{mi_post.fecha_post}}</li>
+                                        <br>
+                                        
+                                        {% endfor %}
+                                    
+                                        </ul>
+                                    {% endif %}
+                                    
+                                {% endif %}
+
+                            {% endif %}
+
+
+
+
+
                             
                         
                     </div>

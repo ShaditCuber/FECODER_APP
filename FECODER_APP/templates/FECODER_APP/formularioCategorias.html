@@ -3,17 +3,17 @@
 {% load static %}
 
 {% block titulo %}
-<h1 class="fw-bolder">Crear un nuevo usuario</h1>
-<p class="lead mb-0">Recuerde que coincidan las contraseñas</p>
+<h1 class="fw-bolder">Crear una nueva categoría</h1>
+<p class="lead mb-0">Genera categorías para el Blog</p>
 {% endblock %}
 
 {% block contenido %}
     {% if miFormulario.errors %}
-        <p style="color: red">¡Datos incorrectos!</p>
+        <p style="color: red">¡Datos son incorrectos!</p>
     {% endif %}
 
-    {% if usuarioCreado %}
-        <p style="color: green">Usuario creado exitosamente!!</p>
+    {% if catgoriaCreada %}
+        <p style="color: green">Categoría creada exitosamente!!</p>
     {% endif %}
     
 
@@ -21,10 +21,10 @@
         <p style="color: red">{{ error }}</p>
     {% endif %}
     <div class="container">
-        <form action="{% url 'formularioUsuarios' %}" method="POST">{% csrf_token %}
+        <form action="{% url 'formularioCategorias' %}" method="POST">{% csrf_token %}
 
             <div class="form-group">
-              {{ miFormulario.as_p }}
+              {{ miFormulario.as_p }} 
             </div>
             <button class="btn btn-primary" id="button-search" type="submit" >Enviar</button>
         </form>
