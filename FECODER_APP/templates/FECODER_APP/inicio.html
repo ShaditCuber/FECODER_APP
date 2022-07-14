@@ -143,18 +143,18 @@
   
 {% block GrandeGeneral %} 
     <div class="card mb-4">
-        <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
+        <a href="#!"><img class="card-img-top" src="{% static 'FECODER_APP/assets/img/850x350.png' %}" alt="..." /></a>
         <div class="card-body">
             {% if first_post %}
             <div class="small text-muted">{{first_post.fecha_post}}</div>
             <h2 class="card-title h4">{{first_post.titulo_post}}</h2>
             <p class="card-text">{{first_post.contenido_post}} </p>
-            <a class="btn btn-primary" href="#!">Read more →</a>
+            <a class="btn btn-primary" href="#!">Leer Mas →</a>
             {% else %}
             <div class="small text-muted">{{post.fecha_post}}</div>
             <h2 class="card-title h4">{{post.titulo_post}}</h2>
             <p class="card-text">{{post.contenido_post}} </p>
-            <a class="btn btn-primary" href="#!">Read more →</a>
+            <a class="btn btn-primary" href="#!">Leer Mas →</a>
             {% endif %}
 
         </div>
@@ -173,12 +173,12 @@
 
     {% if forloop.counter|divisibleby:3 %}
         <div class="card mb-4">
-            <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+            <a href="#!"><img class="card-img-top" src="{% static 'FECODER_APP/assets/img/750x350.png' %}" alt="..." /></a>
             <div class="card-body">
                 <div class="small text-muted">{{i.fecha_post}}</div>
                 <h2 class="card-title h4">{{i.titulo_post}}</h2>
                 <p class="card-text">{{i.contenido_post}} </p>
-                <a class="btn btn-primary" href="#!">Read more →</a>
+                <a class="btn btn-primary" href="#!">Leer Mas →</a>
             </div>
         </div>
         {% endif %}
@@ -190,12 +190,12 @@
 {% for i in todos_post %} 
     {% if forloop.counter|divisibleby:2 %}
 <div class="card mb-4">
-    <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+    <a href="#!"><img class="card-img-top" src="{% static 'FECODER_APP/assets/img/750x350.png' %}" alt="..." /></a>
     <div class="card-body">
         <div class="small text-muted">{{i.fecha_post}}</div>
         <h2 class="card-title h4">{{i.titulo_post}}</h2>
         <p class="card-text">{{i.contenido_post}} </p>
-        <a class="btn btn-primary" href="#!">Read more →</a>
+        <a class="btn btn-primary" href="#!">Leer Mas →</a>
     </div>
 </div>
     {% endif %}
@@ -213,7 +213,7 @@
     {% endif %}
     
 
-    {% if error %}
+    {% if errorContacto %}
         <p style="color: red">{{ error }}</p>
     {% endif %}
 
@@ -223,7 +223,7 @@
             <div class="form-group">
               {{ miFormulario.as_table }}
             </div>
-
+            <br>
             <button class="btn btn-primary" id="button-search" type="submit" >Enviar</button>
         </form>
     

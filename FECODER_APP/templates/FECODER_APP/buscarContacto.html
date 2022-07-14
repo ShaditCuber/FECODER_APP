@@ -2,11 +2,11 @@
 
 {% load static %}
 {% block titulo %}
-<h1 class="fw-bolder">Buscar Comentarios</h1>
+<h1 class="fw-bolder">Buscar Contactos</h1>
 {% endblock %}
 
 {% block contenido %}
-<p>Usuarios</p>
+<p>Contactos</p>
 <form action="{% url 'buscandoContacto' %}" method="GET">
     <div class="input-group">
         <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Ejemplo : Pepe" />

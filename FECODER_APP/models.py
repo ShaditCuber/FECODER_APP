@@ -19,11 +19,6 @@ class Post(models.Model):
     def __str__(self):
         return self.titulo_post
 
-""" class Categoria(models.Model):
-    nombre_categoria = models.CharField(max_length = 15)
-
-class Comentario(models.Model):
-    comentario_post = models.CharField(max_length = 80) """
 
 class Contacto(models.Model):
     nombre_contacto = models.CharField(max_length=50)

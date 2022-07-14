@@ -87,15 +87,15 @@ def formularioContactos(request):
 def buscandoPost(request):
     post=request.GET['titulo']
     if post!="":
-        obj = Post.objects.filter(titulo_post=post).first()
+        obj = Post.objects.filter(titulo_post__icontains=post).first()
         
         if obj: 
             
-            return render(request, 'FECODER_APP/inicio.html',{'post':obj,'titulo':post,'todos_post':Post.objects.all()})
+            return render(request, 'FECODER_APP/inicio.html',{'post':obj,'titulo':post,'todos_post':Post.objects.all(),'miFormulario':formularioContacto()})
 
-        return render(request, 'FECODER_APP/inicio.html',{'x':"No existe post con el nombre "+post,'todos_post':Post.objects.all(),'first_post':Post.objects.first()})
+        return render(request, 'FECODER_APP/inicio.html',{'x':"No existe post con el nombre "+post,'todos_post':Post.objects.all(),'first_post':Post.objects.first(),'miFormulario':formularioContacto()})
     else:
-         return render(request, 'FECODER_APP/inicio.html',{"error":"No se ingreso un nombre de post",'todos_post':Post.objects.all(),'first_post':Post.objects.first()})
+         return render(request, 'FECODER_APP/inicio.html',{"error":"No se ingreso un nombre de post",'todos_post':Post.objects.all(),'first_post':Post.objects.first(),'miFormulario':formularioContacto()})
 
 def buscarPost(request):
          return render(request, 'FECODER_APP/inicio.html')
@@ -105,13 +105,13 @@ def buscandoUsuario(request):
     todos_post=Post.objects.all()
     usuario=request.GET['nombre']
     if usuario!="":
-        obj = Usuario.objects.filter(nombre_usuario=usuario)
+        obj = Usuario.objects.filter(nombre_usuario__icontains=usuario)
         if obj: 
-            return render(request, 'FECODER_APP/inicio.html',{'usuario':obj,'nombre':usuario,'todos_post':todos_post,'first_post':Post.objects.first()})
+            return render(request, 'FECODER_APP/inicio.html',{'usuario':obj,'nombre':usuario,'todos_post':todos_post,'first_post':Post.objects.first(),'miFormulario':formularioContacto()})
    
-        return render(request, 'FECODER_APP/inicio.html',{'x':"No existe usuario con el nombre "+usuario,'todos_post':todos_post,'first_post':Post.objects.first()})
+        return render(request, 'FECODER_APP/inicio.html',{'x':"No existe usuario con el nombre "+usuario,'todos_post':todos_post,'first_post':Post.objects.first(),'miFormulario':formularioContacto()})
     else:
-         return render(request, 'FECODER_APP/inicio.html',{"error":"No se ingreso un nombre de usuario",'todos_post':todos_post,'first_post':Post.objects.first()})
+         return render(request, 'FECODER_APP/inicio.html',{"error":"No se ingreso un nombre de usuario",'todos_post':todos_post,'first_post':Post.objects.first(),'miFormulario':formularioContacto()})
 
 
 def buscarUsuario(request):
@@ -121,13 +121,13 @@ def buscarUsuario(request):
 def buscandoContacto(request):
     nombre=request.GET['nombre']
     if nombre!="":
-        obj = Contacto.objects.filter(nombre_contacto=nombre)
+        obj = Contacto.objects.filter(nombre_contacto__icontains=nombre)
         if obj: 
             return render(request, 'FECODER_APP/buscarContacto.html',{'contacto':obj,'nombre':nombre})
    
         return render(request, 'FECODER_APP/buscarContacto.html',{'x':"No existe contacto con el nombre "+nombre})
     else:
-         return render(request, 'FECODER_APP/buscarContacto.html',{"error":"No se ingreso un nombre de contacto"})
+         return render(request, 'FECODER_APP/buscarContacto.html',{"errorContacto":"No se ingreso un nombre de contacto"})
          
 def buscarContacto(request):
          return render(request, 'FECODER_APP/buscarContacto.html')
