@@ -6,8 +6,8 @@ from datetime import datetime
 
 #Inicio
 def inicio(request):
-
-    return render(request, "FECODER_APP/inicio.html",{'todos_post':Post.objects.all(),'first_post':Post.objects.first(),'miFormulario':formularioContacto()})
+    #ordenado por contenido post
+    return render(request, "FECODER_APP/inicio.html",{'todos_post':Post.objects.order_by('contenido_post'),'first_post':Post.objects.first(),'miFormulario':formularioContacto()})
 
 #Formularios
 def formularioUsuarios(request):

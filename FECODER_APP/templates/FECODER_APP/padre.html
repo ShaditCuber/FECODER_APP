@@ -49,17 +49,14 @@
                        
                         {% block GrandeGeneral %}
                         {% endblock %}
-                    <!-- Nested row for non-featured blog posts-->
-                    <div class="row align-items-start">
-                        <div class="col-lg-6">
-                            {% block postIzquierdo %}
-                            {% endblock %}
-                        </div>
-                        <div class="col-lg-6">
-                            {% block postDerecho %}
-                            {% endblock %}
-                        </div>
+                    <!-- Fila para nuevos post-->
+                    <div style="display: grid; grid-template-columns: repeat(2,1fr); grid-gap: 10px;">
+                        
+                            {%block post%}
+                            {%endblock%}
+                        
                     </div>
+                
 
 
         

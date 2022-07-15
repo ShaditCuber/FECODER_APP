@@ -44,7 +44,6 @@
                             
                                         {% if usuario %}
                                         
-                                            
                                         
                                             <p>Resultados para {{nombre}}:</p>
                                             
@@ -145,17 +144,12 @@
     <div class="card mb-4">
         <a href="#!"><img class="card-img-top" src="{% static 'FECODER_APP/assets/img/850x350.png' %}" alt="..." /></a>
         <div class="card-body">
-            {% if first_post %}
+            
             <div class="small text-muted">{{first_post.fecha_post}}</div>
             <h2 class="card-title h4">{{first_post.titulo_post}}</h2>
-            <p class="card-text">{{first_post.contenido_post}} </p>
+            <p class="card-text">{{first_post.contenido_post|slice:'0:80'}}... </p>
             <a class="btn btn-primary" href="#!">Leer Mas →</a>
-            {% else %}
-            <div class="small text-muted">{{post.fecha_post}}</div>
-            <h2 class="card-title h4">{{post.titulo_post}}</h2>
-            <p class="card-text">{{post.contenido_post}} </p>
-            <a class="btn btn-primary" href="#!">Leer Mas →</a>
-            {% endif %}
+           
 
         </div>
     </div>
@@ -168,39 +162,25 @@
         
     
     
-{% block postIzquierdo %} 
+{% block post %} 
 {% for i in todos_post %} 
 
-    {% if forloop.counter|divisibleby:3 %}
+    
         <div class="card mb-4">
             <a href="#!"><img class="card-img-top" src="{% static 'FECODER_APP/assets/img/750x350.png' %}" alt="..." /></a>
             <div class="card-body">
                 <div class="small text-muted">{{i.fecha_post}}</div>
                 <h2 class="card-title h4">{{i.titulo_post}}</h2>
-                <p class="card-text">{{i.contenido_post}} </p>
+                <p class="card-text">{{i.contenido_post|slice:'0:60'}}... </p>
                 <a class="btn btn-primary" href="#!">Leer Mas →</a>
             </div>
         </div>
-        {% endif %}
+        
          
 {% endfor %}
 {% endblock %}
     
-{% block postDerecho %} 
-{% for i in todos_post %} 
-    {% if forloop.counter|divisibleby:2 %}
-<div class="card mb-4">
-    <a href="#!"><img class="card-img-top" src="{% static 'FECODER_APP/assets/img/750x350.png' %}" alt="..." /></a>
-    <div class="card-body">
-        <div class="small text-muted">{{i.fecha_post}}</div>
-        <h2 class="card-title h4">{{i.titulo_post}}</h2>
-        <p class="card-text">{{i.contenido_post}} </p>
-        <a class="btn btn-primary" href="#!">Leer Mas →</a>
-    </div>
-</div>
-    {% endif %}
-{% endfor %}
-{% endblock %} 
+
 {% block formulario %}
 <h1 class="fw-bolder">Contacto</h1>
 <br><br><br>

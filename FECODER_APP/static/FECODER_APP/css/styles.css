@@ -76,8 +76,11 @@
   }
 }
 /* Mis CSS */
-.nombre_usuario{
-  background-color: red;
+.wrapper{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  grid-gap:10px;
+  border: red;
 }
 
 /* Fin de mis CSS */
