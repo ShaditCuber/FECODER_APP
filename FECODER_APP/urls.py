@@ -12,4 +12,6 @@ urlpatterns = [
     path('buscandoPost', buscandoPost, name="buscandoPost"),
     path('buscarContacto', buscarContacto, name="buscarContacto"),
     path('buscandoContacto', buscandoContacto, name="buscandoContacto"),
+    path('login', login, name="login"),
+    path('registro', registro, name="registro"),
 ]

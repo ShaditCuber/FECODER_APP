@@ -131,3 +131,12 @@ def buscandoContacto(request):
          
 def buscarContacto(request):
          return render(request, 'FECODER_APP/buscarContacto.html')
+
+
+
+def login(request):
+    return render(request, 'FECODER_APP/login.html')
+
+
+def registro(request):
+    return render(request, 'FECODER_APP/registro.html')
