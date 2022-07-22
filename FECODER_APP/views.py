@@ -3,6 +3,7 @@ from django.shortcuts import render
 from .forms import *
 from .models import *
 from datetime import datetime
+from django.contrib.auth  import login,authenticate
 
 #Inicio
 def inicio(request):
@@ -140,12 +141,48 @@ def buscarContacto(request):
 
 
 
-def login(request):
-    return render(request, 'FECODER_APP/login.html')
+def loginUser(request):
+    redirect_to = request.POST.get('next', '')
+    if request.method == 'POST':
+        form = LoginForm(request, request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+         
+                print(redirect_to)
+                if redirect_to:
+                    if 'editarProfesor' in redirect_to:
+                        print("entro")
+
+                    return render(request, 'FECODER_APP/inicio.html')
+            
+                return render(request, 'FECODER_APP/inicio.html')
+                             
+        else:
+            return render(request, 'FECODER_APP/login.html',{'form_login':form,'mensaje':f"Usuario o contraseña incorrectos"})
+        
+    else:
+        form = LoginForm()
+        return render(request, 'FECODER_APP/login.html', {'form_login': form})
 
 
-def registro(request):
-    return render(request, 'FECODER_APP/registro.html')
+def registroUser(request):
+    
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            username=form.cleaned_data['username']
+            form.save()
+            return render(request, 'FECODER_APP/login.html',{'mensaje_login':f"Usuario registrado correctamente {username}"})
+        
+        return render(request, 'FECODER_APP/registro.html',{'form_register':form,'error':form.errors})
+
+    else:
+        form = RegisterForm()
+        return render(request, 'FECODER_APP/registro.html', {'form_register': form})
 
 
 def todosPost():
@@ -156,5 +193,3 @@ def primerPost(tema):
         return Post.objects.filter(estatus_post=True).filter(titulo_post__icontains=tema).first()
     else:
         return Post.objects.filter(estatus_post=True).first()
-    
-        

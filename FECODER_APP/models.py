@@ -1,5 +1,5 @@
-from tokenize import blank_re
 from django.db import models
+
 
 class Usuario(models.Model):
     nombre_usuario = models.CharField(max_length = 10)
@@ -29,3 +29,4 @@ class Contacto(models.Model):
 
     def __str__(self):
         return self.nombre_contacto
+

@@ -1,171 +1,55 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <style>
-        *{
-          margin :0;
-          padding: 0;
-          font-size: 13px;
-          font-family: fantasy;
-      }
-      
-      .container{
-          height: 100%;
-          width: 100%;
-          background-image : linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url(../../static/FECODER_APP/assets/img/fondo.jpg);
-          background-position: center;
-          background-size: cover;
-          position: absolute;
-      }
-      
-      .form-box{
-          width: 370px;
-          height: 455px;
-          position: relative;
-          margin: 6% auto;
-          background: #fff;
-          padding: 5px;
-          border-radius: 10px;
-          overflow: hidden;
-      }
-      
-      .button-box{
-          width: 240px;
-          margin: 30px auto;
-          position: relative;
-          box-shadow: 0 0 20px 9px #e0e0e0;
-          border-radius: 30px;
-      }
-      
-      
-      .toggle-btn{
-          padding: 10px 22px;
-          cursor: pointer;
-          background: transparent;
-          border: 0px;
-          outline: none;
-          position: relative;
-      }
-      
-      #elegir{
-          top: 0;
-          left: 0;
-          position: absolute;
-          width: 120px;
-          height: 100%;
-          background: linear-gradient(to right, rgba(63,81,181,0.7),rgba(0,188,212,0.7));
-          border-radius: 30px;
-          transition: 0.8s;
-      }
-      
-      .input-group{
-          top: 180px;
-          position: absolute;
-          width: 280px;
-          transition: 0.8s;
-      }
-      
-      .input-field{
-          width: 100%;
-          padding: 10px 0;
-          margin: 5px 0;
-          border-left: 0;
-          border-top: 0;
-          border-right: 0;
-          border-bottom: 2px solid #004d40;
-          outline: none;
-          background: transparent;
-      }
-      
-      .submit-btn{
-          width: 85%;
-          padding: 10px 30px;
-          cursor: pointer;
-          display: block;
-          margin: auto;
-          background: linear-gradient(to right, rgba(63,81,181,0.7),rgba(0,188,212,0.7));
-          border: 0px;
-          outline: none;
-          border-radius: 30px;
-      
-      }
-      
-      .check-box{
-          margin: 30px 10px 30px 0;
-      
-      }
-      
-      span{
-          color: #757575;
-          font-size: 12px;
-          bottom: 64px;
-          position: absolute;
-      }
-      
-      
-      #login{
-          left: 50px;
-      }
-      
-      #registrar{
-          left: 450px;;
-      } 
-      </style>
-</head>
-
-<body>
-    <div class="container">
-        <div class="form-box">
-             <div class="button-box">
-                 <div id="elegir"></div>
-                 <button type="button" class="toggle-btn" onclick="login()">Iniciar Sesion</button>
-                 <button type="button" class="toggle-btn" onclick="registrar()">Registrar</button>
-             </div>
-             <div class="redes-sociales">
-                 <img src="" alt="">uwu
-                 <img src="" alt="">ewe
-                 <img src="" alt=""> owo
-             </div>
-             <form id="login" class="input-group">
-                 <input type="text" class="input-field" placeholder="Nombre Usuario" required>
-                 <input type="password" class="input-field" placeholder="Contraseña" required>
-                 <br>
-                 <br>
-                 <br>
-                 <button type="submit" class="submit-btn">Acceder</button>
-             </form>
-             <form id="registrar" class="input-group">
-                <input type="text" class="input-field" placeholder="Nombre Usuario" required>
-                <input type="email" class="input-field" placeholder="Email" required>
-                <input type="password" class="input-field" placeholder="Contraseña" required>
-                <input type="password" class="input-field" placeholder="Repetir Contraseña" required>
-               <br>
-               <br>
-                <button type="submit" class="submit-btn">Registrar</button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        var x  = document.getElementById("login");
-        var y  = document.getElementById("registrar");
-        var z  = document.getElementById("elegir");
-
-        function login(){
-            x.style.left ="50px";
-            y.style.left ="450px";
-            z.style.left ="0px";
-        }
-        function registrar(){
-            x.style.left ="-400px";
-            y.style.left ="50px";
-            z.style.left ="120px";
-        }
-
-    </script>
-</body>
-</html>
+{% extends "FECODER_APP/padre-formularios.html" %}
+    
+    {% block titulo %}
+    Registro FECoder
+    {% endblock %}
+    
+    {% block contenido %}
+    <div class="login-box">
+        <h2>Inicios de sesión</h2>
+        <!-- alerta de error -->
+        {% if error %}
+          <div style="color: red">
+            {{ error }}
+          </div>
+          <br>
+        {% endif %}
+        <form action="{% url 'registro' %}" method="POST">{% csrf_token %}
+          <div class="user-box">
+            <input type="text" name="username" required="">
+            <label>Usuario</label>
+          </div>
+          <div class="user-box">
+            <input type="email" name="email" required="">
+            <label>Email</label>
+          </div>
+          <div class="user-box">
+            <input type="password" name="password1" required="">
+            <label>Contraseña</label>
+          </div>
+          <div class="user-box">
+            <input type="password" name="password2" required="">
+            <label>Repetir Contraseña</label>
+          </div>
+          
+          <a>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <input class="boton" type="submit" value="Registrarme">
+          </a>
+          <a href="{% url 'login' %}">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <input class="boton" type="button" value="Volver">
+          </a>
+          <input type="hidden" name="next" value="{{ request.GET.next }}">
+        </form>
+      </div>
+    
+    {% endblock %}
+    
+    
