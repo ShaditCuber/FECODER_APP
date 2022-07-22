@@ -5,8 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    {% load static %}
     <style>
-        html {
+
+html {
   height: 100%;
 }
 body {
@@ -173,29 +175,65 @@ body {
     bottom: 100%;
   }
 }
+.boton {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	
+  color: #03e9f4;
+	background-color:transparent;
+	font-family: 'Roboto', sans-serif;
+	font-size: 15px;
+	font-weight: 500;
+	border: none;
+	cursor: pointer;
+	text-transform: uppercase;
+	transition: .3s ease all;
+	border-radius: 5px;
+	position: relative;
+	overflow: hidden;
+}
 
     </style>
 </head>
 <body>
-    <div class="login-box">
-        <h2>Inicios de sesión</h2>
-        <form>
-          <div class="user-box">
-            <input type="text" name="" required="">
-            <label>Correo</label>
-          </div>
-          <div class="user-box">
-            <input type="password" name="" required="">
-            <label>Contraseña</label>
-          </div>
-          <a href="#">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            Iniciar
-          </a>
-        </form>
+  
+  <div class="login-box">
+    <h2>Inicios de sesión</h2>
+    <form action="{% url 'buscandoContacto' %}" method="POST">{% csrf_token %}
+      <div class="user-box">
+        <input type="text" name="username" required="">
+        <label>Usuario</label>
       </div>
+      <div class="user-box">
+        <input type="password" name="password" required="">
+        <label>Contraseña</label>
+      </div>
+      <a href="#">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <input class="boton" type="submit" value="Iniciar Sesion">
+      </a>
+      
+      <a href="#">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <input class="boton" type="submit" value="Registrarme">
+      </a>
+      <a href="#">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Olvide la contraseña
+      </a>
+      
+    </form>
+  </div>
+    
 </body>
 </html>

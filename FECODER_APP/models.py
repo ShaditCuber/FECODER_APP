@@ -1,3 +1,4 @@
+from tokenize import blank_re
 from django.db import models
 
 class Usuario(models.Model):
@@ -14,7 +15,7 @@ class Post(models.Model):
     titulo_post = models.CharField(max_length = 30)
     fecha_post = models.DateField()
     contenido_post = models.TextField()
-    estatus_post = models.BooleanField()
+    estatus_post = models.BooleanField(blank=True, default=True)
 
     def __str__(self):
         return self.titulo_post

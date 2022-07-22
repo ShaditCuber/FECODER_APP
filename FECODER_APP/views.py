@@ -7,7 +7,13 @@ from datetime import datetime
 #Inicio
 def inicio(request):
     #ordenado por contenido post
-    return render(request, "FECODER_APP/inicio.html",{'todos_post':Post.objects.order_by('contenido_post'),'first_post':Post.objects.first(),'miFormulario':formularioContacto()})
+    
+    todos_post=Post.objects.filter(estatus_post=True).order_by('contenido_post')
+    first_post=Post.objects.filter(estatus_post=True).first()
+        
+    
+    return render(request, 'FECODER_APP/inicio.html',{'todos_post':todos_post,'first_post':first_post,'miFormulario':formularioContacto()})
+    
 
 #Formularios
 def formularioUsuarios(request):
@@ -43,7 +49,7 @@ def formularioPosts(request):
             informacion = miFormulario.cleaned_data
             try:
 
-                    post = Post(titulo_post = informacion['titulo_post'], fecha_post =informacion['fecha_post'] , contenido_post = informacion['contenido_post'] , estatus_post = informacion['estatus_post'])
+                    post = Post(titulo_post = informacion['titulo_post'], fecha_post =informacion['fecha_post'] , contenido_post = informacion['contenido_post'] , estatus_post = True)
 
                     post.save()
 
@@ -71,7 +77,7 @@ def formularioContactos(request):
 
             miFormulario = formularioContacto()
 
-            return render(request, 'FECODER_APP/inicio.html', {"contactoCreado":contacto,"miFormulario":miFormulario})    
+            return render(request, 'FECODER_APP/inicio.html', {"contactoCreado":contacto,"miFormulario":miFormulario,'todos_post':Post.objects.order_by('contenido_post'),'first_post':Post.objects.first()})    
             
                     
                    
@@ -79,7 +85,7 @@ def formularioContactos(request):
     else:
         miFormulario = formularioContacto()
 
-        return render(request, 'FECODER_APP/inicio.html', {"miFormulario":miFormulario})
+        return render(request, 'FECODER_APP/inicio.html', {"miFormulario":miFormulario,'todos_post':Post.objects.order_by('contenido_post'),'first_post':Post.objects.first()})
 
 #Buscar
 
@@ -87,15 +93,15 @@ def formularioContactos(request):
 def buscandoPost(request):
     post=request.GET['titulo']
     if post!="":
-        obj = Post.objects.filter(titulo_post__icontains=post).first()
-        
+        obj = Post.objects.filter(estatus_post=True).filter(titulo_post__icontains=post).first()
+        todos_post=todosPost()
+        primer_post=primerPost(post)
         if obj: 
-            
-            return render(request, 'FECODER_APP/inicio.html',{'post':obj,'titulo':post,'todos_post':Post.objects.all(),'miFormulario':formularioContacto()})
+            return render(request, 'FECODER_APP/inicio.html',{'post':obj,'titulo':post,'todos_post':todos_post,'first_post':obj,'miFormulario':formularioContacto()})
 
-        return render(request, 'FECODER_APP/inicio.html',{'x':"No existe post con el nombre "+post,'todos_post':Post.objects.all(),'first_post':Post.objects.first(),'miFormulario':formularioContacto()})
+        return render(request, 'FECODER_APP/inicio.html',{'x':"No existe post con el nombre "+post,'todos_post':todos_post,'first_post':primer_post,'miFormulario':formularioContacto()})
     else:
-         return render(request, 'FECODER_APP/inicio.html',{"error":"No se ingreso un nombre de post",'todos_post':Post.objects.all(),'first_post':Post.objects.first(),'miFormulario':formularioContacto()})
+         return render(request, 'FECODER_APP/inicio.html',{"error":"No se ingreso un nombre de post",'todos_post':todos_post,'first_post':primer_post,'miFormulario':formularioContacto()})
 
 def buscarPost(request):
          return render(request, 'FECODER_APP/inicio.html')
@@ -140,3 +146,15 @@ def login(request):
 
 def registro(request):
     return render(request, 'FECODER_APP/registro.html')
+
+
+def todosPost():
+    return Post.objects.filter(estatus_post=True).order_by('contenido_post')
+
+def primerPost(tema):
+    if tema:
+        return Post.objects.filter(estatus_post=True).filter(titulo_post__icontains=tema).first()
+    else:
+        return Post.objects.filter(estatus_post=True).first()
+    
+        

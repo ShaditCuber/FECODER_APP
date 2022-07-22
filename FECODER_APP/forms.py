@@ -1,3 +1,4 @@
+from email.policy import default
 from django import forms
 
 class formularioUsuario(forms.Form):
@@ -14,7 +15,7 @@ class formularioPost(forms.Form):
     titulo_post = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Pepe'}))
     fecha_post = forms.DateField(widget=forms.TextInput(attrs={'type':'date','class': 'form-control', 'placeholder': 'Ejemplo: d-m-AAAA'}))
     contenido_post = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Lorem Impsum '}))
-    estatus_post = forms.BooleanField(widget=forms.CheckboxInput())
+    
 
 
 class formularioContacto(forms.Form):

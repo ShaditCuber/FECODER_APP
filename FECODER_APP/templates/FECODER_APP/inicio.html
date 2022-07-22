@@ -141,18 +141,25 @@
         
   
 {% block GrandeGeneral %} 
-    <div class="card mb-4">
-        <a href="#!"><img class="card-img-top" src="{% static 'FECODER_APP/assets/img/850x350.png' %}" alt="..." /></a>
-        <div class="card-body">
+    <!-- si firs_post dtrae algo -->
+    {% if first_post %}
+        <div class="card mb-4">
+            <a href="#!"><img class="card-img-top" src="{% static 'FECODER_APP/assets/img/850x350.png' %}" alt="..." /></a>
+            <div class="card-body">
+                
+                <div class="small text-muted">{{first_post.fecha_post}}</div>
+                <h2 class="card-title h4">{{first_post.titulo_post}}</h2>
+                <p class="card-text">{{first_post.contenido_post|slice:'0:80'}}... </p>
+                <a class="btn btn-primary" href="#!">Leer Mas →</a>
             
-            <div class="small text-muted">{{first_post.fecha_post}}</div>
-            <h2 class="card-title h4">{{first_post.titulo_post}}</h2>
-            <p class="card-text">{{first_post.contenido_post|slice:'0:80'}}... </p>
-            <a class="btn btn-primary" href="#!">Leer Mas →</a>
-           
 
+            </div>
         </div>
-    </div>
+    {% else %}
+        <div class="alert alert-danger">
+            No hay posts
+        </div>
+    {% endif %}
 {% endblock %}
     
 
@@ -165,7 +172,8 @@
 {% block post %} 
 {% for i in todos_post %} 
 
-    
+    <!-- si el post esta activo -->
+    {% if i.estatus_post %}
         <div class="card mb-4">
             <a href="#!"><img class="card-img-top" src="{% static 'FECODER_APP/assets/img/750x350.png' %}" alt="..." /></a>
             <div class="card-body">
@@ -175,6 +183,8 @@
                 <a class="btn btn-primary" href="#!">Leer Mas →</a>
             </div>
         </div>
+    {% endif %}
+        
         
          
 {% endfor %}
