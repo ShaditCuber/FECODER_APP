@@ -24,12 +24,12 @@
         <form action="{% url 'formularioPosts' %}" method="POST">{% csrf_token %}
 
             <div class="form-group">
+              <label>Titulo</label>
               {{ miFormulario.titulo_post }} 
                 <br>
-              {{ miFormulario.fecha_post }} 
-                <br>
+              <label>Contenido</label>
               {{ miFormulario.contenido_post }} 
-              <br>
+                <br>
               
             </div>
             <button class="btn btn-primary" id="button-search" type="submit" >Enviar</button>

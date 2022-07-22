@@ -50,7 +50,7 @@ def formularioPosts(request):
             informacion = miFormulario.cleaned_data
             try:
 
-                    post = Post(titulo_post = informacion['titulo_post'], fecha_post =informacion['fecha_post'] , contenido_post = informacion['contenido_post'] , estatus_post = True)
+                    post = Post(titulo_post = informacion['titulo_post'], fecha_post =datetime.now() , contenido_post = informacion['contenido_post'] , estatus_post = True)
 
                     post.save()
 
