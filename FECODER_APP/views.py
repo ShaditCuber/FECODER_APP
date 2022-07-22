@@ -158,8 +158,10 @@ def loginUser(request):
                         print("entro")
 
                     return render(request, 'FECODER_APP/inicio.html')
-            
-                return render(request, 'FECODER_APP/inicio.html')
+
+                todos_post=todosPost()
+                primer_post=primerPost('')
+                return render(request, 'FECODER_APP/inicio.html',{'todos_post':todos_post,'first_post':primer_post,'miFormulario':formularioContacto()})
                              
         else:
             return render(request, 'FECODER_APP/login.html',{'form_login':form,'mensaje':f"Usuario o contraseña incorrectos"})
@@ -183,6 +185,7 @@ def registroUser(request):
     else:
         form = RegisterForm()
         return render(request, 'FECODER_APP/registro.html', {'form_register': form})
+
 
 
 def todosPost():

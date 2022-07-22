@@ -4,6 +4,12 @@
 {% block titulo %}
 <h1 class="fw-bolder">INICIO</h1>
 
+{% if request.user.is_authenticated %}
+    {% if request.user.username == 'admin' %}
+        <a href="" class="btn btn-primary">Administrar</a>
+    {% endif %}
+{% endif %}
+    
 
 {% endblock %}
 {% block contenido %}

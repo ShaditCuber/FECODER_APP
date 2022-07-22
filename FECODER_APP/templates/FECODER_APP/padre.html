@@ -41,7 +41,16 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'formularioUsuarios' %}">Crear usuario</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'formularioPosts' %}">Crear post</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'buscarContacto' %}">Buscar Contacto</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                        
+                        {% if not request.user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Ingresar</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'registro' %}">Registro</a></li>
+                        {% else %}
+                            <div style="color:red">Bienvenido {{ request.user.username }}</div>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Salir</a></li>
+                        {% endif %}
+                    
+                        
                     </ul>
                 </div>
             </div>
@@ -51,20 +60,7 @@
         
            
             
-                <div class="p-5 text-center bg-image header">
-                     
-                        <div class="titulo">
-                            {% block titulo %}
-    
-                            {% endblock %}
-
-                        </div>
-                            
-    
-                        
-                    
-                </div>     
-             
+           
         <br>
         
         <div class="container">
