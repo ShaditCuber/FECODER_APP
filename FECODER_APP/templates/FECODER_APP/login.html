@@ -5,6 +5,10 @@
     {% endblock %}
     
     {% block contenido %}
+    
+   
+          
+  
     <div class="login-box">
         <h2>Inicios de sesión</h2>
         <!-- alerta de error -->
@@ -46,20 +50,36 @@
             <span></span>
             <input class="boton" type="button" value="Registrarme">
           </a>
-          <a href="{% url 'password_reset' %}">
+          <a href="{% url 'password_reset_form' %} " >
             <span></span>
             <span></span>
             <span></span>
             <span></span>
             <input class="boton" type="button" value="Olvide la contraseña">
           </a>
-          <a href="{% url 'inicio' %}">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <input class="boton" type="button" value="Volver">
+         
           <input type="hidden" name="next" value="{{ request.GET.next }}">
         </form>
       </div>
+
+      
+
     {% endblock %}
+    
+    {% block extraJS %}
+    
+    <script>
+      $(document).on("click", ".open-incident", function (e) {
+        e.preventDefault();
+        var $popup = $("#popup");
+        var popup_url = $(this).data("popup-url");
+        $(".modal-body", $popup).load(popup_url, function () {
+          $popup.modal("show");
+        });
+      });
+    
+     
+    
+    </script>
+    {% endblock extraJS %}
+      

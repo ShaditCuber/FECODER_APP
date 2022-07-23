@@ -3,8 +3,7 @@ from django.shortcuts import render
 from .forms import *
 from .models import *
 from datetime import datetime
-from django.contrib.auth  import login,authenticate
-
+from django.contrib.auth  import login,authenticate,logout
 #Inicio
 def inicio(request):
     #ordenado por contenido post
@@ -187,6 +186,12 @@ def registroUser(request):
         return render(request, 'FECODER_APP/registro.html', {'form_register': form})
 
 
+
+def logoutUser(request):
+    todos_post=todosPost()
+    primer_post=primerPost('')
+    logout(request)
+    return render(request, 'FECODER_APP/inicio.html',{'todos_post':todos_post,'first_post': primer_post, 'miFormulario':formularioContacto()})
 
 def todosPost():
     return Post.objects.filter(estatus_post=True).order_by('contenido_post')
