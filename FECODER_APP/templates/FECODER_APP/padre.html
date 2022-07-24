@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Blog FECODER</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="{% static 'FECODER_APP/assets/favicon.ico' %}" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'FECODER_APP/css/styles.css' %}" rel="stylesheet" />
+    </head>
+    <style>
+        body{
+            background-image: radial-gradient(circle, #141e30, #182539, #1c2c42, #20334b, #243b55);
+            color: white;
+
+        }
+     
+        .icon{
+            height: 60px;
+        }
+        
+       
+    </style>
+    <body>
+        <!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'inicio' %}"><img class="icon" src="{% static 'FECODER_APP/assets/img/icon.jpg' %}" alt=""> Inicio</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        
+                        <li class="nav-item"><a class="nav-link" href="{% url 'formularioPosts' %}">Crear post</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'buscarContacto' %}">Buscar Contacto</a></li>
+                        
+                        {% if not request.user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Ingresar</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'registro' %}">Registro</a></li>
+                        {% else %}
+                            <div style="color:red">Bienvenido {{ request.user.username }}</div>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Salir</a></li>
+                        {% endif %}
+                    
+                        
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Page header with logo and tagline-->
+        
+           
+            
+           
+        <br>
+        
+        <div class="container">
+
+            <div class="row">
+                <!-- Blog entries-->
+                <div class="col-lg-8">
+                    <!-- Featured blog post-->
+                       
+                        {% block GrandeGeneral %}
+                        {% endblock %}
+                    <!-- Fila para nuevos post-->
+                    <div style="display: grid; grid-template-columns: repeat(2,1fr); grid-gap: 10px; color:black">
+                        
+                            {%block post%}
+                            {%endblock%}
+                        
+                    </div>
+                
+
+
+        
+
+
+        {% block contenido %}
+        {% endblock %}
+        {% block formulario %}
+        {% endblock %}           
+            
+    </div>
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; FECODER 2022</p></div>
+        </footer>
+   
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        {% block extraJS %}
+            
+        {% endblock extraJS %}
+            
+    </body>
+</html>

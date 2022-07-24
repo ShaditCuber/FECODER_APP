@@ -1,0 +1,39 @@
+{% extends "FECODER_APP/padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+<h1 class="fw-bolder">Crear un nuevo post</h1>
+<p class="lead mb-0">Publica tu contenido en el Blog</p>
+{% endblock %}
+
+{% block contenido %}
+    {% if miFormulario.errors %}
+        <p style="color: red">¡Datos son incorrectos!</p>
+    {% endif %}
+
+    {% if postCreado %}
+        <p style="color: green">Post creado exitosamente!!</p>
+    {% endif %}
+    
+
+    {% if error %}
+        <p style="color: red">{{ error }}</p>
+    {% endif %}
+    <div class="container">
+        <form action="{% url 'formularioPosts' %}" method="POST">{% csrf_token %}
+
+            <div class="form-group">
+              <label>Titulo</label>
+              {{ miFormulario.titulo_post }} 
+                <br>
+              <label>Contenido</label>
+              {{ miFormulario.contenido_post }} 
+                <br>
+              
+            </div>
+            <button class="btn btn-primary" id="button-search" type="submit" >Enviar</button>
+        </form>
+    </div>
+    <br>
+{% endblock %}

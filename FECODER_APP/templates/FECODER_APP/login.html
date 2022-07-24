@@ -1,0 +1,85 @@
+{% extends "FECODER_APP/padre-formularios.html" %}
+{% load static %}
+    {% block titulo %}
+    Ingresar FECoder
+    {% endblock %}
+    
+    {% block contenido %}
+    
+   
+          
+  
+    <div class="login-box">
+        <h2>Inicios de sesión</h2>
+        <!-- alerta de error -->
+        {% if mensaje %}
+          <div style="color: red">
+            {{ mensaje }}
+          </div>
+          <br>
+        {% endif %}
+        
+        {% if mensaje_login %}
+        <div style="color: green">
+          {{ mensaje }}
+        </div>
+        <br>
+        {% endif %}
+          
+        <form action="{% url 'login' %}" method="POST">{% csrf_token %}
+          <div class="user-box">
+            <input type="text" name="username" required="">
+            <label>Usuario</label>
+          </div>
+          <div class="user-box">
+            <input type="password" name="password" required="">
+            <label>Contraseña</label>
+          </div>
+          <a href="#">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <input class="boton" type="submit" value="Iniciar Sesion">
+          </a>
+          
+          <a href="{% url 'registro' %}">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <input class="boton" type="button" value="Registrarme">
+          </a>
+          <a href="{% url 'password_reset_form' %} " >
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <input class="boton" type="button" value="Olvide la contraseña">
+          </a>
+         
+          <input type="hidden" name="next" value="{{ request.GET.next }}">
+        </form>
+      </div>
+
+      
+
+    {% endblock %}
+    
+    {% block extraJS %}
+    
+    <script>
+      $(document).on("click", ".open-incident", function (e) {
+        e.preventDefault();
+        var $popup = $("#popup");
+        var popup_url = $(this).data("popup-url");
+        $(".modal-body", $popup).load(popup_url, function () {
+          $popup.modal("show");
+        });
+      });
+    
+     
+    
+    </script>
+    {% endblock extraJS %}
+      

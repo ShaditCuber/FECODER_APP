@@ -1,0 +1,33 @@
+{% extends "FECODER_APP/padre.html" %}
+
+{% load static %}
+
+{% block titulo %}
+<h1 class="fw-bolder">Crear un nuevo usuario</h1>
+<p class="lead mb-0">Recuerde que coincidan las contraseñas</p>
+{% endblock %}
+
+{% block contenido %}
+    {% if miFormulario.errors %}
+        <p style="color: red">¡Datos incorrectos!</p>
+    {% endif %}
+
+    {% if usuarioCreado %}
+        <p style="color: green">Usuario creado exitosamente!!</p>
+    {% endif %}
+    
+
+    {% if error %}
+        <p style="color: red">{{ error }}</p>
+    {% endif %}
+    <div class="container">
+        <form action="{% url 'formularioUsuarios' %}" method="POST">{% csrf_token %}
+
+            <div class="form-group">
+              {{ miFormulario.as_p }}
+            </div>
+            <button class="btn btn-primary" id="button-search" type="submit" >Enviar</button>
+        </form>
+    </div>
+    <br>
+{% endblock %}

@@ -1,0 +1,246 @@
+{% extends "FECODER_APP/padre.html" %}
+
+{% load static %}
+{% block titulo %}
+<h1 class="fw-bolder">INICIO</h1>
+
+{% if request.user.is_authenticated %}
+    {% if request.user.username == 'admin' %}
+        <a href="" class="btn btn-primary">Administrar</a>
+    {% endif %}
+{% endif %}
+    
+
+{% endblock %}
+{% block contenido %}
+    <!-- Page content-->
+    
+        
+                <!-- Pagination-->
+                <nav aria-label="Pagination">
+                    <hr class="my-0" />
+                    <ul class="pagination justify-content-center my-4">
+                        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
+                        <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#!">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#!">3</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
+                        <li class="page-item"><a class="page-link" href="#!">15</a></li>
+                        <li class="page-item"><a class="page-link" href="#!">Older</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <!-- Side widgets-->
+            <div class="col-lg-4">
+                <!-- Search widget-->
+                <div class="card mb-4">
+
+
+                    <div class="card-header">Buscar</div>
+                    <div class="card-body">
+                            <div class="usuarios">
+                                <p>Usuarios</p>
+                                <form action="{% url 'buscandoUsuario' %}" method="GET">
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Ejemplo : Pepe" aria-label="Enter search term..." aria-describedby="button-search" />
+                                        <button class="btn btn-primary" id="button-search" type="submit" >Buscar</button>
+                                    </div>
+                                </form>
+                                <br>
+                            
+                                        {% if usuario %}
+                                        
+                                        
+                                            <p>Resultados para {{nombre}}:</p>
+                                            
+                                            <ul>
+                                            <!-- si nombre tiene datos -->
+                                            
+                                            {% for user in usuario %}
+                                            <li>Nombre: {{user.nombre_usuario}}</li>
+                                            <li>Correo: {{user.correo_usuario}}</li>
+                                            <br>
+                                            
+                                            {% endfor %}
+                                        
+                                            </ul>
+                                        {% endif %}
+                                        
+                            
+                            </div>
+
+
+
+                            <!-- Búsqueda de Posts-->
+                            
+
+
+                            <div class="post">
+                                <p>Posts</p>
+                            <form action="{% url 'buscandoPost' %}" method="GET">
+                                <div class="input-group 2">
+                                    <input class="form-control" type="text" name="titulo" id="titulo" placeholder="Ejemplo: Lenguajes más usados" aria-label="Enter search term..." aria-describedby="button-search" />
+                                    <button class="btn btn-primary" id="button-search" type="submit" >Buscar</button>
+                                </div>
+                            </form>
+                            <br>
+                            {% if error %}
+                                <div class="alert alert-danger">
+                                    {{ error }}
+                                </div>
+                            {% else %}  
+                                {% if x %}  
+                                    <div class="alert alert-danger">
+                                        {{ x }}
+                                    </div>
+                                
+
+                                {% else %}
+                                    {% if post %}
+                                    
+                                        
+                                    
+                                        <p>Resultados:</p>
+                                        
+                                        <ul>
+                                        <!-- si nombre tiene datos -->
+                                        
+                                        
+                                        <li>Título: {{post.titulo_post}}</li>
+                                        <li>Fecha: {{post.fecha_post}}</li>
+                                        <br>
+                                       
+                                        </ul>
+
+                                         
+
+                                        
+                                          
+                                    {% endif %}
+                                    
+                                {% endif %}
+
+                            {% endif %}
+
+                            </div>
+
+
+
+
+                            
+                        
+                    </div>
+                
+                
+                </div>
+
+                
+        
+               
+               
+            </div>
+        </div>
+    
+{% endblock %}
+
+
+        
+  
+{% block GrandeGeneral %} 
+    <!-- si firs_post dtrae algo -->
+    {% if first_post %}
+        <div class="card mb-4" style="color:black">
+            <a href="#!"><img class="card-img-top" src="{% static 'FECODER_APP/assets/img/850x350.png' %}" alt="..." /></a>
+            <div class="card-body">
+                
+                <div class="small text-muted">{{first_post.fecha_post}}</div>
+                <h2 class="card-title h4">{{first_post.titulo_post}}</h2>
+                <p class="card-text">{{first_post.contenido_post|slice:'0:80'}}... </p>
+                <a class="btn btn-primary" href="#!">Leer Mas →</a>
+            
+
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-danger">
+            No hay posts
+        </div>
+    {% endif %}
+{% endblock %}
+    
+
+
+
+    
+        
+    
+    
+{% block post %} 
+{% for i in todos_post %} 
+
+    <!-- si el post esta activo -->
+    {% if i.estatus_post %}
+        <div class="card mb-4">
+            <a href="#!"><img class="card-img-top" src="{% static 'FECODER_APP/assets/img/750x350.png' %}" alt="..." /></a>
+            <div class="card-body">
+                <div class="small text-muted">{{i.fecha_post}}</div>
+                <h2 class="card-title h4">{{i.titulo_post}}</h2>
+                <p class="card-text">{{i.contenido_post|slice:'0:60'}}... </p>
+                <a class="btn btn-primary" href="#!">Leer Mas →</a>
+            </div>
+        </div>
+    {% endif %}
+        
+        
+         
+{% endfor %}
+{% endblock %}
+    
+
+{% block formulario %}
+<h1 class="fw-bolder">Contacto</h1>
+<br><br><br>
+    {% if miFormulario.errors %}
+        <p style="color: red">¡Datos incorrectos!</p>
+    {% endif %}
+
+    {% if contactoCreado %}
+        <p style="color: green">Contacto hecho exitosamente!!</p>
+    {% endif %}
+    
+
+    {% if errorContacto %}
+        <p style="color: red">{{ error }}</p>
+    {% endif %}
+
+    
+        <form action="{% url 'formularioContactos' %}" method="POST">{% csrf_token %}
+
+            <div class="form-group">
+              {{ miFormulario.as_table }}
+            </div>
+            <br>
+            <button class="btn btn-primary" id="button-search" type="submit" >Enviar</button>
+        </form>
+    
+    <br>
+{% endblock %}   
+    
+    
+
+    
+    
+    
+    
+      
+
+
+
+
+
+
+
+
+
+
+
