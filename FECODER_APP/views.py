@@ -197,7 +197,7 @@ def todosPost():
     return Post.objects.filter(estatus_post=True).order_by('contenido_post')
 
 def primerPost(tema):
-    if tema:
+    if tema!='':
         return Post.objects.filter(estatus_post=True).filter(titulo_post__icontains=tema).first()
     else:
         return Post.objects.filter(estatus_post=True).first()
