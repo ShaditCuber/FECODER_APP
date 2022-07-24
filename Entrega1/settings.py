@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-i3&y8lzbka(s2&gkd6pdoin@w+#^gq&ko4oq2pj^+n-e*m_*b%
 DEBUG = False
 #DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1','fecoder.herokuapp.com']
 
 
 # Application definition
