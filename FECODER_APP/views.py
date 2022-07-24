@@ -92,10 +92,11 @@ def formularioContactos(request):
 
 def buscandoPost(request):
     post=request.GET['titulo']
+    todos_post=todosPost()
+    primer_post=primerPost(post)
     if post!="":
         obj = Post.objects.filter(estatus_post=True).filter(titulo_post__icontains=post).first()
-        todos_post=todosPost()
-        primer_post=primerPost(post)
+        
         if obj: 
             return render(request, 'FECODER_APP/inicio.html',{'post':obj,'titulo':post,'todos_post':todos_post,'first_post':obj,'miFormulario':formularioContacto()})
 
@@ -197,7 +198,13 @@ def todosPost():
     return Post.objects.filter(estatus_post=True).order_by('contenido_post')
 
 def primerPost(tema):
+   
+
     if tema!='':
-        return Post.objects.filter(estatus_post=True).filter(titulo_post__icontains=tema).first()
+        if Post.objects.filter(estatus_post=True).filter(titulo_post__icontains=tema).first() :
+            return Post.objects.filter(estatus_post=True).filter(titulo_post__icontains=tema).first()
+        else:
+            return Post.objects.filter(estatus_post=True).first()
     else:
+        
         return Post.objects.filter(estatus_post=True).first()
