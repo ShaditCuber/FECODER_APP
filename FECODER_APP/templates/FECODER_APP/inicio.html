@@ -120,13 +120,13 @@
     <!-- si firs_post dtrae algo -->
     {% if first_post %}
         <div class="card mb-4" style="color:black">
-            <a href="#!"><img class="card-img-top" src="{{ first_post.imagen_post.url }}" width="850" height="350" alt="..." /></a>
+            <a href="{% url 'verPost' first_post.id %}"><img class="card-img-top" src="{{ first_post.imagen_post.url }}" width="850" height="350" alt="..." /></a>
             <div class="card-body">
                 
                 <div class="small text-muted">{{first_post.fecha_post}} // Subido por {{first_post.usuario_post}}</div>
                 <h2 class="card-title h4">{{first_post.titulo_post}}</h2>
                 <p class="card-text">{{first_post.contenido_post|safe|slice:'0:60'}}... </p>
-                <a class="btn btn-primary" href="#!">Leer Mas →</a>
+                <a class="btn btn-primary" href="{% url 'verPost' first_post.id %}">Leer Mas →</a>
             
 
             </div>
@@ -151,12 +151,12 @@
     <!-- si el post esta activo -->
     {% if i.estatus_post %}
         <div class="card mb-4">
-            <a href="#!"><img class="card-img-top" src="{{ i.imagen_post.url }}" width="750" height="350" alt="..." /></a>
+            <a href="{% url 'verPost' i.id %}"><img class="card-img-top" src="{{ i.imagen_post.url }}" width="750" height="350" alt="..." /></a>
             <div class="card-body">
                 <div class="small text-muted">{{i.fecha_post}} // Subido por {{i.usuario_post}}</div>
                 <h2 class="card-title h4">{{i.titulo_post}}</h2>
                 <p class="card-text">{{i.contenido_post|safe|slice:'0:60'}}... </p>
-                <a class="btn btn-primary" href="#!">Leer Mas →</a>
+                <a class="btn btn-primary" href="{% url 'verPost' i.id %}">Leer Mas →</a>
             </div>
         </div>
     {% endif %}

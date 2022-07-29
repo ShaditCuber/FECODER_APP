@@ -1,0 +1,65 @@
+{% extends 'FECODER_APP/padre.html' %}
+    
+    {% load static %}
+    
+    {% block titulo %}
+    <h1 class="fw-bolder">Crear un nuevo post</h1>
+    <p class="lead mb-0">Publica tu contenido en el Blog</p>
+    {% endblock %}
+    
+    {% block contenido %}
+
+
+        {{post.titulo_post}}
+        {{post.contenido_post}}
+        {{post.imagen_post}}
+        {{post.fecha_post}}
+        {{post.usuario_post}}
+        {{post.estatus_post}}
+        {{post.id}}
+
+    
+    <div class="container" width="1500px">
+        <div class="row mt-5 pt-3">
+            <div class="col-md offset-md-3">
+                <div class="card my-3 shadow">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img class="img-thumbnail" src="{{ post.author.profilemodel.image.url }}" alt="profile-img">
+                            </div>
+                            <div class="col-md-8">
+                                <small>{{ post.fecha_post }} | {{post.usuario_post}}  </small>
+                                
+                                {% if post.usuario_post == request.user%}
+                                <span><a class="btn btn-danger float-right btn-sm"
+                                        href=""> Delete</a></span>
+                                <span><a class="btn btn-primary mx-2 float-right btn-sm"
+                                        href=""> Edit</a></span>
+                                {% endif %}
+                                {% if request.user.username == 'admin' %}
+                                <span><a class="btn btn-danger float-right btn-sm"
+                                        href="">Delete</a></span>
+                                <span><a class="btn btn-primary mx-2 float-right btn-sm"
+                                        href="">Edit</a></span>
+                                {% endif %}
+                                <hr>
+                                <h2>{{ post.titulo_post }}</h2>
+                                <h4>{{ post.subtitulo_post }}</h4>
+                                <p>
+                                    {{ post.contenido_post|safe }}
+                                </p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+    
+        
+    {% endblock contenido %}
+        

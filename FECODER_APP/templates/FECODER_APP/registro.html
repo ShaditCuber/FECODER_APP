@@ -1,5 +1,5 @@
 {% extends "FECODER_APP/padre-formularios.html" %}
-    
+    {% load static %}
     {% block titulo %}
     Registro FECoder
     {% endblock %}
@@ -24,12 +24,14 @@
             <label>Email</label>
           </div>
           <div class="user-box">
-            <input type="password" name="password1" required="">
+            <input type="password" name="password1" required="" id="Input">
             <label>Contraseña</label>
+            <img src="{% static 'FECODER_APP/assets/img/image.png' %}" alt="" class="icono" id="Eye">
           </div>
           <div class="user-box">
-            <input type="password" name="password2" required="">
+            <input type="password" name="password2" required="" >
             <label>Repetir Contraseña</label>
+            
           </div>
           
           <a>
@@ -53,3 +55,19 @@
     {% endblock %}
     
     
+{% block extraJS %}
+    <script>
+        var eye = document.getElementById('Eye');
+        var input = document.getElementById('Input');
+        eye.addEventListener("click", function(){
+            if (input.type === "password") {
+                input.type = "text";
+                eye.style.opacity = 0.8;
+            } else {
+                input.type = "password";
+                eye.style.opacity = 0.2;
+            }
+          });
+    </script>
+{% endblock extraJS %}
+      

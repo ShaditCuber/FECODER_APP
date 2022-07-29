@@ -194,6 +194,17 @@ def logoutUser(request):
     logout(request)
     return render(request, 'FECODER_APP/inicio.html',{'todos_post':todos_post,'first_post': primer_post, 'miFormulario':formularioContacto()})
 
+
+
+def verPost(request,id):
+    post=Post.objects.get(id=id)
+    return render(request, 'FECODER_APP/mostrarPost.html',{'post':post})
+
+
+
+
+
+
 def todosPost():
     return Post.objects.filter(estatus_post=True).order_by('contenido_post')
 

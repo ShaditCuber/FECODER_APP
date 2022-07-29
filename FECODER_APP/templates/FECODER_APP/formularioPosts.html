@@ -20,7 +20,7 @@
     {% if error %}
         <p style="color: red">{{ error }}</p>
     {% endif %}
-    <div class="container">
+    <div class="container" style="color:white">
         <form action="{% url 'formularioPosts' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
 
                 {{miFormulario.as_p}}
