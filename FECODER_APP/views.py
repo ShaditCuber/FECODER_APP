@@ -4,19 +4,23 @@ from .forms import *
 from .models import *
 from datetime import datetime
 from django.contrib.auth  import login,authenticate,logout
+from django.contrib.auth.decorators import login_required
 #Inicio
 def inicio(request):
     #ordenado por contenido post
     
-    todos_post=Post.objects.filter(estatus_post=True).order_by('contenido_post')
-    first_post=Post.objects.filter(estatus_post=True).first()
-        
+    if Post.objects.all()!=None:
+        todos_post=todosPost()
+        first_post=primerPost('')
+    else :
+        todos_post=''
+        first_post=''        
     
     return render(request, 'FECODER_APP/inicio.html',{'todos_post':todos_post,'first_post':first_post,'miFormulario':formularioContacto()})
     
 
 #Formularios
-def formularioUsuarios(request):
+""" def formularioUsuarios(request):
     
     if request.method == 'POST':
 
@@ -38,27 +42,35 @@ def formularioUsuarios(request):
     else:
         miFormulario = formularioUsuario()
 
-        return render(request, 'FECODER_APP/formularioUsuarios.html',{"miFormulario":miFormulario})
+        return render(request, 'FECODER_APP/formularioUsuarios.html',{"miFormulario":miFormulario}) """
 
+@login_required
 def formularioPosts(request):
     if request.method == 'POST':
 
-        miFormulario = formularioPost(request.POST)
+        miFormulario = formularioPost(request.POST,request.FILES)
         
         if miFormulario.is_valid():
+            print("valido")
             informacion = miFormulario.cleaned_data
-            try:
+            
 
-                    post = Post(titulo_post = informacion['titulo_post'], fecha_post =datetime.now() , contenido_post = informacion['contenido_post'] , estatus_post = True)
+            post = Post(
+                        usuario_post=request.user,
+                        titulo_post = informacion['titulo_post'],
+                        subtitulo_post = informacion['subtitulo_post'],
+                        fecha_post =datetime.now() ,
+                        contenido_post = informacion['contenido_post'] ,
+                        estatus_post = True,
+                        imagen_post = informacion['imagen_post']
+                        )
 
-                    post.save()
+            post.save()
 
-                    miFormulario = formularioPost()
+            miFormulario = formularioPost()
 
-                    return render(request, 'FECODER_APP/formularioPosts.html', {"postCreado":post,"miFormulario":miFormulario})    
-            except ValueError:
-                    
-                    return render(request, 'FECODER_APP/formularioPosts.html', {"error":"Formato de fecha incorrecto","miFormulario":miFormulario})
+            return render(request, 'FECODER_APP/formularioPosts.html', {"postCreado":post,"miFormulario":miFormulario})    
+            
             
     else:
         miFormulario = formularioPost()
@@ -108,21 +120,9 @@ def buscarPost(request):
          return render(request, 'FECODER_APP/inicio.html')
 
 
-def buscandoUsuario(request):
-    todos_post=Post.objects.all()
-    usuario=request.GET['nombre']
-    if usuario!="":
-        obj = Usuario.objects.filter(nombre_usuario__icontains=usuario)
-        if obj: 
-            return render(request, 'FECODER_APP/inicio.html',{'usuario':obj,'nombre':usuario,'todos_post':todos_post,'first_post':Post.objects.first(),'miFormulario':formularioContacto()})
-   
-        return render(request, 'FECODER_APP/inicio.html',{'x':"No existe usuario con el nombre "+usuario,'todos_post':todos_post,'first_post':Post.objects.first(),'miFormulario':formularioContacto()})
-    else:
-         return render(request, 'FECODER_APP/inicio.html',{"error":"No se ingreso un nombre de usuario",'todos_post':todos_post,'first_post':Post.objects.first(),'miFormulario':formularioContacto()})
 
 
-def buscarUsuario(request):
-         return render(request, 'FECODER_APP/inicio.html')
+
 
 
 def buscandoContacto(request):
@@ -199,12 +199,13 @@ def todosPost():
 
 def primerPost(tema):
    
-
-    if tema!='':
-        if Post.objects.filter(estatus_post=True).filter(titulo_post__icontains=tema).first() :
-            return Post.objects.filter(estatus_post=True).filter(titulo_post__icontains=tema).first()
+    if Post.objects.all()!=None:
+        if tema!='':
+            if Post.objects.filter(estatus_post=True).filter(titulo_post__icontains=tema).first() :
+                return Post.objects.filter(estatus_post=True).filter(titulo_post__icontains=tema).first()
+            else:
+                return Post.objects.filter(estatus_post=True).first()
         else:
-            return Post.objects.filter(estatus_post=True).first()
-    else:
         
-        return Post.objects.filter(estatus_post=True).first()
+            return Post.objects.filter(estatus_post=True).first()
+    

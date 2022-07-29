@@ -1,20 +1,16 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.contrib.auth.models import User
-
-class formularioUsuario(forms.Form):
-    nombre_usuario = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Pepe'}))
-    clave_usuario = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Máximo 8 caracteres'}))
-    clave_verificar_usuario = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Las contraseñas deben coincidir'}))
-    correo_usuario = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'example@example.com'}))
-
+from ckeditor.widgets import CKEditorWidget
 
 
 
 
 class formularioPost(forms.Form):
-    titulo_post = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Pepe'}))
-    contenido_post = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Lorem Impsum '}))
+    titulo_post = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Felipe'}))
+    subtitulo_post = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Tecnologia'}))
+    contenido_post = forms.CharField(widget = CKEditorWidget())
+    imagen_post = forms.ImageField()
     
 
 
