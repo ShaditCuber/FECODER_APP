@@ -5,10 +5,20 @@ from .models import *
 from datetime import datetime
 from django.contrib.auth  import login,authenticate,logout
 from django.contrib.auth.decorators import login_required
+from django.core.files.base import ContentFile
+
 #Inicio
 def inicio(request):
     #ordenado por contenido post
-    
+    try:
+        if not Avatar.objects.filter(user=request.user)[0].imagen.name=='default.jpg':
+            avatar=Avatar.objects.filter(user=request.user)
+            img=avatar[0].imagen.url
+    except:
+            img=''
+
+
+
     if Post.objects.all()!=None:
         todos_post=todosPost()
         first_post=primerPost('')
@@ -16,7 +26,7 @@ def inicio(request):
         todos_post=''
         first_post=''        
     
-    return render(request, 'FECODER_APP/inicio.html',{'todos_post':todos_post,'first_post':first_post,'miFormulario':formularioContacto()})
+    return render(request, 'FECODER_APP/inicio.html',{'todos_post':todos_post,'first_post':first_post,'miFormulario':formularioContacto(),'avatar':img})
     
 
 #Formularios
@@ -170,6 +180,10 @@ def registroUser(request):
         if form.is_valid():
             username=form.cleaned_data['username']
             form.save()
+            avatar=Avatar(user=User.objects.get(username=username))
+            #USAR PARA CAMBIAR NOMBRE DE FOTO A ID DE USUARIO
+            # avatar.imagen.name=username+".png"
+            avatar.save()
             return render(request, 'FECODER_APP/login.html',{'mensaje_login':f"Usuario registrado correctamente {username}"})
         
         return render(request, 'FECODER_APP/registro.html',{'form_register':form,'error':form.errors})
@@ -203,7 +217,7 @@ def editarUsuario(request,id):
 def verPost(request,id):
     post=Post.objects.get(id=id)
     avatar = Avatar.objects.filter(user = post.usuario_post)
-    return render(request, 'FECODER_APP/mostrarPost.html',{'post':post,'img':avatar[0].imagen.url})
+    return render(request, 'FECODER_APP/mostrarPost.html',{'post':post,'img':avatar[0].imagen})
 
 def borrarPost(request,id):
     post=Post.objects.get(id=id)
@@ -239,14 +253,14 @@ def desactivarPost(request,id):
     
     posts= Post.objects.filter(usuario_post=request.user).order_by('fecha_post')
     avatar = Avatar.objects.filter(user = request.user)
-    return render(request, 'FECODER_APP/todosPostsUser.html',{'posts':posts,'img':avatar[0].imagen.url})
+    return render(request, 'FECODER_APP/todosPostsUser.html',{'posts':posts,'img':avatar[0].imagen})
 
 
 
 def todosPostsUser(request):
     posts= Post.objects.filter(usuario_post=request.user).order_by('fecha_post')
     avatar = Avatar.objects.filter(user = request.user)
-    return render(request, 'FECODER_APP/todosPostsUser.html',{'posts':posts,'img':avatar[0].imagen.url})
+    return render(request, 'FECODER_APP/todosPostsUser.html',{'posts':posts,'img':avatar[0].imagen})
 
 def todosPost():
     return Post.objects.filter(estatus_post=True).order_by('contenido_post')

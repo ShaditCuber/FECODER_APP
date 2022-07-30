@@ -9,25 +9,15 @@
     
     {% block contenido %}
 
-
-        {{post.titulo_post}}
-        {{post.contenido_post}}
-        {{post.imagen_post}}
-        {{post.fecha_post}}
-        {{post.usuario_post}}
-        {{post.estatus_post}}
-        {{post.id}}
-
-    
     <div class="container"">
         <div class="row mt-5 pt-3">
             <div class="col-md offset-md-3">
                 <div class="card my-3 shadow">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-4">
-                                
-                                <img class="img-thumbnail" src="{{img}}" alt="profile-img">
+                            <div class="col-md-4">   
+                               
+                                <img class="img-thumbnail" src="/{{ img }}" alt="profile-img">
                             </div>
                             <div class="col-md-8">
                                 <small>{{ post.fecha_post }} |  {{post.usuario_post}} </small>
@@ -52,11 +42,21 @@
                                 
                                 {% elif post.usuario_post == request.user%}
                                     
-                                    <span><a class="btn btn-danger float-right btn-sm"
+                                    <span><a class="eliminar btn btn-danger float-right btn-sm"
                                             href="{% url 'borrarPost' post.id %}"> Eliminar</a></span>
                                     <span><a class="open-incident btn btn-primary mx-2 float-right btn-sm"
                                             href="{% url 'editarPost' post.id %}" data-popup-url="{%url 'editarPost' post.id %}"> Editar</a></span>
-                                          
+                                    
+                                 {% if post.estatus_post %}
+                                <span><a class="btn btn-danger mx-2 float-right btn-sm"
+                                    href="{% url 'desactivarPost' post.id %}">Desactivar</a></span>
+                                    
+                                {% elif not post.estatus_post  %}
+                                <span><a class="btn btn-success mx-2 float-right btn-sm"
+                                    href="{% url 'desactivarPost' post.id %}">Activar</a></span>
+                                
+                                {% endif %}
+
                                 {% endif %}
                                 <hr>
                                 <h2>{{ post.titulo_post }}</h2>

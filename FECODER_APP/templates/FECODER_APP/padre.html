@@ -59,6 +59,14 @@
                             <li class="nav-item"><a class="nav-link" href="{% url 'formularioPosts' %}">Subir Post</a></li>
                             
                             
+                            {% block fotoUser %}
+                                
+                            {% endblock fotoUser %}
+                                
+                    
+                            
+                            
+                                
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Ajustes de Perfil {{ request.user.username }} </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

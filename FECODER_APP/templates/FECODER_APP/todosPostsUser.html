@@ -21,18 +21,17 @@
                         <div class="row">
                             <div class="col-md-4">
                                 
-                                <img class="img-thumbnail" src="{{img}}" alt="profile-img">
+                                <img class="img-thumbnail" src="/{{ img }}" alt="profile-img">
                             </div>
                             <div class="col-md-8">
                                 <small>{{ x.fecha_post }} |  {{x.usuario_post}} </small>
                                 
                                 <br><br>
-                                {% if request.user.username == 'admin' %}
                                 <span><a class="eliminar btn btn-danger float-right btn-sm"
-                                        href="{% url 'borrarPost' x.id %}">Eliminar</a></span>
-                                <span><a class="btn btn-primary mx-2 float-right btn-sm"
-                                          href="{% url 'editarPost' x.id %}"> Editar</a></span>
-                                
+                                    href="{% url 'borrarPost' x.id %}"> Eliminar</a></span>
+                                <span><a class="open-incident btn btn-primary mx-2 float-right btn-sm"
+                                    href="{% url 'editarPost' x.id %}" data-popup-url="{%url 'editarPost' x.id %}"> Editar</a></span>
+                                  
                                 {% if x.estatus_post %}
                                 <span><a class="btn btn-danger mx-2 float-right btn-sm"
                                     href="{% url 'desactivarPost' x.id %}">Desactivar</a></span>
@@ -44,14 +43,10 @@
                                 {% endif %}
                                     
                                 
-                                {% elif post.usuario_post == request.user%}
+                                
                                     
-                                    <span><a class="btn btn-danger float-right btn-sm"
-                                            href="{% url 'borrarPost' x.id %}"> Eliminar</a></span>
-                                    <span><a class="open-incident btn btn-primary mx-2 float-right btn-sm"
-                                            href="{% url 'editarPost' x.id %}" data-popup-url="{%url 'editarPost' post.id %}"> Editar</a></span>
-                                          
-                                {% endif %}
+                                    
+                                
                                 <hr>
                                 <h2>{{ x.titulo_post }}</h2>
                                 <h4>{{ x.subtitulo_post }}</h4>

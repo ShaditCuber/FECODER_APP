@@ -41,5 +41,7 @@ class Comentario(models.Model):
 
 class Avatar(models.Model):
    user= models.ForeignKey(User, on_delete=models.CASCADE)
-   imagen = models.ImageField(default='default.png',validators=[FileExtensionValidator(['png', 'jpg'])],             upload_to='avatars')
-
+   imagen = models.ImageField(default='default.jpg',validators=[FileExtensionValidator(['png', 'jpg'])],             upload_to='avatars')
+   
+   def __str__(self):
+        return self.user.username

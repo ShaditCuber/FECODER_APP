@@ -11,7 +11,7 @@ class formularioPost(forms.Form):
     subtitulo_post = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Tecnologia'}))
     contenido_post = forms.CharField(widget = CKEditorWidget())
     imagen_post = forms.ImageField()
-    estatus_post = forms.BooleanField(required=False,widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}))
+    
 
 
 class formularioContacto(forms.Form):
