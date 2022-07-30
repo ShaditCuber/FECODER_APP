@@ -1,7 +1,8 @@
+from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
-
+from django.core.validators import FileExtensionValidator
 
 
 class Post(models.Model):
@@ -37,3 +38,8 @@ class Comentario(models.Model):
 
     def __str__(self):
         return self.comentario
+
+class Avatar(models.Model):
+   user= models.ForeignKey(User, on_delete=models.CASCADE)
+   imagen = models.ImageField(default='default.png',validators=[FileExtensionValidator(['png', 'jpg'])],             upload_to='avatars')
+

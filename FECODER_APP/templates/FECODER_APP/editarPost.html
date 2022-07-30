@@ -5,6 +5,7 @@
 
 
 {% block contenido %}
+    <h1 style="color: white">Editando el Post de : {{post.usuario_post}} </h1>
     {% if form_post.errors %}
         <p style="color: red">¡Datos son incorrectos!</p>
     {% endif %}
@@ -18,7 +19,7 @@
         <p style="color: red">{{ error }}</p>
     {% endif %}
     <div class="container" style="color:white">
-        <form action="{% url 'formularioPosts' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+        <form action="{% url 'editarPost' post.id %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
 
                 {{form_post.as_p}}
               
@@ -30,6 +31,7 @@
         </form>
     </div>
     <br>
+{% endblock %}
+
 
     
-{% endblock %}

@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,UserChangeForm
 from django.contrib.auth.models import User
 from ckeditor.widgets import CKEditorWidget
 
@@ -11,11 +11,11 @@ class formularioPost(forms.Form):
     subtitulo_post = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Tecnologia'}))
     contenido_post = forms.CharField(widget = CKEditorWidget())
     imagen_post = forms.ImageField()
-    
+    estatus_post = forms.BooleanField(required=False,widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}))
 
 
 class formularioContacto(forms.Form):
-    nombre_contacto = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Pepe'}))
+    nombre_contacto = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Felipe'}))
     celular_contacto = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: 12345678'}))
     correo_contacto = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'example@example.com' }))
     mensaje = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Lorem Impsum '}))
@@ -77,3 +77,13 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = ["username", "email", "password1", "password2" ]
         help_texts ={k:"" for k in fields}
+
+class editarUsuario(UserChangeForm):
+
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "email"]
+        help_texts ={k:"" for k in fields}
+
+class AvatarForm(forms.Form):
+    imagen=forms.ImageField()

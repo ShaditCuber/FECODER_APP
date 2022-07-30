@@ -9,17 +9,11 @@
     
     {% block contenido %}
 
-
-        {{post.titulo_post}}
-        {{post.contenido_post}}
-        {{post.imagen_post}}
-        {{post.fecha_post}}
-        {{post.usuario_post}}
-        {{post.estatus_post}}
-        {{post.id}}
-
-    
-    <div class="container"">
+    <div class="container">
+        
+        
+    <h2 style="color: white">POSTS DE {{request.user.username }} </h2>
+        {% for x in posts %}
         <div class="row mt-5 pt-3">
             <div class="col-md offset-md-3">
                 <div class="card my-3 shadow">
@@ -30,22 +24,22 @@
                                 <img class="img-thumbnail" src="{{img}}" alt="profile-img">
                             </div>
                             <div class="col-md-8">
-                                <small>{{ post.fecha_post }} |  {{post.usuario_post}} </small>
+                                <small>{{ x.fecha_post }} |  {{x.usuario_post}} </small>
                                 
                                 <br><br>
                                 {% if request.user.username == 'admin' %}
                                 <span><a class="eliminar btn btn-danger float-right btn-sm"
-                                        href="{% url 'borrarPost' post.id %}">Eliminar</a></span>
+                                        href="{% url 'borrarPost' x.id %}">Eliminar</a></span>
                                 <span><a class="btn btn-primary mx-2 float-right btn-sm"
-                                          href="{% url 'editarPost' post.id %}"> Editar</a></span>
+                                          href="{% url 'editarPost' x.id %}"> Editar</a></span>
                                 
-                                {% if post.estatus_post %}
+                                {% if x.estatus_post %}
                                 <span><a class="btn btn-danger mx-2 float-right btn-sm"
-                                    href="{% url 'desactivarPost' post.id %}">Desactivar</a></span>
+                                    href="{% url 'desactivarPost' x.id %}">Desactivar</a></span>
                                     
-                                {% elif not post.estatus_post  %}
+                                {% elif not x.estatus_post  %}
                                 <span><a class="btn btn-success mx-2 float-right btn-sm"
-                                    href="{% url 'desactivarPost' post.id %}">Activar</a></span>
+                                    href="{% url 'desactivarPost' x.id %}">Activar</a></span>
                                 
                                 {% endif %}
                                     
@@ -53,16 +47,16 @@
                                 {% elif post.usuario_post == request.user%}
                                     
                                     <span><a class="btn btn-danger float-right btn-sm"
-                                            href="{% url 'borrarPost' post.id %}"> Eliminar</a></span>
+                                            href="{% url 'borrarPost' x.id %}"> Eliminar</a></span>
                                     <span><a class="open-incident btn btn-primary mx-2 float-right btn-sm"
-                                            href="{% url 'editarPost' post.id %}" data-popup-url="{%url 'editarPost' post.id %}"> Editar</a></span>
+                                            href="{% url 'editarPost' x.id %}" data-popup-url="{%url 'editarPost' post.id %}"> Editar</a></span>
                                           
                                 {% endif %}
                                 <hr>
-                                <h2>{{ post.titulo_post }}</h2>
-                                <h4>{{ post.subtitulo_post }}</h4>
+                                <h2>{{ x.titulo_post }}</h2>
+                                <h4>{{ x.subtitulo_post }}</h4>
                                 <p>
-                                    {{ post.contenido_post|safe }}
+                                    {{ x.contenido_post|safe }}
                                 </p>
                             </div>
                         </div>
@@ -72,6 +66,8 @@
             </div>
             
         </div>
+        {% endfor %}
+            
         
     </div>
 
@@ -94,7 +90,7 @@
           
           }).then((result) => {
           if (result.isConfirmed) {
-            window.location.href = "{% url 'borrarPost' post.id %}";
+            window.location.href = "";
           }
           })
         })

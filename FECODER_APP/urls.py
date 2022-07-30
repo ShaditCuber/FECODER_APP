@@ -10,8 +10,10 @@ urlpatterns = [
     path('buscarPost', buscarPost, name="buscarPost"),
     path('buscandoPost', buscandoPost, name="buscandoPost"),
     path('verPost/<id>', verPost, name="verPost"),
-    
-
+    path('borrarPost/<id>', borrarPost, name="borrarPost"),
+    path('editarPost/<id>', editarPost, name="editarPost"),
+    path('desactivarPost/<id>', desactivarPost, name="desactivarPost"),
+    path('todosPostsUser', todosPostsUser, name="todosPostsUser"),
 
 
 

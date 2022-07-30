@@ -69,13 +69,13 @@ def formularioPosts(request):
 
             miFormulario = formularioPost()
 
-            return render(request, 'FECODER_APP/formularioPosts.html', {"postCreado":post,"miFormulario":miFormulario})    
+            return render(request, 'FECODER_APP/formularioPosts.html', {"postCreado":post,"form_post":miFormulario})    
             
             
     else:
         miFormulario = formularioPost()
 
-        return render(request, 'FECODER_APP/formularioPosts.html', {"miFormulario":miFormulario})
+        return render(request, 'FECODER_APP/formularioPosts.html', {"form_post":miFormulario})
 
 def formularioContactos(request):
     if request.method == 'POST':
@@ -151,14 +151,6 @@ def loginUser(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-         
-                print(redirect_to)
-                if redirect_to:
-                    if 'editarProfesor' in redirect_to:
-                        print("entro")
-
-                    return render(request, 'FECODER_APP/inicio.html')
-
                 todos_post=todosPost()
                 primer_post=primerPost('')
                 return render(request, 'FECODER_APP/inicio.html',{'todos_post':todos_post,'first_post':primer_post,'miFormulario':formularioContacto()})
@@ -194,16 +186,67 @@ def logoutUser(request):
     logout(request)
     return render(request, 'FECODER_APP/inicio.html',{'todos_post':todos_post,'first_post': primer_post, 'miFormulario':formularioContacto()})
 
+def editarUsuario(request,id):
+    if request.method == 'POST':
+        form = EditarForm(request.POST)
+        if form.is_valid():
+            username=form.cleaned_data['username']
+            form.save()
+            return render(request, 'FECODER_APP/login.html',{'mensaje_login':f"Usuario editado correctamente {username}"})
+        
+        return render(request, 'FECODER_APP/editar.html',{'form_editar':form,'error':form.errors})
 
+    else:
+        form = EditarForm()
+        return render(request, 'FECODER_APP/editar.html', {'form_editar': form})
 
 def verPost(request,id):
     post=Post.objects.get(id=id)
-    return render(request, 'FECODER_APP/mostrarPost.html',{'post':post})
+    avatar = Avatar.objects.filter(user = post.usuario_post)
+    return render(request, 'FECODER_APP/mostrarPost.html',{'post':post,'img':avatar[0].imagen.url})
+
+def borrarPost(request,id):
+    post=Post.objects.get(id=id)
+    post.delete()
+    return render(request, 'FECODER_APP/inicio.html',{'todos_post':todosPost(),'first_post':primerPost(''),'miFormulario':formularioContacto()})
+
+def editarPost(request,id):
+    post=Post.objects.get(id=id)
+    if request.method == 'POST':
+        form = formularioPost(request.POST,request.FILES)
+        if form.is_valid():
+            post.titulo_post=form.cleaned_data['titulo_post']
+            post.contenido_post=form.cleaned_data['contenido_post']
+            post.subtitulo_post=form.cleaned_data['subtitulo_post']
+            post.imagen_post=form.cleaned_data['imagen_post']
+            post.estatus_post=form.cleaned_data['estatus_post']
+            post.save()
+            return render(request, 'FECODER_APP/inicio.html',{'todos_post':todosPost(),'first_post':primerPost(''),'miFormulario':formularioContacto()})
+        
+    else:
+        form = formularioPost(initial={'titulo_post':post.titulo_post,'contenido_post':post.contenido_post,'subtitulo_post':post.subtitulo_post,'imagen_post':post.imagen_post,'estatus_post':post.estatus_post})
+        return render(request, 'FECODER_APP/editarPost.html',{'form_post':form,'post':post})
+
+def desactivarPost(request,id):
+    post=Post.objects.get(id=id)
+    if post.estatus_post:
+        post.estatus_post=False
+        post.save()
+    else :
+        post.estatus_post=True
+        post.save()
+
+    
+    posts= Post.objects.filter(usuario_post=request.user).order_by('fecha_post')
+    avatar = Avatar.objects.filter(user = request.user)
+    return render(request, 'FECODER_APP/todosPostsUser.html',{'posts':posts,'img':avatar[0].imagen.url})
 
 
 
-
-
+def todosPostsUser(request):
+    posts= Post.objects.filter(usuario_post=request.user).order_by('fecha_post')
+    avatar = Avatar.objects.filter(user = request.user)
+    return render(request, 'FECODER_APP/todosPostsUser.html',{'posts':posts,'img':avatar[0].imagen.url})
 
 def todosPost():
     return Post.objects.filter(estatus_post=True).order_by('contenido_post')

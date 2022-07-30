@@ -5,3 +5,4 @@ from .models import *
 admin.site.register(Comentario)
 admin.site.register(Post)
 admin.site.register(Contacto)
+admin.site.register(Avatar)
