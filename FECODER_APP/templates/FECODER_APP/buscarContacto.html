@@ -4,9 +4,18 @@
 {% block titulo %}
 <h1 class="fw-bolder">Buscar Contactos</h1>
 {% endblock %}
+{% block fotoUser %}
+    
+    {% if avatar %}
+        <img src="{{avatar}}" width="40px">
+    {% else  %}
+        <img src="/media/default.png" width="40px">
+    {% endif %}
+        
+{% endblock fotoUser %}
 
 {% block contenido %}
-<p>Contactos</p>
+<p style="color: white  ">Contactos</p>
 <form action="{% url 'buscandoContacto' %}" method="GET">
     <div class="input-group">
         <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Ejemplo : Pepe" />

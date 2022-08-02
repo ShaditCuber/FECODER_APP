@@ -56,19 +56,24 @@
                             <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Ingresar</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'registro' %}">Registro</a></li>
                         {% else %}
+                            
+                            {% if request.user.username == 'admin' %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'buscarContacto' %}">Buscar Contacto</a></li>
+                            {% endif %}
+                                
                             <li class="nav-item"><a class="nav-link" href="{% url 'formularioPosts' %}">Subir Post</a></li>
                             
                             
-                            {% block fotoUser %}
-                                
-                            {% endblock fotoUser %}
+                            
                                 
                     
                             
                             
                                 
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Ajustes de Perfil {{ request.user.username }} </a>
+                                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {% block fotoUser %}
+                                
+                                    {% endblock fotoUser %} {{ request.user.username }} </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <li><a class="cerrar-sesion dropdown-item" href="{% url 'logout' %}">Cerrar Sesion</a></li>
                                     <li><a class="dropdown-item" href="{% url 'todosPostsUser' %}">Mis Posts</a></li>

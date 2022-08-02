@@ -14,7 +14,7 @@
     {% if avatar %}
         <img src="{{avatar}}" width="40px">
     {% else  %}
-        <img src="/media/default.jpg" width="40px">
+        <img src="/media/default.png" width="40px">
     {% endif %}
         
 {% endblock fotoUser %}
@@ -177,7 +177,7 @@
 {% block formulario %}
 <h1 style="color: white;" class="fw-bolder">Contacto</h1>
 <br><br><br>
-    {% if miFormulario.errors %}
+    {% if formularioContacto.errors %}
         <p style="color: red">¡Datos incorrectos!</p>
     {% endif %}
 
@@ -195,7 +195,7 @@
             <form action="{% url 'formularioContactos' %}" method="POST">{% csrf_token %}
 
                 <div class="form-group">
-                  {{ miFormulario.as_table }}
+                  {{ formularioContacto.as_table }}
                 </div>
                 <br>
                 <button class="btn btn-primary" id="button-search" type="submit" >Enviar</button>
