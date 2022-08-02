@@ -44,21 +44,24 @@ def formularioPosts(request):
                         subtitulo_post = informacion['subtitulo_post'],
                         fecha_post =datetime.now() ,
                         contenido_post = informacion['contenido_post'] ,
-                        estatus_post = True,
-                        imagen_post = informacion['imagen_post']
+                        estatus_post = True,          
                         )
+
+            if informacion['imagen_post']!=None:
+                 post.imagen_post=informacion['imagen_post']
+            
 
             post.save()
 
             miFormulario = formularioPost()
 
-            return render(request, 'FECODER_APP/formularioPosts.html', {"postCreado":post,"form_post":miFormulario,'avatar':img(request)})    
+            return render(request, 'FECODER_APP/post/formularioPosts.html', {"postCreado":post,"form_post":miFormulario,'avatar':img(request)})    
             
             
     else:
         miFormulario = formularioPost()
 
-        return render(request, 'FECODER_APP/formularioPosts.html', {"form_post":miFormulario,'avatar':img(request)})
+        return render(request, 'FECODER_APP/post/formularioPosts.html', {"form_post":miFormulario,'avatar':img(request)})
 
 def formularioContactos(request):
     
@@ -101,7 +104,7 @@ def buscarPost(request):
          return render(request, 'FECODER_APP/inicio.html',{'avatar':img(request)})
 
 
-
+@login_required
 def buscandoContacto(request):
     nombre=request.GET['nombre']
     if nombre!="":
@@ -133,11 +136,11 @@ def loginUser(request):
                 return render(request, 'FECODER_APP/inicio.html',{'todos_post':todos_post,'first_post':primer_post,'formularioContacto':formularioContacto(),'avatar':img(request)})
                              
         else:
-            return render(request, 'FECODER_APP/login.html',{'form_login':form,'mensaje':f"Usuario o contraseña incorrectos"})
+            return render(request, 'FECODER_APP/usuario/login.html',{'form_login':form,'mensaje':f"Usuario o contraseña incorrectos"})
         
     else:
         form = LoginForm()
-        return render(request, 'FECODER_APP/login.html', {'form_login': form})
+        return render(request, 'FECODER_APP/usuario/login.html', {'form_login': form})
 
 def registroUser(request):
     
@@ -150,13 +153,13 @@ def registroUser(request):
             #USAR PARA CAMBIAR NOMBRE DE FOTO A ID DE USUARIO
             # avatar.imagen.name=username+".png"
             avatar.save()
-            return render(request, 'FECODER_APP/login.html',{'mensaje_login':f"Usuario registrado correctamente {username}"})
+            return render(request, 'FECODER_APP/usuario/login.html',{'mensaje_login':f"Usuario registrado correctamente {username}"})
         
-        return render(request, 'FECODER_APP/registro.html',{'form_register':form,'error':form.errors})
+        return render(request, 'FECODER_APP/usuario/registro.html',{'form_register':form,'error':form.errors})
 
     else:
         form = RegisterForm()
-        return render(request, 'FECODER_APP/registro.html', {'form_register': form})
+        return render(request, 'FECODER_APP/usuario/registro.html', {'form_register': form})
 
 def logoutUser(request):
     todos_post=todosPost()
@@ -164,6 +167,7 @@ def logoutUser(request):
     logout(request)
     return render(request, 'FECODER_APP/inicio.html',{'todos_post':todos_post,'first_post': primer_post, 'formularioContacto':formularioContacto()})
 
+@login_required
 def editandoUsuario(request,id):
     if request.method == 'POST':
         form = editarUsuario(request.POST)
@@ -181,18 +185,36 @@ def editandoUsuario(request,id):
         form = editarUsuario(initial={'username':User.objects.get(id=id).username})
         return render(request, 'FECODER_APP/editar.html', {'form_editar': form})
 
+@login_required
+def cambiarContraseña(request):
+    if request.method == 'POST':
+        form = cambiarContraseñaForm(request.POST)
+        if form.is_valid():
+            username=form.cleaned_data['username']
+            password=form.cleaned_data['password']
+            user = User.objects.get(username=username)
+            user.set_password(password)
+            user.save()
+            return render(request, 'FECODER_APP/login.html',{'mensaje_login':f"Contraseña cambiada correctamente {username}"})
+        
+        return render(request, 'FECODER_APP/cambiarContraseña.html',{'form_cambiarContraseña':form,'error':form.errors})
 
+    else:
+        form = cambiarContraseñaForm()
+        return render(request, 'FECODER_APP/cambiarContraseña.html', {'form_cambiarContraseña': form})
 
 def verPost(request,id):
     post=Post.objects.get(id=id)
     avatar = Avatar.objects.filter(user = post.usuario_post)
-    return render(request, 'FECODER_APP/mostrarPost.html',{'post':post,'img':avatar[0].imagen.url,'avatar':img(request)})
+    return render(request, 'FECODER_APP/post/mostrarPost.html',{'post':post,'img':avatar[0].imagen.url,'avatar':img(request)})
 
+@login_required
 def borrarPost(request,id):
     post=Post.objects.get(id=id)
     post.delete()
     return render(request, 'FECODER_APP/inicio.html',{'todos_post':todosPost(),'first_post':primerPost(''),'formularioContacto':formularioContacto(),'avatar':img(request)})
 
+@login_required
 def editarPost(request,id):
     post=Post.objects.get(id=id)
     if request.method == 'POST':
@@ -209,12 +231,13 @@ def editarPost(request,id):
                 post.imagen_post=post.imagen_post
 
             post.save()
-            return render(request, 'FECODER_APP/inicio.html',{'todos_post':todosPost(),'first_post':primerPost(''),'formularioContacto':formularioContacto()})
+            return render(request, 'FECODER_APP/inicio.html',{'todos_post':todosPost(),'first_post':primerPost(''),'formularioContacto':formularioContacto(),'avatar':img(request)})
         
     else:
         form = edicionPost(initial={'titulo_post':post.titulo_post,'contenido_post':post.contenido_post,'subtitulo_post':post.subtitulo_post,'imagen_post':post.imagen_post,'estatus_post':post.estatus_post})
-        return render(request, 'FECODER_APP/editarPost.html',{'form_post':form,'post':post})
+        return render(request, 'FECODER_APP/post/editarPost.html',{'form_post':form,'post':post,'avatar':img(request)})
 
+@login_required
 def desactivarPost(request,id):
     post=Post.objects.get(id=id)
     if post.estatus_post:
@@ -227,15 +250,52 @@ def desactivarPost(request,id):
     
     posts= Post.objects.filter(usuario_post=request.user).order_by('fecha_post')
     avatar = Avatar.objects.filter(user = request.user)
-    return render(request, 'FECODER_APP/todosPostsUser.html',{'posts':posts,'img':avatar[0].imagen.url})
+    return render(request, 'FECODER_APP/post/misPost.html',{'posts':posts,'img':avatar[0].imagen.url,'avatar':img(request)})
 
 
 #ver todos los post al apretar en un usuario estando desde admin
 def todosPostsUser(request):
     posts= Post.objects.filter(usuario_post=request.user).order_by('fecha_post')
     avatar = Avatar.objects.filter(user = request.user)
-    return render(request, 'FECODER_APP/todosPostsUser.html',{'posts':posts,'img':avatar[0].imagen.url})
+    return render(request, 'FECODER_APP/post/misPost.html',{'posts':posts,'img':avatar[0].imagen.url,'avatar':img(request)})
 
+@login_required
+def eliminarContacto(request,id):
+    contacto=Contacto.objects.get(id=id)
+    contacto.delete()
+    return render(request, 'FECODER_APP/inicio.html',{'todos_post':todosPost(),'first_post':primerPost(''),'formularioContacto':formularioContacto(),'avatar':img(request)})
+
+@login_required
+def mostrarPerfiles(request):
+    usuarios=User.objects.all()
+    return render(request, 'FECODER_APP/usuario/mostrarPerfiles.html',{'perfiles':usuarios,'avatar':img(request)})
+
+@login_required
+def desactivarPerfil(request,id):
+    usuario=User.objects.get(id=id)
+    if usuario.is_active:
+        usuario.is_active=False
+        usuario.save()
+    else :
+        usuario.is_active=True
+        usuario.save()
+    usuarios=User.objects.all()
+    return render(request, 'FECODER_APP/usuario/mostrarPerfiles.html',{'perfiles':usuarios,'avatar':img(request)})
+
+@login_required
+def eliminarPerfil(request,id):
+    usuario=User.objects.get(id=id)
+    usuario.delete()
+    usuarios=User.objects.all()
+    return render(request, 'FECODER_APP/usuario/mostrarPerfiles.html',{'perfiles':usuarios,'avatar':img(request)})
+
+
+
+def verPerfil(request,id):
+    usuario=User.objects.get(id=id)
+    avatar = Avatar.objects.filter(user = usuario)
+    posts= Post.objects.filter(usuario_post=usuario).order_by('fecha_post')
+    return render(request, 'FECODER_APP/usuario/verPerfil.html',{'usuario':usuario,'img':avatar[0].imagen.url,'avatar':img(request),'posts':posts})
 
 
 def img(request):
@@ -247,8 +307,6 @@ def img(request):
     except:
             img=''
     return img
-
-
 
 def todosPost():
     return Post.objects.filter(estatus_post=True).order_by('contenido_post')

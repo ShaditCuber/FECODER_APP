@@ -1,6 +1,0 @@
-<form action="{% url 'registro'  %}" method="POST">{% csrf_token %}
-
-    {{form_register.as_p}}
-    <button type="submit">Inicar Sesion</button>
-    <input type="hidden" name="next" value="{{ request.GET.next }}">
-</form>

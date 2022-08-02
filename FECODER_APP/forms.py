@@ -10,7 +10,7 @@ class formularioPost(forms.Form):
     titulo_post = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Felipe'}))
     subtitulo_post = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Tecnologia'}))
     contenido_post = forms.CharField(widget = CKEditorWidget())
-    imagen_post = forms.ImageField()
+    imagen_post = forms.ImageField(required=False)
 
 class edicionPost(forms.Form):
     titulo_post = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Felipe'}))

@@ -13,19 +13,27 @@ urlpatterns = [
     path('borrarPost/<id>', borrarPost, name="borrarPost"),
     path('editarPost/<id>', editarPost, name="editarPost"),
     path('desactivarPost/<id>', desactivarPost, name="desactivarPost"),
-    path('todosPostsUser', todosPostsUser, name="todosPostsUser"),
+    path('misPost', todosPostsUser, name="misPost"),
 
 
-
+    #Contacto
     path('formularioContactos', formularioContactos, name="formularioContactos"),
     path('buscarContacto', buscarContacto, name="buscarContacto"),
     path('buscandoContacto', buscandoContacto, name="buscandoContacto"),
+    path('eliminarContacto/<id>', eliminarContacto, name="eliminarContacto"),
 
-    #Inicio de sesion
+    #Usuarios
     path('login', loginUser, name="login"),
     path('registro', registroUser, name="registro"),
     path('logout', logoutUser,name='logout'),
 
+    path('mostrarPerfiles', mostrarPerfiles, name="mostrarPerfiles"),
+    path('desactivarPerfil/<id>', desactivarPerfil, name="desactivarPerfil"),
+    path('eliminarPerfil/<id>', eliminarPerfil, name="eliminarPerfil"),
+    path('verPerfil/<id>', verPerfil, name="verPerfil"),
+    path('editandoUsuario', editandoUsuario, name="editandoUsuario"),
+    path('cambiarContraseña/<id>', cambiarContraseña, name="cambiarContraseña"),
+    
     #Password reset
     path('password_reset_form/', auth_views.PasswordResetView.as_view(template_name='FECODER_APP/registration/password_reset_formulario.html'), name="password_reset_form"),
     path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(template_name='FECODER_APP/registration/password_reset_done.html'), name="password_reset_done"),

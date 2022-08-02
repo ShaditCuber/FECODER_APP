@@ -2,11 +2,16 @@
     
     {% load static %}
     
-    {% block titulo %}
-    <h1 class="fw-bolder">Crear un nuevo post</h1>
-    <p class="lead mb-0">Publica tu contenido en el Blog</p>
-    {% endblock %}
+
+    {% block fotoUser %}
     
+    {% if avatar %}
+        <img src="{{avatar}}" width="40px">
+    {% else  %}
+        <img src="/media/default.jpg" width="40px">
+    {% endif %}
+        
+{% endblock fotoUser %}
     {% block contenido %}
 
     <div class="container">
@@ -14,7 +19,7 @@
         
     <h2 style="color: white">POSTS DE {{request.user.username }} </h2>
         {% for x in posts %}
-        <div class="row mt-5 pt-3">
+        <div class="row mt-5 pt-3" style="color:black">
             <div class="col-md offset-md-3">
                 <div class="card my-3 shadow">
                     <div class="card-body">
@@ -53,6 +58,7 @@
                                 <p>
                                     {{ x.contenido_post|safe }}
                                 </p>
+                                <img class="card-img-bottom" src="{{x.imagen_post.url}}"> 
                             </div>
                         </div>
                         

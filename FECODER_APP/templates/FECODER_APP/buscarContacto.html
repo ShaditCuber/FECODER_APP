@@ -1,9 +1,7 @@
 {% extends "FECODER_APP/padre.html" %}
 
 {% load static %}
-{% block titulo %}
-<h1 class="fw-bolder">Buscar Contactos</h1>
-{% endblock %}
+
 {% block fotoUser %}
     
     {% if avatar %}
@@ -41,7 +39,7 @@
         
             
         
-            <p>Resultados para {{nombre}}:</p>
+            <p>Resultados para {{nombre}} : </p>
             
             <ul>
             <!-- si nombre tiene datos -->
@@ -49,6 +47,10 @@
             {% for i in contacto %}
             <li>Nombre: <i>{{i.nombre_contacto}}</i></li>
             <li>Correo: <i>{{i.correo_contacto}}</i></li>
+            <li>Mensaje: <i>{{i.mensaje}} </i></li>
+            <li>Telefono: {{i.celular_contacto}} </li>
+            <a href="{% url 'eliminarContacto' i.id %}"><input type="submit" class="btn-primary" value="Eliminar" /></a>
+            <br>
             <br>
             
             {% endfor %}

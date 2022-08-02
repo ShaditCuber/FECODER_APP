@@ -1,11 +1,7 @@
 {% extends 'FECODER_APP/padre.html' %}
     
     {% load static %}
-    
-    {% block titulo %}
-    <h1 class="fw-bolder">Crear un nuevo post</h1>
-    <p class="lead mb-0">Publica tu contenido en el Blog</p>
-    {% endblock %}
+
     {% block fotoUser %}
     
     {% if avatar %}
@@ -18,7 +14,7 @@
     {% block contenido %}
 
     <div class="container"">
-        <div class="row mt-5 pt-3">
+        <div class="row mt-5 pt-3" style="color:black">
             <div class="col-md offset-md-3">
                 <div class="card my-3 shadow">
                     <div class="card-body">
@@ -28,7 +24,7 @@
                                 <img class="img-thumbnail" src="{{ img }}" alt="profile-img">
                             </div>
                             <div class="col-md-8">
-                                <small>{{ post.fecha_post }} |  {{post.usuario_post}} </small>
+                                <small>{{ post.fecha_post }} |  <a href="{% url 'verPerfil' post.usuario_post.id %} ">{{post.usuario_post}}</a> </small>
                                 
                                 <br><br>
                                 {% if request.user.username == 'admin' %}
@@ -72,6 +68,8 @@
                                 <p>
                                     {{ post.contenido_post|safe }}
                                 </p>
+                                
+                                <img class="card-img-bottom" src="{{post.imagen_post.url}}">                        
                             </div>
                         </div>
                         

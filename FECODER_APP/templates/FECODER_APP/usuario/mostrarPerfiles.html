@@ -1,0 +1,105 @@
+{% extends 'FECODER_APP/padre.html' %}
+    
+    {% load static %}
+    
+
+    {% block fotoUser %}
+    
+    {% if avatar %}
+        <img src="{{avatar}}" width="40px">
+    {% else  %}
+        <img src="/media/default.jpg" width="40px">
+    {% endif %}
+        
+{% endblock fotoUser %}
+    {% block contenido %}
+
+    <div class="container">
+        
+        
+    <h2 style="color: white">USUARIOS DE FECODER</h2>
+        {% for x in perfiles %}
+        <div class="row mt-5 pt-3" style="color:black">
+            <div class="col-md offset-md-3">
+                <div class="card my-3 shadow">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                
+                                <span><a class="eliminar btn btn-danger float-right btn-sm"
+                                    href="{% url 'eliminarPerfil' x.id %}"> Eliminar</a></span>
+                                    <br><br>
+                                <span><a class="open-incident btn btn-primary mx-2 float-right btn-sm"
+                                    href="{% url 'editarPost' x.id %}" data-popup-url="{%url 'editarPost' x.id %}"> Editar</a></span>
+                                  <br><br>
+                                {% if x.is_active %}
+                                <span><a class="btn btn-danger mx-2 float-right btn-sm"
+                                    href="{% url 'desactivarPerfil' x.id %}">Desactivar</a></span>
+                                    
+                                {% elif not x.is_active   %}
+                                <span><a class="btn btn-success mx-2 float-right btn-sm"
+                                    href="{% url 'desactivarPerfil' x.id %}">Activar</a></span>
+                                
+                                {% endif %}
+
+
+
+
+
+                            </div>
+                            <div class="col-md-8">
+                            
+                                <h4>Usuario : <a href="{% url 'verPerfil' x.id %}">{{ x.username }}</a></h4>
+                                <h4>Email   : {{ x.email }}</h4>
+                                
+                                {% if x.first_name %}
+                                <h4>Nombre  : {{ x.first_name }}</h4>
+                                    
+                                {% endif %}
+
+                                {% if x.last_name %}
+                                <h4>Apellido  : {{ x.last_name }}</h4>
+                                    
+                                {% endif %}
+                                <br><br><br>
+                                 <div class="col-md-12">
+                                    <h6>Ultima sesion : {{x.last_login}} </h6>
+                                 </div>   
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        {% endfor %}
+            
+        
+    </div>
+
+        
+    {% endblock contenido %}
+    {% block extraJS %}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $('.eliminar').click(function(e){
+          e.preventDefault();
+          Swal.fire({
+          title: '¿Estás seguro?',
+          text: "No podrás revertir esto!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Si, eliminarlo!',
+          cancelButtonText : 'Cancelar'
+          
+          }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "";
+          }
+          })
+        })
+    </script>
+    {% endblock extraJS %}

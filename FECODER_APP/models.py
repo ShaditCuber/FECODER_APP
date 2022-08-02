@@ -13,7 +13,7 @@ class Post(models.Model):
     fecha_post = models.DateField()
     contenido_post = RichTextField(blank=True, null=True) 
     estatus_post = models.BooleanField(blank=True, default=True)
-    imagen_post = models.ImageField(upload_to='post_imagenes/', null=True)
+    imagen_post = models.ImageField(upload_to='post_imagenes/', null=True,default='post_imagenes/default.png')
 
     def __str__(self):
         return self.titulo_post
@@ -41,7 +41,7 @@ class Comentario(models.Model):
 
 class Avatar(models.Model):
    user= models.ForeignKey(User, on_delete=models.CASCADE)
-   imagen = models.ImageField(default='default.jpg',validators=[FileExtensionValidator(['png', 'jpg'])],             upload_to='avatars')
+   imagen = models.ImageField(default='avatars/default.png',validators=[FileExtensionValidator(['png', 'jpg'])],upload_to='avatars')
    
    def __str__(self):
         return self.user.username

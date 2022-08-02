@@ -1,7 +1,15 @@
 {% extends "FECODER_APP/padre.html" %}
 
 {% load static %}
-
+{% block fotoUser %}
+    
+    {% if avatar %}
+        <img src="{{avatar}}" width="40px">
+    {% else  %}
+        <img src="/media/default.png" width="40px">
+    {% endif %}
+        
+{% endblock fotoUser %}
 
 
 {% block contenido %}

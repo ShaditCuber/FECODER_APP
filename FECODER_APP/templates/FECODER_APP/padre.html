@@ -15,7 +15,7 @@
     <style>
         body{
             background-image: radial-gradient(circle, #141e30, #182539, #1c2c42, #20334b, #243b55);
-            
+            color: white;
         }
      
         .icon{
@@ -58,7 +58,8 @@
                         {% else %}
                             
                             {% if request.user.username == 'admin' %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'buscarContacto' %}">Buscar Contacto</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'mostrarPerfiles' %}">Usuarios</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'buscarContacto' %}">Contactos</a></li>
                             {% endif %}
                                 
                             <li class="nav-item"><a class="nav-link" href="{% url 'formularioPosts' %}">Subir Post</a></li>
@@ -76,7 +77,7 @@
                                     {% endblock fotoUser %} {{ request.user.username }} </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <li><a class="cerrar-sesion dropdown-item" href="{% url 'logout' %}">Cerrar Sesion</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'todosPostsUser' %}">Mis Posts</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'misPost' %}">Mis Posts</a></li>
                                     <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="http://google.com">Google</a>
                                         <ul class="dropdown-menu">
                                             <li><a class="dropdown-item" href="#">Submenu</a></li>
@@ -139,12 +140,12 @@
         {% block formulario %}
         {% endblock %}           
             
-    </div>
+    
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; FECODER 2022</p></div>
         </footer>
-   
+        </div>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
