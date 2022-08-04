@@ -31,8 +31,8 @@ urlpatterns = [
     path('desactivarPerfil/<id>', desactivarPerfil, name="desactivarPerfil"),
     path('eliminarPerfil/<id>', eliminarPerfil, name="eliminarPerfil"),
     path('verPerfil/<id>', verPerfil, name="verPerfil"),
-    path('editandoUsuario', editandoUsuario, name="editandoUsuario"),
-    path('cambiarContraseña/<id>', cambiarContraseña, name="cambiarContraseña"),
+    path('editandoUsuario/<id>', editandoUsuario, name="editandoUsuario"),
+    path('cambiarContraseña', cambiarContraseña, name="cambiarContraseña"),
     
     #Password reset
     path('password_reset_form/', auth_views.PasswordResetView.as_view(template_name='FECODER_APP/registration/password_reset_formulario.html'), name="password_reset_form"),

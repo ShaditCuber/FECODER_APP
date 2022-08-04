@@ -1,0 +1,35 @@
+{% extends "FECODER_APP/padre.html" %}
+
+{% load static %}
+{% block fotoUser %}
+    
+    {% if avatar %}
+        <img src="{{avatar}}" width="40px">
+    {% else  %}
+        <img src="/media/default.png" width="40px">
+    {% endif %}
+        
+{% endblock fotoUser %}
+
+
+{% block contenido %}
+    <h1 style="color: white">Editando usuario {{user}} </h1>
+    
+    
+   
+    
+    
+    
+
+    <div class="container" style="color:white">
+        <form action="{% url 'cambiarContraseña' %}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+
+                {{form_cambiarContraseña.as_p}}
+                <button type="submit" class="btn btn-primary">Editar</button>
+        </form>
+    </div>
+    <br>
+{% endblock %}
+
+
+    

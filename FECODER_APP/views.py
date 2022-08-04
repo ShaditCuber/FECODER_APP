@@ -169,39 +169,53 @@ def logoutUser(request):
 
 @login_required
 def editandoUsuario(request,id):
+    user = User.objects.filter(id=id).first()
     if request.method == 'POST':
-        form = editarUsuario(request.POST)
+        form = editarUsuario(request.POST,request.FILES)
+        check = request.POST.get("avatar-clear", None)
         if form.is_valid():
-            username=form.cleaned_data['username']
-            form.save()
-            return render(request, 'FECODER_APP/login.html',{'mensaje_login':f"Usuario editado correctamente {username}"})
+            user.username=form.cleaned_data['username']
+            user.email=form.cleaned_data['email']
+            if form.cleaned_data['first_name']:
+                user.first_name=form.cleaned_data['first_name']
+            if form.cleaned_data['last_name']:
+                user.last_name=form.cleaned_data['last_name']
+            
+            user.save()
+            if form.cleaned_data['avatar']:
+                avatar = Avatar.objects.get(user=user)
+                avatar.imagen = form.cleaned_data['avatar']
+                avatar.save()
+            else:
+                if check:
+                    avatar = Avatar.objects.get(user=user)
+                    avatar.imagen = 'avatars/default.png'
+                    avatar.save()
+               
+            
+            return render(request, 'FECODER_APP/inicio.html',{'todos_post':todosPost(),'first_post':primerPost(''),'formularioContacto':formularioContacto(),'avatar':img(request)})
         
-        return render(request, 'FECODER_APP/editar.html',{'form_editar':form,'error':form.errors})
 
     else:
-        #terminar editar usuario
-        #cambiar nombre de usuario , email y avatar
-        #hacer editar contraseña
-        form = editarUsuario(initial={'username':User.objects.get(id=id).username})
-        return render(request, 'FECODER_APP/editar.html', {'form_editar': form})
+        avatar=Avatar.objects.get(user=user.id)
+        form = editarUsuario(initial={'username':user.username,'email':user.email,'avatar':avatar.imagen,'first_name':user.first_name,'last_name':  user.last_name})
+        return render(request, 'FECODER_APP/usuario/editarPerfil.html', {'form_editar': form,'avatar':img(request),'user':user})
 
 @login_required
 def cambiarContraseña(request):
+    user = request.user
     if request.method == 'POST':
-        form = cambiarContraseñaForm(request.POST)
+        form = editarContraseña(request.user,request.POST)
         if form.is_valid():
-            username=form.cleaned_data['username']
-            password=form.cleaned_data['password']
-            user = User.objects.get(username=username)
-            user.set_password(password)
-            user.save()
-            return render(request, 'FECODER_APP/login.html',{'mensaje_login':f"Contraseña cambiada correctamente {username}"})
+            user = form.save()
+            
+            return render(request, 'FECODER_APP/usuario/login.html')
         
-        return render(request, 'FECODER_APP/cambiarContraseña.html',{'form_cambiarContraseña':form,'error':form.errors})
+        
 
     else:
-        form = cambiarContraseñaForm()
-        return render(request, 'FECODER_APP/cambiarContraseña.html', {'form_cambiarContraseña': form})
+        form = editarContraseña(request.user)
+        return render(request, 'FECODER_APP/usuario/cambiarContraseña.html', {'form_cambiarContraseña': form,'avatar':img(request),})
 
 def verPost(request,id):
     post=Post.objects.get(id=id)
@@ -309,7 +323,10 @@ def img(request):
     return img
 
 def todosPost():
-    return Post.objects.filter(estatus_post=True).order_by('contenido_post')
+    if Post.objects.count()>0:
+        return Post.objects.filter(estatus_post=True).order_by('contenido_post')
+    else:
+        return ''
 
 def primerPost(tema):
    

@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,UserChangeForm
+from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,PasswordChangeForm
 from django.contrib.auth.models import User
 from ckeditor.widgets import CKEditorWidget
 
@@ -84,12 +84,69 @@ class RegisterForm(UserCreationForm):
         fields = ["username", "email", "password1", "password2" ]
         help_texts ={k:"" for k in fields}
 
-class editarUsuario(UserChangeForm):
+class editarUsuario(forms.Form):
+
+    username = forms.CharField(
+        label="Usuario",
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+
+    email = forms.EmailField(
+        label="Correo Electrónico",
+        widget=forms.EmailInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Correo Electrónico',
+            }
+    )
+    )
+    
+
+    first_name = forms.CharField(
+        label="Nombre",
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        required=False
+    )
+    last_name = forms.CharField(
+        label="Apellido",
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        required=False
+    )
+    avatar = forms.ImageField(required=False)
 
     class Meta:
         model = User
-        fields = ["first_name", "last_name", "email"]
+        fields = ["username", "email", "first_name", "last_name", "avatar"]
         help_texts ={k:"" for k in fields}
+
+class editarContraseña(PasswordChangeForm):
+    old_password = forms.CharField(
+        label="Contraseña Antigua",
+        strip=False,
+        widget=forms.PasswordInput(attrs={"autocomplete": "current-password", "class": "form-control"}),
+        help_text=("Por favor, escribe la contraseña antigua."),
+    )
+    new_password1 = forms.CharField(
+        label="Contraseña Nueva",
+        strip=False,
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password", "class": "form-control"}),
+        help_text=("Contraseña de al menos 8 caracteres."),
+    )
+    new_password2 = forms.CharField(
+        label="Confirmacion Contraseña",
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password", "class": "form-control"}),
+        strip=False,
+        help_text=("Por favor, escribe la misma contraseña anterior."),
+    )
+    error_messages = {
+        "password_mismatch": "Las contraseñas no coinciden.",
+        "password_incorrect": "La contraseña antigua es incorrecta.",
+    }
+    class Meta:
+        model = User
+        fields = ["old_password", "new_password1", "new_password2"]
+        help_texts ={k:"" for k in fields}
+
 
 class AvatarForm(forms.Form):
     imagen=forms.ImageField()
