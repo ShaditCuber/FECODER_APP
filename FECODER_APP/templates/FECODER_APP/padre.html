@@ -116,22 +116,22 @@
                         
                     </div>
                 
+                   
 
+              
 
         
-
-
         {% block contenido %}
         {% endblock %}
         {% block formulario %}
         {% endblock %}           
-            
-    
+        </div>  
+                   
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; FECODER 2022</p></div>
         </footer>
-        </div>
+        
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
@@ -139,25 +139,25 @@
 
         {% block extraJS %}
             <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        $('.cerrar-sesion').click(function(e){
-          e.preventDefault();
-          Swal.fire({
-          title: '{{request.user.username}} estas seguro que deseas cerrar sesion?',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Si, salir!',
-          cancelButtonText : 'Cancelar'
-          
-          }).then((result) => {
-          if (result.isConfirmed) {
-            window.location.href = "{% url 'logout'  %}";
-          }
-          })
-        })
-    </script>
+        <script>
+            $('.cerrar-sesion').click(function(e){
+            e.preventDefault();
+            Swal.fire({
+            title: '{{request.user.username}} estas seguro que deseas cerrar sesion?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, salir!',
+            cancelButtonText : 'Cancelar'
+            
+            }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "{% url 'logout'  %}";
+            }
+            })
+            })
+        </script>
         {% endblock extraJS %}
             
     </body>

@@ -12,77 +12,115 @@
         
 {% endblock fotoUser %}
     {% block contenido %}
-
-    <div class="container"">
-        <div class="row mt-5 pt-3" style="color:black">
-            <div class="col-md offset-md-3">
-                <div class="card my-3 shadow">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4">   
-                               
-                                <img style="background-color: black; width: 415px;" class="img-thumbnail" src="{{ img }}" alt="profile-img">
-                            </div>
-                            <div class="col-md-8">
-                                <small>{{ post.fecha_post }} |  <a href="{% url 'verPerfil' post.usuario_post.id %} ">{{post.usuario_post}}</a> </small>
-                                
-                                <br><br>
-                                {% if request.user.username == 'admin' %}
-                                <span><a class="eliminar btn btn-danger float-right btn-sm"
-                                        href="{% url 'borrarPost' post.id %}">Eliminar</a></span>
-                                <span><a class="btn btn-primary mx-2 float-right btn-sm"
-                                          href="{% url 'editarPost' post.id %}"> Editar</a></span>
-                                
-                                {% if post.estatus_post %}
-                                <span><a class="btn btn-danger mx-2 float-right btn-sm"
-                                    href="{% url 'desactivarPost' post.id %}">Desactivar</a></span>
-                                    
-                                {% elif not post.estatus_post  %}
-                                <span><a class="btn btn-success mx-2 float-right btn-sm"
-                                    href="{% url 'desactivarPost' post.id %}">Activar</a></span>
-                                
-                                {% endif %}
-                                    
-                                
-                                {% elif post.usuario_post == request.user%}
-                                    
-                                    <span><a class="eliminar btn btn-danger float-right btn-sm"
-                                            href="{% url 'borrarPost' post.id %}"> Eliminar</a></span>
-                                    <span><a class="open-incident btn btn-primary mx-2 float-right btn-sm"
-                                            href="{% url 'editarPost' post.id %}" data-popup-url="{%url 'editarPost' post.id %}"> Editar</a></span>
-                                    
-                                 {% if post.estatus_post %}
-                                <span><a class="btn btn-danger mx-2 float-right btn-sm"
-                                    href="{% url 'desactivarPost' post.id %}">Desactivar</a></span>
-                                    
-                                {% elif not post.estatus_post  %}
-                                <span><a class="btn btn-success mx-2 float-right btn-sm"
-                                    href="{% url 'desactivarPost' post.id %}">Activar</a></span>
-                                
-                                {% endif %}
-
-                                {% endif %}
-                                <hr>
-                                <h2>{{ post.titulo_post }}</h2>
-                                <h4>{{ post.subtitulo_post }}</h4>
-                                <p>
-                                    {{ post.contenido_post|safe }}
-                                </p>
-                                
-                                <img class="card-img-bottom" src="{{post.imagen_post.url}}">                        
-                            </div>
+</div>
+        
+    <div class="row mt-5 pt-3" style="color:black">
+        <div class="col-md offset-md">
+            <div class="card my-3 shadow">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">   
+                           
+                            <img style="background-color: black; width: 415px;" class="img-thumbnail" src="{{ img }}" alt="profile-img">
                         </div>
-                        
+                        <div class="col-md-8">
+                            <small>{{ post.fecha_post }} |  <a href="{% url 'verPerfil' post.usuario_post.id %} ">{{post.usuario_post}}</a> </small>
+                            
+                            <br><br>
+                            {% if request.user.username == 'admin' %}
+                            <span><a class="eliminar btn btn-danger float-right btn-sm"
+                                    href="{% url 'borrarPost' post.id %}">Eliminar</a></span>
+                            <span><a class="btn btn-primary mx-2 float-right btn-sm"
+                                      href="{% url 'editarPost' post.id %}"> Editar</a></span>
+                            
+                            {% if post.estatus_post %}
+                            <span><a class="btn btn-danger mx-2 float-right btn-sm"
+                                href="{% url 'desactivarPost' post.id %}">Desactivar</a></span>
+                                
+                            {% elif not post.estatus_post  %}
+                            <span><a class="btn btn-success mx-2 float-right btn-sm"
+                                href="{% url 'desactivarPost' post.id %}">Activar</a></span>
+                            
+                            {% endif %}
+                                
+                            
+                            {% elif post.usuario_post == request.user%}
+                                
+                                <span><a class="eliminar btn btn-danger float-right btn-sm"
+                                        href="{% url 'borrarPost' post.id %}"> Eliminar</a></span>
+                                <span><a class="open-incident btn btn-primary mx-2 float-right btn-sm"
+                                        href="{% url 'editarPost' post.id %}" data-popup-url="{%url 'editarPost' post.id %}"> Editar</a></span>
+                                
+                             {% if post.estatus_post %}
+                            <span><a class="btn btn-danger mx-2 float-right btn-sm"
+                                href="{% url 'desactivarPost' post.id %}">Desactivar</a></span>
+                                
+                            {% elif not post.estatus_post  %}
+                            <span><a class="btn btn-success mx-2 float-right btn-sm"
+                                href="{% url 'desactivarPost' post.id %}">Activar</a></span>
+                            
+                            {% endif %}
+
+                            {% endif %}
+                            <hr>
+                            <h2>{{ post.titulo_post }}</h2>
+                            <h4>{{ post.subtitulo_post }}</h4>
+                            <p>
+                                {{ post.contenido_post|safe }}
+                            </p>
+                            
+                            <img class="card-img-bottom" src="{{post.imagen_post.url}}">                        
+                        </div>
                     </div>
+                    
                 </div>
             </div>
-            
+            {% if request.user.is_authenticated %}
+            <h1 style="color: white;">Comentarios</h1>
+            <div class="card my-3 dark">
+                <div style="height: 250px; overflow-y: scroll; " class="card-body">
+                    {% for comment in comentario %}
+                    <p class="text-justify">
+                    <div class="row">
+                        <div class="col-md-3">
+                            {{ comment.usuario_comentario }}
+                            <img style="height: 40px;" src="/media/avatars/{{comment.usuario_comentario.username}}.png " alt="">
+                        </div>
+                        <div class="col-md-9">
+                            {{ comment.comentario }}
+                        </div>
+                    </div>
+                    <hr>
+                    </p>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+           
         </div>
         
-    </div>
-
+          
+          {% if request.user.is_authenticated %}
+          <form method="POST" action="{% url 'verPost' post.id %}" style="color: white;">
+            {% csrf_token %}
+            {{ form_comentario}}
+            <br>
+            <input class="btn btn-primary btn-sm" type="submit" value="Comment">
+        </form>
+            
+          {% endif %}
+              
         
+        
+ 
+        
+    </div>
+    
+
+
+    
     {% endblock contenido %}
+
     {% block extraJS %}
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>

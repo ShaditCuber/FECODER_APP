@@ -34,6 +34,8 @@ urlpatterns = [
     path('editandoUsuario/<id>', editandoUsuario, name="editandoUsuario"),
     path('cambiarContraseña', cambiarContraseña, name="cambiarContraseña"),
     
+    path('mostrarAvatar/<id>', mostrarAvatar, name="mostrarAvatar"),
+
     #Password reset
     path('password_reset_form/', auth_views.PasswordResetView.as_view(template_name='FECODER_APP/registration/password_reset_formulario.html'), name="password_reset_form"),
     path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(template_name='FECODER_APP/registration/password_reset_done.html'), name="password_reset_done"),

@@ -26,7 +26,9 @@ class formularioContacto(forms.Form):
     correo_contacto = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'example@example.com' }))
     mensaje = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Lorem Impsum '}))
 
-
+class formularioComentario(forms.Form):
+    comentario = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Lorem Impsum '}))
+    
 #Clases para login, registro y logout
 class LoginForm(AuthenticationForm):
     

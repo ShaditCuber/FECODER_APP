@@ -1,3 +1,4 @@
+from tkinter import N
 from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import *
@@ -185,11 +186,13 @@ def editandoUsuario(request,id):
             if form.cleaned_data['avatar']:
                 avatar = Avatar.objects.get(user=user)
                 avatar.imagen = form.cleaned_data['avatar']
+                avatar.imagen.name=user.username+".png"
                 avatar.save()
             else:
                 if check:
                     avatar = Avatar.objects.get(user=user)
                     avatar.imagen = 'avatars/default.png'
+                    avatar.name=user.username+".png"
                     avatar.save()
                
             
@@ -218,9 +221,33 @@ def cambiarContraseña(request):
         return render(request, 'FECODER_APP/usuario/cambiarContraseña.html', {'form_cambiarContraseña': form,'avatar':img(request),})
 
 def verPost(request,id):
+   
     post=Post.objects.get(id=id)
-    avatar = Avatar.objects.filter(user = post.usuario_post)
-    return render(request, 'FECODER_APP/post/mostrarPost.html',{'post':post,'img':avatar[0].imagen.url,'avatar':img(request)})
+    avatar = Avatar.objects.filter(user = post.usuario_post)  
+    
+    if request.method == 'POST':
+        form = formularioComentario(request.POST,request.user)
+        
+        if form.is_valid():
+            
+            new_comentario = Comentario(post_comentario=post,usuario_comentario=request.user,comentario=form.cleaned_data['comentario'],fecha_comentario=datetime.now())
+            new_comentario.save()
+            comentario = Comentario.objects.filter(post_comentario = post)
+            comentarioForm = formularioComentario()
+            return render(request, 'FECODER_APP/post/mostrarPost.html',{'post':post,'img':avatar[0].imagen.url,'avatar':img(request),'comentario':comentario,'form_comentario':comentarioForm})
+        
+       
+    else:   
+        comentario = Comentario.objects.filter(post_comentario = post)
+        
+        form = formularioComentario(initial={'post_comentario':post,'usuario_comentario':request.user,'fecha_comentario':datetime.now(),'estatus_comentario':True})
+        return render(request, 'FECODER_APP/post/mostrarPost.html',{'post':post,'img':avatar[0].imagen.url,'avatar':img(request),'comentario':comentario,'form_comentario':form})
+
+def mostrarAvatar(id):
+    user = User.objects.filter(id=id).first()
+    avatar = Avatar.objects.filter(user = user)
+    return avatar[0].imagen.url
+
 
 @login_required
 def borrarPost(request,id):
@@ -310,6 +337,24 @@ def verPerfil(request,id):
     avatar = Avatar.objects.filter(user = usuario)
     posts= Post.objects.filter(usuario_post=usuario).order_by('fecha_post')
     return render(request, 'FECODER_APP/usuario/verPerfil.html',{'usuario':usuario,'img':avatar[0].imagen.url,'avatar':img(request),'posts':posts})
+
+
+def comentarPost(request,post):
+    if request.method == 'POST':
+        form = formularioComentario(request.POST)
+        if form.is_valid():
+            
+            return 
+    else:
+
+        form = formularioComentario()
+        return render(request, 'FECODER_APP/post/comentarPost.html',{'form_comentario':form,'avatar':img(request)})
+
+
+
+
+
+
 
 
 def img(request):

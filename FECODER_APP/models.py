@@ -31,8 +31,8 @@ class Contacto(models.Model):
 
 class Comentario(models.Model):
     usuario_comentario = models.ForeignKey(User, on_delete=models.CASCADE)
-    post_comentario = models.ForeignKey('Post', on_delete=models.CASCADE)
-    comentario = models.TextField()
+    post_comentario = models.ForeignKey(Post, on_delete=models.CASCADE)
+    comentario = RichTextField(blank=True, null=True)
     fecha_comentario = models.DateField()
     estatus_comentario = models.BooleanField(blank=True, default=True)
 
