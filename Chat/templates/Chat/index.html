@@ -1,0 +1,27 @@
+{% extends 'Chat/padre.html' %}
+
+
+{% block titulo %}
+    Bienvenido
+{% endblock titulo %}
+    
+{% block imagen %}
+    {% if avatar %}
+        <a class="text-white">{{usuario}} </a>
+        <img src="{{avatar}}" width="40px">     
+    {% else  %}
+        <a class="text-white">{{usuario}} </a>  
+        <img src="/media/default.png" width="40px">
+    {% endif %}
+{% endblock imagen %}
+
+{% block content %}
+    <div class="p-10 lg:p-20 text-center">
+        <h1 class="text-3xl lg:text-6xl text-white">Bienvenido(a) {{usuario}}  a FeCoder-Chat</h1>
+    </div>
+    
+    
+   
+    
+        
+{% endblock content %}

@@ -11,9 +11,6 @@ from django.core.files.base import ContentFile
 #Inicio
 def inicio(request):
     #ordenado por contenido post
-
-
-
     if Post.objects.all()!=None:
         todos_post=todosPost()
         first_post=primerPost('')
@@ -25,8 +22,6 @@ def inicio(request):
     
 
 #Formularios
-
-
 @login_required
 def formularioPosts(request):
 
@@ -85,8 +80,6 @@ def formularioContactos(request):
         return render(request, 'FECODER_APP/inicio.html', {"formularioContacto":miFormulario,'todos_post':todosPost(),'first_post':primerPost(''),'avatar':img(request)})
 
 #Buscar
-
-
 def buscandoPost(request):
     post=request.GET['titulo']
     todos_post=todosPost()
@@ -103,7 +96,6 @@ def buscandoPost(request):
 
 def buscarPost(request):
          return render(request, 'FECODER_APP/inicio.html',{'avatar':img(request)})
-
 
 @login_required
 def buscandoContacto(request):
@@ -220,6 +212,39 @@ def cambiarContraseña(request):
         form = editarContraseña(request.user)
         return render(request, 'FECODER_APP/usuario/cambiarContraseña.html', {'form_cambiarContraseña': form,'avatar':img(request),})
 
+@login_required
+def mostrarPerfiles(request):
+    usuarios=User.objects.all()
+    return render(request, 'FECODER_APP/usuario/mostrarPerfiles.html',{'perfiles':usuarios,'avatar':img(request)})
+
+@login_required
+def desactivarPerfil(request,id):
+    usuario=User.objects.get(id=id)
+    if usuario.is_active:
+        usuario.is_active=False
+        usuario.save()
+    else :
+        usuario.is_active=True
+        usuario.save()
+    usuarios=User.objects.all()
+    return render(request, 'FECODER_APP/usuario/mostrarPerfiles.html',{'perfiles':usuarios,'avatar':img(request)})
+
+@login_required
+def eliminarPerfil(request,id):
+    usuario=User.objects.get(id=id)
+    usuario.delete()
+    usuarios=User.objects.all()
+    return render(request, 'FECODER_APP/usuario/mostrarPerfiles.html',{'perfiles':usuarios,'avatar':img(request)})
+
+
+
+def verPerfil(request,id):
+    usuario=User.objects.get(id=id)
+    avatar = Avatar.objects.filter(user = usuario)
+    posts= Post.objects.filter(usuario_post=usuario).order_by('fecha_post')
+    return render(request, 'FECODER_APP/usuario/verPerfil.html',{'usuario':usuario,'img':avatar[0].imagen.url,'avatar':img(request),'posts':posts})
+
+#Post
 def verPost(request,id):
    
     post=Post.objects.get(id=id)
@@ -242,12 +267,6 @@ def verPost(request,id):
         
         form = formularioComentario(initial={'post_comentario':post,'usuario_comentario':request.user,'fecha_comentario':datetime.now(),'estatus_comentario':True})
         return render(request, 'FECODER_APP/post/mostrarPost.html',{'post':post,'img':avatar[0].imagen.url,'avatar':img(request),'comentario':comentario,'form_comentario':form})
-
-def mostrarAvatar(id):
-    user = User.objects.filter(id=id).first()
-    avatar = Avatar.objects.filter(user = user)
-    return avatar[0].imagen.url
-
 
 @login_required
 def borrarPost(request,id):
@@ -294,50 +313,10 @@ def desactivarPost(request,id):
     return render(request, 'FECODER_APP/post/misPost.html',{'posts':posts,'img':avatar[0].imagen.url,'avatar':img(request)})
 
 
-#ver todos los post al apretar en un usuario estando desde admin
 def todosPostsUser(request):
     posts= Post.objects.filter(usuario_post=request.user).order_by('fecha_post')
     avatar = Avatar.objects.filter(user = request.user)
     return render(request, 'FECODER_APP/post/misPost.html',{'posts':posts,'img':avatar[0].imagen.url,'avatar':img(request)})
-
-@login_required
-def eliminarContacto(request,id):
-    contacto=Contacto.objects.get(id=id)
-    contacto.delete()
-    return render(request, 'FECODER_APP/inicio.html',{'todos_post':todosPost(),'first_post':primerPost(''),'formularioContacto':formularioContacto(),'avatar':img(request)})
-
-@login_required
-def mostrarPerfiles(request):
-    usuarios=User.objects.all()
-    return render(request, 'FECODER_APP/usuario/mostrarPerfiles.html',{'perfiles':usuarios,'avatar':img(request)})
-
-@login_required
-def desactivarPerfil(request,id):
-    usuario=User.objects.get(id=id)
-    if usuario.is_active:
-        usuario.is_active=False
-        usuario.save()
-    else :
-        usuario.is_active=True
-        usuario.save()
-    usuarios=User.objects.all()
-    return render(request, 'FECODER_APP/usuario/mostrarPerfiles.html',{'perfiles':usuarios,'avatar':img(request)})
-
-@login_required
-def eliminarPerfil(request,id):
-    usuario=User.objects.get(id=id)
-    usuario.delete()
-    usuarios=User.objects.all()
-    return render(request, 'FECODER_APP/usuario/mostrarPerfiles.html',{'perfiles':usuarios,'avatar':img(request)})
-
-
-
-def verPerfil(request,id):
-    usuario=User.objects.get(id=id)
-    avatar = Avatar.objects.filter(user = usuario)
-    posts= Post.objects.filter(usuario_post=usuario).order_by('fecha_post')
-    return render(request, 'FECODER_APP/usuario/verPerfil.html',{'usuario':usuario,'img':avatar[0].imagen.url,'avatar':img(request),'posts':posts})
-
 
 def comentarPost(request,post):
     if request.method == 'POST':
@@ -351,11 +330,22 @@ def comentarPost(request,post):
         return render(request, 'FECODER_APP/post/comentarPost.html',{'form_comentario':form,'avatar':img(request)})
 
 
+#Contacto
+@login_required
+def eliminarContacto(request,id):
+    contacto=Contacto.objects.get(id=id)
+    contacto.delete()
+    return render(request, 'FECODER_APP/inicio.html',{'todos_post':todosPost(),'first_post':primerPost(''),'formularioContacto':formularioContacto(),'avatar':img(request)})
 
 
 
 
 
+#Extras
+def mostrarAvatar(id):
+    user = User.objects.filter(id=id).first()
+    avatar = Avatar.objects.filter(user = user)
+    return avatar[0].imagen.url
 
 def img(request):
     img =''

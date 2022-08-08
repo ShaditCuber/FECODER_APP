@@ -25,6 +25,7 @@ from django.views.static import serve
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('FECODER_APP.urls')),
+    path('chat/', include('Chat.urls')),
     path(r'^ckeditor/', include('ckeditor_uploader.urls')),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
