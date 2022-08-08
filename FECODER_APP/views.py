@@ -322,7 +322,8 @@ def comentarPost(request,post):
     if request.method == 'POST':
         form = formularioComentario(request.POST)
         if form.is_valid():
-            
+            comentario = form.cleaned_data['comentario']
+            Comentario(post_comentario=post,usuario_comentario=request.user,comentario=comentario,fecha_comentario=datetime.now()).save()
             return 
     else:
 

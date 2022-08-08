@@ -13,8 +13,8 @@ class formularioPost(forms.Form):
     imagen_post = forms.ImageField(required=False)
 
 class edicionPost(forms.Form):
-    titulo_post = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Felipe'}))
-    subtitulo_post = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Tecnologia'}))
+    titulo_post = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Titulo'}))
+    subtitulo_post = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Subtitulo'}))
     contenido_post = forms.CharField(widget = CKEditorWidget())
     imagen_post = forms.ImageField(required=False)
     
@@ -27,7 +27,7 @@ class formularioContacto(forms.Form):
     mensaje = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Lorem Impsum '}))
 
 class formularioComentario(forms.Form):
-    comentario = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Ejemplo: Lorem Impsum '}))
+    comentario = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control comentario', 'placeholder': 'Ejemplo: Muy buen post ', 'rows': '3'}))
     
 #Clases para login, registro y logout
 class LoginForm(AuthenticationForm):

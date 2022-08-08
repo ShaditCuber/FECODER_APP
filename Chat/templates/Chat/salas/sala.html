@@ -16,38 +16,29 @@
 
 {% block content %}
     <div class="p-10 lg:p-20 text-center">
-        <h1 class="text-3xl lg:text-6xl text-white">{{sala.receptor}}</h1>
+        <h1 class="text-3xl lg:text-6xl text-white">{{receptor}}</h1>
     </div>        
     
         <div class="lg:w-2/4 mx-4 lg:mx-auto p-4 bg-white rounded-xl ">
             <div class="chat-messages space-y-3" id="chat-messages">
-                <h1>{{mensajes.count}} </h1>
-                {% for i in mensajes %}
+                <h1>{{receptor}} </h1>
+                
+                {% for x in mensajes %}
                     
+                <!-- mostrar archivos de json -->
+
+                    <h2>{{x}}</h2>
                     
-                   
-                    <div>
-                        <p class="font-semibold">{{i.sala.emisor}}</p>
-                        <p>{{i.texto}} </p>
-                    </div>
+
                     
-                    
-                    
-                    <div style="color : red">
-                        <p class="font-semibold">{{i.sala.receptor}}</p>
-                        
-                    </div>
-                    
-                    
-                        
+                            
+
                 {% endfor %}
                     
-                
-               
             </div>
         </div>
         <div class="lg:w-2/4 mt-6 mx-4 lg:mx-auto p-4 bg-white rounded-xl">
-            <form action="{% url 'mensaje' sala.receptor.id %}" method="POST" class="flex">{% csrf_token %}
+            <form action="{% url 'enviarMensaje' receptor %}" method="POST" class="flex">{% csrf_token %}
                 <input type="text" name="contenido" class="flex-1 mr-3" placeholder="Escribe tu mensaje aqui" id="chat-mensaje-contenido">
                 <button class="px-5 py-3 rounded-xl text-white bg-teal-600 hover:bg-teal-700 text-decoration-none">Enviar</button>
             </form>

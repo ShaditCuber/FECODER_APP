@@ -33,7 +33,7 @@
                          
                     
                     {% if not request.user.username == x.username%}
-                    <a href="{% url 'mensaje' x.id %}" class="px-5 py-3 block rounded-xl text-white bg-teal-600 hover:bg-teal-700 text-decoration-none">Chatear</a>
+                    <a href="{% url 'crearSala' x.id %}" class="px-5 py-3 block rounded-xl text-white bg-teal-600 hover:bg-teal-700 text-decoration-none">Chatear</a>
                     {% endif %}
                         
                 </div>

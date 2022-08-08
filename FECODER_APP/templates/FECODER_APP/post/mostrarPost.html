@@ -75,43 +75,46 @@
                     
                 </div>
             </div>
-            {% if request.user.is_authenticated %}
-            <h1 style="color: white;">Comentarios</h1>
-            <div class="card my-3 dark">
-                <div style="height: 250px; overflow-y: scroll; " class="card-body">
-                    {% for comment in comentario %}
-                    <p class="text-justify">
-                    <div class="row">
-                        <div class="col-md-3">
-                            {{ comment.usuario_comentario }}
-                            <img style="height: 40px;" src="/media/avatars/{{comment.usuario_comentario.username}}.png " alt="">
-                        </div>
-                        <div class="col-md-9">
-                            {{ comment.comentario }}
-                        </div>
-                    </div>
-                    <hr>
-                    </p>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endif %}
+            
+            
+            
+            
            
         </div>
         
           
-          {% if request.user.is_authenticated %}
-          <form method="POST" action="{% url 'verPost' post.id %}" style="color: white;">
-            {% csrf_token %}
-            {{ form_comentario}}
-            <br>
-            <input class="btn btn-primary btn-sm" type="submit" value="Comment">
-        </form>
-            
-          {% endif %}
-              
-        
-        
+        {% if request.user.is_authenticated %}
+        <h1 style="color: white;">Comentarios</h1>
+          <section class="mb-5">
+            <div class="card bg-light">
+                <div class="card-body" >
+                    <!-- Comment form-->
+                    <form class="mb-4" method="POST" action="{% url 'verPost' post.id %}">
+                        {% csrf_token %}
+                        
+                        {{ form_comentario.as_p}}
+                        
+                        <input class="btn btn-primary btn-sm" type="submit" value="Comentar">
+                    </form>
+                    <!-- Comment with nested comments-->
+                    
+                    <!-- Single comment-->
+                    {% for comment in comentario %}
+                    <div class="d-flex">
+                        <div class="flex-shrink-0"><img class="rounded-circle" style="height: 50px;" src="/media/avatars/{{comment.usuario_comentario.username}}.png " alt="..."></div>
+                        <div class="ms-3">
+                            
+                            <div class="fw-bold">{{ comment.usuario_comentario }}</div>
+                            {{ comment.comentario }}
+                           
+                        </div>
+                    </div>
+                    <br>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        {% endif %}
  
         
     </div>
