@@ -39,8 +39,11 @@ def enviarMensaje(request,id):
             instancia=Mensaje()
             mensajes = instancia.get_mensajes(request.user,get_object_or_404(User,id=id))
             receptor = get_object_or_404(User,id=id)
+            visto =instancia.verificar_visto_ultimo_mensaje(request.user,receptor)
+        
+
                   
-            return render(request, 'Chat/salas/sala.html', {'usuario':request.user ,'avatar':img(request),'mensajes':mensajes,'ip':id,'receptor':receptor})
+            return render(request, 'Chat/salas/sala.html', {'usuario':request.user ,'avatar':img(request),'mensajes':mensajes,'ip':id,'receptor':receptor,'visto':visto})
     else:
         instancia=Mensaje()
         mensajes = instancia.get_mensajes(request.user,get_object_or_404(User,id=id))

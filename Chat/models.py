@@ -50,4 +50,26 @@ class Mensaje(models.Model):
             return "0" + str(n)
         
         return str(n)
-            
+
+      
+    def verificar_visto_ultimo_mensaje(self, user_loged, user_visited):
+        ultimo_mensaje = self.ultimo_mensaje(user_loged, user_visited)
+        if ultimo_mensaje != False:
+            if ultimo_mensaje.emisor == user_loged and ultimo_mensaje.visto:
+                return True
+            return True
+        return False
+
+    def ultimo_mensaje(self, user_loged, user_visited):
+        ms=list()
+        mlog = Mensaje.objects.filter(emisor=user_loged, receptor=user_visited)
+        mvis = Mensaje.objects.filter(emisor=user_visited, receptor=user_loged)
+
+        for m in mlog:ms.append(m)
+        for m in mvis:ms.append(m)
+
+        if len(ms)==0:return False
+
+        return sorted(ms, key=lambda x: x.fecha_mensaje)[-1]
+
+        
