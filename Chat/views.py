@@ -5,7 +5,7 @@ from .models import Mensaje
 from .forms import MensajeForm
 from django.contrib.auth.models import User
 # Create your views here.
-
+import json
 
 def index(request):
     #cargar avatar y todo lo demas
@@ -18,28 +18,33 @@ def salas(request):
 
 
 def crearSala(request,id):
-    sala = Mensaje(emisor=request.user,receptor=get_object_or_404(User,id=id))
-    sala.save()
-    form = MensajeForm()
-    return render(request, 'Chat/salas/sala.html', {'usuario':request.user ,'avatar':img(request),'receptor':sala.receptor,'formMensaje':form})
+    instancia=Mensaje()
+    mensajes = instancia.get_mensajes(request.user,get_object_or_404(User,id=id))
+    mensajes2=instancia.get_mensajes(get_object_or_404(User,id=id),request.user)
+    if mensajes or mensajes2:
+        return render(request, 'Chat/salas/sala.html', {'usuario':request.user ,'avatar':img(request),'mensajes':mensajes,'ip':id,'receptor':get_object_or_404(User,id=id)})
+
+    return render(request, 'Chat/salas/sala.html', {'usuario':request.user ,'avatar':img(request),'ip':id,'receptor':get_object_or_404(User,id=id)})
 
 
-def enviarMensaje(request,receptor):
+def enviarMensaje(request,id):
     
-    print(receptor)
-    if request.method == 'POST':
-        
-        
+    
+    if request.method == 'POST':     
             
-            uwu= Mensaje.objects.filter(emisor=request.user,receptor=get_object_or_404(User,username=receptor)).update(texto=request.POST['contenido'])
+            
+            sala = Mensaje(emisor=request.user,receptor=get_object_or_404(User,id=id),texto=request.POST['contenido'])
+            sala.save()
             
             instancia=Mensaje()
-            mensajes = instancia.get_mensajes(request.user,get_object_or_404(User,username=receptor))
-            print(mensajes)
-            return render(request, 'Chat/salas/sala.html', {'usuario':request.user ,'avatar':img(request),'receptor':receptor,'mensajes':mensajes})
+            mensajes = instancia.get_mensajes(request.user,get_object_or_404(User,id=id))
+            receptor = get_object_or_404(User,id=id)
+                  
+            return render(request, 'Chat/salas/sala.html', {'usuario':request.user ,'avatar':img(request),'mensajes':mensajes,'ip':id,'receptor':receptor})
     else:
-        form = MensajeForm()
-        return render(request, 'Chat/salas/sala.html', {'usuario':request.user ,'avatar':img(request),'formMensaje':form})
+        instancia=Mensaje()
+        mensajes = instancia.get_mensajes(request.user,get_object_or_404(User,id=id))
+        return render(request, 'Chat/salas/sala.html', {'usuario':request.user ,'avatar':img(request),'mensajes':mensajes,'ip':id,'receptor':get_object_or_404(User,id=id)})
 
 
 

@@ -42,10 +42,12 @@ class Mensaje(models.Model):
 
     
     def format_date(self, data):
-        return self.less_than_10(data.day) + "/" + self.less_than_10(data.month) + "/" + str(data.year) + " at " + self.less_than_10(data.hour) + ":" + self.less_than_10(data.minute) + ":" + self.less_than_10(data.second)
+        return self.less_than_10(data.day) + "/" + self.less_than_10(data.month) + "/" + str(data.year) + " a las  " + self.less_than_10(data.hour) + ":" + self.less_than_10(data.minute) + ":" + self.less_than_10(data.second)
 
 
     def less_than_10(self, n):
-        if n < 10:
-	        return "0"+ str(n)
+        if n<10:
+            return "0" + str(n)
+        
         return str(n)
+            
