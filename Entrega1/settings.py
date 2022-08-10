@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'Entrega1.wsgi.application'
         'ENGINE': 'django.db.backends.sqlite3',
        'NAME': BASE_DIR / 'db.sqlite3',
     }
-}"""
+} """
 
 import dj_database_url
 from decouple import config
