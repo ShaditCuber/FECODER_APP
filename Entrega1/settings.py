@@ -80,21 +80,21 @@ WSGI_APPLICATION = 'Entrega1.wsgi.application'
 
 
 #Descomentar para trabajar en local
-""" DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
        'NAME': BASE_DIR / 'db.sqlite3',
     }
-} """
+}
 #Comentar para trabajar en local
-import dj_database_url
+""" import dj_database_url
 from decouple import config
 DATABASES = {
     'default': dj_database_url.config(
         default=config('DATABASE_URL')
     )
     
- } 
+ }  """
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
