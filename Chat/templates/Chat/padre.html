@@ -14,7 +14,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
  --></head>
-<body class="bg-teal-600 ">
+ <style>
+    .chat-messages{
+        height: 400px;
+        overflow-y: auto;
+
+    }
+ </style>
+<body onload="scrollHaciaAbajo()" class="bg-teal-600 ">
     <nav class="flex items-center justify-between px-4 py-6 bg-teal-800 ">
         <div>
             <a href="/chat" class="text-xl text-white text-decoration-none">FeCoder-Chat</a>
@@ -37,6 +44,15 @@
         
     {% endblock content %}
         
+    
+    <script>
+        function scrollHaciaAbajo(){
+            console.log("entre");
+            var object = document.querySelector('#chat-messages');
+            object.scrollTop = object.scrollHeight;
+        };
+    </script>   
+    
 </body>
 
 </html>

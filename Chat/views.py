@@ -5,7 +5,7 @@ from .models import Mensaje
 from .forms import MensajeForm
 from django.contrib.auth.models import User
 # Create your views here.
-import json
+
 
 def index(request):
     #cargar avatar y todo lo demas
@@ -14,7 +14,10 @@ def index(request):
 
 def salas(request):
     usuarios=User.objects.filter().exclude(id=request.user.id)
-    return render(request, 'Chat/salas/salas.html', {'usuario':request.user ,'avatar':img(request),'usuarios':usuarios})
+    instancia = Mensaje()
+    recientes = instancia.obtener_usuario_recientes(request.user)
+    print(recientes)
+    return render(request, 'Chat/salas/salas.html', {'usuario':request.user ,'avatar':img(request),'usuarios':usuarios,'recientes':recientes})
 
 
 def crearSala(request,id):
@@ -30,7 +33,7 @@ def crearSala(request,id):
 def enviarMensaje(request,id):
     
     
-    if request.method == 'POST':     
+    if request.method == 'POST' and request.POST['contenido']!='':     
             
             
             sala = Mensaje(emisor=request.user,receptor=get_object_or_404(User,id=id),texto=request.POST['contenido'])

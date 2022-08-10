@@ -7,6 +7,7 @@ from Chat.views import index
 urlpatterns = [
     path('', inicio, name = "inicio"),
     
+    #Post
     path('formularioPosts', formularioPosts, name = "formularioPosts"),
     path('buscarPost', buscarPost, name="buscarPost"),
     path('buscandoPost', buscandoPost, name="buscandoPost"),
@@ -43,6 +44,10 @@ urlpatterns = [
     path('password_reset_confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='FECODER_APP/registration/password_reset_confirm.html'), name="password_reset_confirm"),
     path('password_reset_complete/', auth_views.PasswordResetCompleteView.as_view(template_name='FECODER_APP/registration/password_reset_complete.html'), name="password_reset_complete"),
     
+    #Chat
     path('chat', index, name='chat'),
-    
+
+    #About
+    path('about', about, name='about'),
+
 ]

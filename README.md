@@ -1,1 +1,153 @@
-#FECODER Blog*PRIMERA ENTREGA DEL PROYECTO FINAL*##Descripción de la App##Se realiza una app para la gestión de un blog de tecnología. Hasta el momento se pueden crear nuevos usuarios, crear nuevos post y realizar búsquedas.se clona el repositorio en tu pcgit clone "link"*SE DEBE INSTALAR VIRUTUALENV*se abre cmd desde la carpeta en donde esta , se instala virtualenvpip install virtualenvse crea un entorno virtualvirtualenv "nombre"cd "nombre"/Scriptsactivateluego se instalan los modulos usadosse van a la carpeta donde esta el archivo clonado de gitpip install -r requirements.txtse va a la carpeta raiz del proyectopython manage.py makemigrationspython manage.py migratepython manage.py runserver###Creación de nuevos usuarios###Pasos para crear un usuario:1. Clic sobre el menú "**Crear nuevo usuario**" de la barra de navegación.2. Completar los campos correspondientes.3. Clic sobre el botón "**Enviar**".Si los datos ingresados son correctos, se informará por pantalla y se guardará el usuario dentro de la base de datos.Si existe algún error con los datos ingresados, se informará por pantalla y no se guardará el usuario dentro de la base de datos.###Creación de nuevos posts###Pasos para crear un post:1. Clic sobre el menú "**Crear nuevo post**" de la barra de navegación.2. Completar los campos correspondientes.3. Clic sobre el botón "**Enviar**".Si los datos ingresados son correctos, se informará por pantalla y se guardará el post dentro de la base de datos. Una vez creado el post, éste se mostrará en la página de inicio.Si existe algún error con los datos ingresados, se informará por pantalla y no se guardará el post dentro de la base de datos.###Creación de contactos###Pasos para crear un contacto:1. Ir al formulario de contacto ubicado en la parte inferior de la página de inicio.2. Completar los campos correspondientes.3. Clic sobre el botón "**Enviar**".###Búsqueda de contactos###Pasos para buscar un contacto:1. Clic sobre el menú "**Buscar contacto**" de la barra de navegación.2. Escribir el nombre del contacto que se desea buscar.3. Clic sobre el botón "**Buscar**".###Búsqueda de usuarios###Pasos para buscar un usuario:1. Ir al formulario de búsqueda ubicado en la parte superior derecha de la página de inicio.2. Escribir el nombre del usuario que se desea buscar.3. Clic sobre el botón "**Buscar**".###Búsqueda de posts###Pasos para buscar un post:1. Ir al formulario de búsqueda ubicado en la parte superior derecha de la página de inicio.2. Escribir el nombre del post que se desea buscar.3. Clic sobre el botón "**Buscar**".##Datos de prueba#####Usuarios###**Nombre**: Julio Figueras,**Clave**: 1234,**Correo**: julio@figueras.com**Nombre**: Anna Romero,**Clave**: 5678,**Correo**: anna@romero.com**Nombre**: Maribel Morales,**Clave**: 9876,**Correo**: maribel@morales.com**Nombre**: Bruno Riera,**Clave**: 5432,**Correo**: bruno@riera.com  ###------------######Posts###**Título:** 5 hábitos sobre programación que aplico a mi día a día.  **Fecha**: 05/09/2021  **Contenido**: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.###------###**Título:** Una lección sobre python que nunca olvidaré  **Fecha**: 12/03/2022  **Contenido**: Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.###------###**Título:** ¿Cómo los mejores tienen éxito en tecnología?  **Fecha**: 25/04/2022  **Contenido**: Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.###------------######Contactos###**Nombre**: Luis Montero  **Celular**: 012345678  **Correo**: Luis@Montero.com  **Mensaje**: Lorem ipsum dolor sit amet, consectetuer adipiscing elit.###------###**Nombre**: Adelina Pedrosa  **Celular**: 023456789  **Correo**: adelina@pedrosa.com  **Mensaje**: Donec quis dui at dolor tempor interdum.###------###**Nombre**: Erica Paez  **Celular**: 034567898  **Correo**: erica@paez.com  **Mensaje**: Aliquam tincidunt mauris eu risus.###------###**Nombre**: Diego Montaño  **Celular**: 045678987  **Correo**: diego@montaño.com  **Mensaje**: Vestibulum auctor dapibus neque.
+# FECODER
+
+Entrega del Proyecto final
+
+Aplicación web estilo blog programada en Python y Django.
+
+## Inicio
+
+Es posible acceder al proyecto de dos formas:
+
+1. Descargando el repositorio desde GitHub haciendo clic [aquí](https://github.com/ShaditCuber/FECODER_APP/tree/new). 
+
+2. Directamente desde el sitio web subido a Heroku mediante el siguiente [enlace](https://fecoder.herokuapp.com/).
+
+## Requisitos previos
+
+Si opta por la primera opción (descargar el Proyecto desde GitHub), deberá contar con una serie de requisitos previos.
+
++ Python
++ Pip
++ Virtualenv
++ Django
++ Módulos extras
+
+### Instalación de componentes necesarios
+
+#### Instalar Python
+1. Ir a [python.org/downloads](https://www.python.org/downloads/) y descargar la última versión de python.
+2. Luego de descargar el archivo, ejecutarlo y proceder con la instalación.
+
+**SUGERENCIA**: Se recomienda agregar Python al PATH durante la instalación.
+
+####  Instalar pip
++ ```python -m pip install -U pip```
+
+####  Instalar virtualenv
++ ```pip install virtualenv```
+
+####  Crear un nuevo entorno virtual:
+
+1. Crear una carpeta para el entorno virtual, ej.: ```entorno```
+2. Acceder a la carpeta creada: ```cd entorno```
+3. Crear el entorno: ```python -m virtualenv fecoder-env```
+4. Activar el entorno: ```cd fecoder-env\Scripts\activate.bat```
+
+####  Instalar Django y el resto de los módulos utilizados
+
++ Ir a la carpeta del proyecto clonada desde git.
++ Estando ubicado en la carpeta del proyecto
++ Instalar los módulos: ```pip install -r requirements.txt```
+
+-asgiref, dj-database-url, Django, django-ckeditor, django-js-asset, gunicorn, Pillow, psycopg2, python-decouple, sqlparse, tzdata, whitenoise-
+
+## Navegación del sitio
+Al ingresar al sitio web, en la cabecera se encuentra la **barra de navegación**. A la izquierda está ubicado el logo del blog con la opción **Inicio** y a la derecha las opciones **Ingresar y Registro**.
+
+En el cuerpo de la página aparecen los últimos posts creados, un cuadro de búsqueda y un formulario de contacto.
+
+###Creación de nuevos usuarios###
+Pasos para crear un usuario:
+
+1. Clic sobre el menú "**Registro**" de la barra de navegación.
+2. Completar los campos correspondientes.
+3. Clic sobre el botón "**Registrarme**".
+
+###Ingreso de usuarios###
+Pasos para ingresar con un usuario creadi:
+
+1. Clic sobre el menú "**INGRESAR**" de la barra de navegación.
+2. Completar los campos correspondientes.
+3. Clic sobre el botón "**INICIAR SESIÓN**".
+
+En caso de no recordar su contraseña puede hacer clic sobre el botón **"OLVIDÉ LA CONTRASEÑA"**, escribir su correo electrónico y luego dar clic sobre el botón **"Enviar Correo"**.
+
+###Búsqueda de posts###
+Pasos para buscar un post:
+
+1. Ir al formulario de búsqueda ubicado en la parte superior derecha de la página de inicio.
+2. Escribir el nombre del post que se desea buscar.
+3. Clic sobre el botón "Buscar".
+
+###Contactarse con el blog###
+En la parte inferior de la página de inicio, seguir los siguientes pasos:
+
+1. Escribir un nombre de contacto.
+2. Escribir un cellular de contacto.
+3. Escribir un correo de contacto.
+4. Escribir el mensaje.
+5. Presionar el botón "**Enviar**"
+
+
+## Ingreso como Usuario
+Pasos para ingresar como Usuario
+
+1. Clic sobre el menú "**INGRESAR**" de la barra de navegación.
+2. Completar los campos con los datos correspondientes.
+3. Clic sobre el botón "**INICIAR SESIÓN**"
+
+Al ingresar al sitio web como Usuario, en la cabecera se encuentra la **barra de navegación**. A la izquierda está ubicado el logo del blog con la opción **Inicio** y a la derecha la opción **Subir Post y un desplegable con las opciones Mis Posts, Ver Perfil, Editar Perfil, Cambiar Contraseña, Chats y Cerrar Sesión**".
+
+Desde el menu "**Subir Post**" es possible crear nuevos Posts y subirlos al blog.
+
+
+###Crear un nuevo Post###
+Pasos para crear un post:
+
+1. Clic sobre el menú "**Subir Post**" de la barra de navegación.
+2. Completar los campos correspondientes.
+3. Elegir una imagen. 
+4. Clic sobre el botón "**Enviar**".
+
+Si los datos ingresados son correctos, se informará por pantalla y se guardará el post dentro de la base de datos. Una vez creado el post, éste se mostrará en la página de inicio.
+
+Si existe algún error con los datos ingresados, se informará por pantalla y no se guardará el post dentro de la base de datos.
+
+
+## Ingreso como administrador
+Pasos para ingresar como administrador
+
+1. Clic sobre el menú "**INGRESAR**" de la barra de navegación.
+2. Completar los campos de Usuario y Contraseña con admin y admin.
+3. Clic sobre el botón "**INICIAR SESIÓN**"
+
+Al ingresar al sitio web como administrador, en la cabecera se encuentra la **barra de navegación**. A la izquierda está ubicado el logo del blog con la opción **Inicio** y a la derecha las opciones **Usuarios, Contactos, Subir Post y un desplegable con las opciones Mis Posts, Ver Perfil, Editar Perfil, Cambiar Contraseña, Chats y Cerrar Sesión***".
+
+Desde el menú "Usuarios", es possible Eliminar, Editar o Desactivar un Usuario.
+Desde el menu "Contacto" es possible realizer búsquedas de los contactos.
+Desde el menu "Subir Post" es possible crear nuevos Posts y subirlos al blog.
+
+
+###Crear un nuevo Post###
+Pasos para crear un post:
+
+1. Clic sobre el menú "**Subir Post**" de la barra de navegación.
+2. Completar los campos correspondientes.
+3. Elegir una imagen. 
+4. Clic sobre el botón "**Enviar**".
+
+Si los datos ingresados son correctos, se informará por pantalla y se guardará el post dentro de la base de datos. Una vez creado el post, éste se mostrará en la página de inicio.
+
+Si existe algún error con los datos ingresados, se informará por pantalla y no se guardará el post dentro de la base de datos.
+
+
+###Uso del chat###
+Pasos para utilizar el chat:
+
+1. Desde el menu desplegable ubicado en la cabecera, ir a la opción "**Chats**".
+2. Clic en el menu "Salas".
+3. Elegir una sala para chatear hacienda clic en el botón "**Chaterar**" de la sala correspondiente.
+4. Escribir el mensaje
+5. Clic en el botón "**Enviar**".
+
+Para salir del chat y regresar al sitio web, hacer clic en el botón "**Salir**" ubicado en la cabecera.

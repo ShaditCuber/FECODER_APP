@@ -1,0 +1,58 @@
+{% extends "FECODER_APP/padre.html" %}
+
+{% load static %}
+
+{% block fotoUser %}
+    
+    {% if avatar %}
+        <img src="{{avatar}}" width="40px">
+    {% else  %}
+        <img src="/media/default.png" width="40px">
+    {% endif %}
+        
+{% endblock fotoUser %}
+
+{% block contenido %}
+</div>
+
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Nuestro Team</h2>
+            <h3 style="text-align: justify;" class="section-subheading text-muted">
+                FECODER BLOG es un espacio para aquellos que les apasiona la tecnología. Aquí encontrarás información completa y actualizada de los principales acontecimientos tecnológicos, lanzamiento de nuevos productos, consejos, etc.
+                Contamos con una comunidad de usuarios (editores y colaboradores) informados e influyentes, que analizan con dedicación cada uno de los temas de la actualidad tecnológica.
+                <br><br>
+                Este proyecto nace a partir de un trabajo final para el curso de Python de la escuela CODERHOUSE y pretende convertirse en uno de los principales blogs de tecnología de habla hispana.
+                
+                
+               </h3>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="team-member">
+                    <img class="mx-auto rounded-circle" src="{% static 'FECODER_APP/assets/img/felipe.jpeg' %}" alt="..." />
+                    <h4>Felipe Bastidas</h4>
+                    <p class="text-muted">Programador Backend</p>
+                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Felipe Bastidas GitHub Perfil"><i class="fa fa-github"></i></a>
+                    
+                    
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="team-member">
+                    <img class="mx-auto rounded-circle"  src="{% static 'FECODER_APP/assets/img/fernando.jpeg' %}" alt="..." />
+                    <h4>Fernando Collazo</h4>
+                    <p class="text-muted">Diseñador</p>
+                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Fernando Collazo GitHub Perfil"><i class="fa fa-github"></i></a>
+                    
+                    
+                </div>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+    
+
+{% endblock %}
+

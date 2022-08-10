@@ -339,7 +339,9 @@ def eliminarContacto(request,id):
     return render(request, 'FECODER_APP/inicio.html',{'todos_post':todosPost(),'first_post':primerPost(''),'formularioContacto':formularioContacto(),'avatar':img(request)})
 
 
-
+#About
+def about(request):
+    return render(request, 'FECODER_APP/about.html',{'avatar':img(request)})
 
 
 #Extras

@@ -14,7 +14,7 @@ class Mensaje(models.Model):
     
 
     def __str__(self):
-        return self.emisor.username + " - " + self.receptor.username + " - " + self.texto
+        return self.texto
     
     def get_mensajes(self,emisor,receptor):
         msg = list()
@@ -55,7 +55,7 @@ class Mensaje(models.Model):
     def verificar_visto_ultimo_mensaje(self, user_loged, user_visited):
         ultimo_mensaje = self.ultimo_mensaje(user_loged, user_visited)
         if ultimo_mensaje != False:
-            if ultimo_mensaje.emisor == user_loged and ultimo_mensaje.visto:
+            if ultimo_mensaje.emisor == user_visited and ultimo_mensaje.visto:
                 return True
             return True
         return False
@@ -71,5 +71,17 @@ class Mensaje(models.Model):
         if len(ms)==0:return False
 
         return sorted(ms, key=lambda x: x.fecha_mensaje)[-1]
+    
+    def obtener_usuario_recientes(self, user_loged):
+        l = list()
+        for user_visited in User.objects.all():
+            if self.ultimo_mensaje(user_loged, user_visited):
+                leer = True
+                if self.ultimo_mensaje(user_loged,user_visited).emisor != user_loged and self.ultimo_mensaje(user_loged,user_visited).visto == False:leer = False
+                l.append([user_visited,self.ultimo_mensaje(user_loged, user_visited),leer])
+        return sorted((sorted(l, key=lambda inst: inst[1].fecha_mensaje)[::-1]), key=lambda inst: inst[1].visto)
 
+
+    
+    
         
