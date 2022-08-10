@@ -56,14 +56,14 @@ Al ingresar al sitio web, en la cabecera se encuentra la **barra de navegación*
 
 En el cuerpo de la página aparecen los últimos posts creados, un cuadro de búsqueda y un formulario de contacto.
 
-###Creación de nuevos usuarios###
+**Creación de nuevos usuarios**
 Pasos para crear un usuario:
 
 1. Clic sobre el menú "**Registro**" de la barra de navegación.
 2. Completar los campos correspondientes.
 3. Clic sobre el botón "**Registrarme**".
 
-###Ingreso de usuarios###
+**Ingreso de usuarios**
 Pasos para ingresar con un usuario creadi:
 
 1. Clic sobre el menú "**INGRESAR**" de la barra de navegación.
@@ -72,14 +72,14 @@ Pasos para ingresar con un usuario creadi:
 
 En caso de no recordar su contraseña puede hacer clic sobre el botón **"OLVIDÉ LA CONTRASEÑA"**, escribir su correo electrónico y luego dar clic sobre el botón **"Enviar Correo"**.
 
-###Búsqueda de posts###
+**Búsqueda de posts**
 Pasos para buscar un post:
 
 1. Ir al formulario de búsqueda ubicado en la parte superior derecha de la página de inicio.
 2. Escribir el nombre del post que se desea buscar.
 3. Clic sobre el botón "Buscar".
 
-###Contactarse con el blog###
+**Contactarse con el blog**
 En la parte inferior de la página de inicio, seguir los siguientes pasos:
 
 1. Escribir un nombre de contacto.
@@ -101,7 +101,7 @@ Al ingresar al sitio web como Usuario, en la cabecera se encuentra la **barra de
 Desde el menu "**Subir Post**" es possible crear nuevos Posts y subirlos al blog.
 
 
-###Crear un nuevo Post###
+**Crear un nuevo Post**
 Pasos para crear un post:
 
 1. Clic sobre el menú "**Subir Post**" de la barra de navegación.
@@ -128,7 +128,7 @@ Desde el menu "Contacto" es possible realizer búsquedas de los contactos.
 Desde el menu "Subir Post" es possible crear nuevos Posts y subirlos al blog.
 
 
-###Crear un nuevo Post###
+**Crear un nuevo Post**
 Pasos para crear un post:
 
 1. Clic sobre el menú "**Subir Post**" de la barra de navegación.
@@ -141,7 +141,7 @@ Si los datos ingresados son correctos, se informará por pantalla y se guardará
 Si existe algún error con los datos ingresados, se informará por pantalla y no se guardará el post dentro de la base de datos.
 
 
-###Uso del chat###
+**Uso del chat**
 Pasos para utilizar el chat:
 
 1. Desde el menu desplegable ubicado en la cabecera, ir a la opción "**Chats**".
