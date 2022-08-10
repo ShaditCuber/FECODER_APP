@@ -35,9 +35,9 @@ class Mensaje(models.Model):
 
         for ms in lista :
             if ms.emisor == emisor:
-                a=[0,ms.texto,ms.fecha_mensaje.strftime('%d-%m-%Y %H:%M:%S', time.localtime())]
+                a=[0,ms.texto,ms.fecha_mensaje.strftime('%d-%m-%Y %H:%M:%S')]
             else:
-                a=[1,ms.texto,ms.fecha_mensaje.strftime('%d-%m-%Y %H:%M:%S', time.localtime())]
+                a=[1,ms.texto,ms.fecha_mensaje.strftime('%d-%m-%Y %H:%M:%S')]
             json.append(a)
         return json
 
