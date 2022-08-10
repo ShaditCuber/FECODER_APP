@@ -30,7 +30,7 @@ def formularioPosts(request):
         miFormulario = formularioPost(request.POST,request.FILES)
         
         if miFormulario.is_valid():
-            print("valido")
+            
             informacion = miFormulario.cleaned_data
             
 

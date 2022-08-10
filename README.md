@@ -41,13 +41,20 @@ Si opta por la primera opción (descargar el Proyecto desde GitHub), deberá con
 1. Crear una carpeta para el entorno virtual, ej.: ```entorno```
 2. Acceder a la carpeta creada: ```cd entorno```
 3. Crear el entorno: ```python -m virtualenv fecoder-env```
-4. Activar el entorno: ```cd fecoder-env\Scripts\activate.bat```
+4. Activar el entorno: ```fecoder-env\Scripts\activate.bat```
 
 ####  Instalar Django y el resto de los módulos utilizados
 
 + Ir a la carpeta del proyecto clonada desde git.
 + Estando ubicado en la carpeta del proyecto
 + Instalar los módulos: ```pip install -r requirements.txt```
++ Abrir Visual Studio Code, descomentar base de datos , comentar base de datos heroku
++ Si deseas trabajar en local activar DEBUG en True
++ Ejecutar : ```python manage.py makemigrations Chat,FECODER_APP ```
++ Ejecutar : ```python manage.py migrate Chat ```
++ Ejecutar : ```python manage.py migrate FECODER_APP ```
++ Ejecutar : ```python manage.py migrate```
++ Ejecutar : ```python manage.py run server```
 
 -asgiref, dj-database-url, Django, django-ckeditor, django-js-asset, gunicorn, Pillow, psycopg2, python-decouple, sqlparse, tzdata, whitenoise-
 
