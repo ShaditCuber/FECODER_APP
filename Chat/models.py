@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import datetime
 
 # Create your models here.
 
@@ -8,7 +7,7 @@ from datetime import datetime
 class Mensaje(models.Model):
     emisor = models.ForeignKey(User, related_name='emisor', on_delete=models.CASCADE)
     receptor = models.ForeignKey(User, on_delete=models.CASCADE)
-    fecha_mensaje = models.DateTimeField(default=datetime.now)
+    fecha_mensaje = models.DateTimeField()
     texto=models.TextField(max_length=500)
     visto = models.BooleanField(default=False)
     

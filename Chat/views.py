@@ -2,8 +2,8 @@ from django.shortcuts import render,get_object_or_404
 from FECODER_APP.models import Avatar
 from django.contrib.auth.decorators import login_required
 from .models import Mensaje
-from .forms import MensajeForm
 from django.contrib.auth.models import User
+from datetime import datetime
 # Create your views here.
 
 
@@ -36,7 +36,7 @@ def enviarMensaje(request,id):
     if request.method == 'POST' and request.POST['contenido']!='':     
             
             
-            sala = Mensaje(emisor=request.user,receptor=get_object_or_404(User,id=id),texto=request.POST['contenido'])
+            sala = Mensaje(emisor=request.user,receptor=get_object_or_404(User,id=id),texto=request.POST['contenido'],fecha_mensaje=datetime.now())
             sala.save()
             
             instancia=Mensaje()
