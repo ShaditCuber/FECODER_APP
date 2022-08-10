@@ -15,6 +15,7 @@ Es posible acceder al proyecto de dos formas:
 
 2. Directamente desde el sitio web subido a Heroku mediante el siguiente [enlace](https://fecoder.herokuapp.com/).
 
+*Aclaración*: Los cambios en el sistema de archivos permanecerán hasta que el dyno de heroku se apage o reinicie. Cada dyno se inicia con una copia limpia del sistema de archivos del último deploy.
 ## Requisitos previos
 
 Si opta por la primera opción (descargar el Proyecto desde GitHub), deberá contar con una serie de requisitos previos.
