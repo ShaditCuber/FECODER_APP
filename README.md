@@ -9,6 +9,9 @@ Aplicación web estilo blog programada en Python y Django.
 Es posible acceder al proyecto de dos formas:
 
 1. Descargando el repositorio desde GitHub haciendo clic [aquí](https://github.com/ShaditCuber/FECODER_APP/tree/new). 
+    + Creando una carpeta, ej : ```entorno```
+    + Realizando ```git clone https://github.com/ShaditCuber/FECODER_APP/tree/new``` dentro de la carpeta
+
 
 2. Directamente desde el sitio web subido a Heroku mediante el siguiente [enlace](https://fecoder.herokuapp.com/).
 
@@ -38,10 +41,9 @@ Si opta por la primera opción (descargar el Proyecto desde GitHub), deberá con
 
 ####  Crear un nuevo entorno virtual:
 
-1. Crear una carpeta para el entorno virtual, ej.: ```entorno```
-2. Acceder a la carpeta creada: ```cd entorno```
-3. Crear el entorno: ```python -m virtualenv fecoder-env```
-4. Activar el entorno: ```fecoder-env\Scripts\activate.bat```
+1. Acceder a la carpeta creada del proyecto: ```cd entorno```
+2. Crear el entorno: ```python -m virtualenv fecoder-env```
+3. Activar el entorno: ```fecoder-env\Scripts\activate.bat```
 
 ####  Instalar Django y el resto de los módulos utilizados
 
