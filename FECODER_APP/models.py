@@ -8,8 +8,8 @@ from django.core.validators import FileExtensionValidator
 class Post(models.Model):
 
     usuario_post=models.ForeignKey(User, on_delete=models.CASCADE)
-    titulo_post = models.CharField(max_length = 30)
-    subtitulo_post = models.CharField(max_length = 30)
+    titulo_post = models.CharField(max_length = 100)
+    subtitulo_post = models.CharField(max_length = 100)
     fecha_post = models.DateField()
     contenido_post = RichTextField(blank=True, null=True) 
     estatus_post = models.BooleanField(blank=True, default=True)
@@ -20,7 +20,7 @@ class Post(models.Model):
 
 
 class Contacto(models.Model):
-    nombre_contacto = models.CharField(max_length=50)
+    nombre_contacto = models.CharField(max_length=100)
     celular_contacto = models.IntegerField()
     correo_contacto = models.EmailField()
     mensaje = models.TextField()
