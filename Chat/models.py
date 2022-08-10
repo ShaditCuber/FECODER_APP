@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils import timezone
+from datetime import datetime
 
 # Create your models here.
 
@@ -8,7 +8,7 @@ from django.utils import timezone
 class Mensaje(models.Model):
     emisor = models.ForeignKey(User, related_name='emisor', on_delete=models.CASCADE)
     receptor = models.ForeignKey(User, on_delete=models.CASCADE)
-    fecha_mensaje = models.DateTimeField(default=timezone.now)
+    fecha_mensaje = models.DateTimeField(default=datetime.now)
     texto=models.TextField(max_length=500)
     visto = models.BooleanField(default=False)
     
