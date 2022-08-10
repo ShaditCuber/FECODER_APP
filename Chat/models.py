@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 # Create your models here.
 
@@ -7,7 +8,7 @@ from django.contrib.auth.models import User
 class Mensaje(models.Model):
     emisor = models.ForeignKey(User, related_name='emisor', on_delete=models.CASCADE)
     receptor = models.ForeignKey(User, on_delete=models.CASCADE)
-    fecha_mensaje = models.DateTimeField()
+    fecha_mensaje = models.DateTimeField(default=timezone.now)
     texto=models.TextField(max_length=500)
     visto = models.BooleanField(default=False)
     
@@ -33,9 +34,9 @@ class Mensaje(models.Model):
 
         for ms in lista :
             if ms.emisor == emisor:
-                a=[0,ms.texto,ms.fecha_mensaje.strftime("%d/%m/%Y %H:%M:%S")]
+                a=[0,ms.texto,self.format_date(ms.fecha_mensaje)]
             else:
-                a=[1,ms.texto,ms.fecha_mensaje.strftime("%d/%m/%Y %H:%M:%S")]
+                a=[1,ms.texto,self.format_date(ms.fecha_mensaje)]
             json.append(a)
         return json
 
